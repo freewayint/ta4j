@@ -41,7 +41,7 @@ public class LossIndicator extends CachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
-        if (index == 0) {
+        if (index == getBarSeries().getBeginIndex()) { // andrewp
             return zero();
         }
         if (indicator.getValue(index).isLessThan(indicator.getValue(index - 1))) {

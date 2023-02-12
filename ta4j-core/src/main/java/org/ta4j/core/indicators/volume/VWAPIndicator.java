@@ -32,7 +32,7 @@ import org.ta4j.core.num.Num;
 
 /**
  * The volume-weighted average price (VWAP) Indicator.
- * 
+ *
  * @see <a href=
  *      "http://www.investopedia.com/articles/trading/11/trading-with-vwap-mvwap.asp">
  *      http://www.investopedia.com/articles/trading/11/trading-with-vwap-mvwap.asp</a>
@@ -51,7 +51,7 @@ public class VWAPIndicator extends CachedIndicator<Num> {
 
     /**
      * Constructor.
-     * 
+     *
      * @param series   the series
      * @param barCount the time frame
      */
@@ -68,7 +68,7 @@ public class VWAPIndicator extends CachedIndicator<Num> {
         if (index <= 0) {
             return typicalPrice.getValue(index);
         }
-        int startIndex = Math.max(0, index - barCount + 1);
+        int startIndex = Math.max(getBarSeries().getBeginIndex(), index - barCount + 1); // andrewp
         Num cumulativeTPV = zero;
         Num cumulativeVolume = zero;
         for (int i = startIndex; i <= index; i++) {

@@ -39,7 +39,7 @@ public class VarianceIndicator extends CachedIndicator<Num> {
 
     /**
      * Constructor.
-     * 
+     *
      * @param indicator the indicator
      * @param barCount  the time frame
      */
@@ -52,7 +52,7 @@ public class VarianceIndicator extends CachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
-        final int startIndex = Math.max(0, index - barCount + 1);
+        final int startIndex = Math.max(getBarSeries().getBeginIndex(), index - barCount + 1); // andrewp
         final int numberOfObservations = index - startIndex + 1;
         Num variance = zero();
         Num average = sma.getValue(index);

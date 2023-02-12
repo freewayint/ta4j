@@ -42,8 +42,8 @@ public class WMAIndicator extends CachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
-        if (index == 0) {
-            return indicator.getValue(0);
+        if (index == getBarSeries().getBeginIndex()) { // andrewp
+            return indicator.getValue(index);
         }
 
         Num value = numOf(0);

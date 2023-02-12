@@ -59,7 +59,7 @@ public class UlcerIndexIndicator extends CachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
-        final int startIndex = Math.max(0, index - barCount + 1);
+        final int startIndex = Math.max(getBarSeries().getBeginIndex(), index - barCount + 1); // andrewp
         final int numberOfObservations = index - startIndex + 1;
         Num squaredAverage = zero;
         Num highestValue = indicator.getValue(startIndex);

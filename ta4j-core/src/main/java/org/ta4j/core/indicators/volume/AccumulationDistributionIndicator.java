@@ -42,7 +42,7 @@ public class AccumulationDistributionIndicator extends RecursiveCachedIndicator<
 
     @Override
     protected Num calculate(int index) {
-        if (index == 0) {
+        if (index == getBarSeries().getBeginIndex()) { // andrewp
             return zero();
         }
 

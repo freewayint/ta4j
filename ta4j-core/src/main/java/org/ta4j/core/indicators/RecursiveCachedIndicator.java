@@ -23,8 +23,12 @@
  */
 package org.ta4j.core.indicators;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import org.ta4j.core.BarSeries;
 import org.ta4j.core.Indicator;
+import org.ta4j.core.num.Num;
 
 /**
  * Recursive cached {@link Indicator indicator}.
@@ -36,13 +40,68 @@ import org.ta4j.core.Indicator;
  * old/far, the computation of all the values between the last cached and the
  * asked one is executed iteratively.
  */
-public abstract class RecursiveCachedIndicator<T> extends CachedIndicator<T> {
+public abstract class RecursiveCachedIndicator<T extends Num> extends AbstractIndicator<T> {
+	// andrewp:
+	private class Cache {
+		private final Num[] data;
+		private final int len;
+		private final int address_mask;
+		private final int capacity;
+		private int written;
+		private int write_index;
+		private int begin_index;
+		private int end_index;
 
-    /**
-     * The recursion threshold for which an iterative calculation is executed. TODO
-     * Should be variable (depending on the sub-indicators used in this indicator)
+		Cache(int len) {
+			this.len = len;
+
+			int capacity_bits = 32 - Integer.numberOfLeadingZeros(len - 1);
+			capacity = 1 << capacity_bits;
+			assert (len <= capacity);
+
+			data = new Num[capacity];
+
+			address_mask = capacity - 1;
+			end_index = -1;
+			begin_index = -1;
+		}
+
+		public int size() {
+			return written;
+		}
+
+		public int beginIndex() {
+			return begin_index;
+		}
+
+		public int endIndex() {
+			return end_index;
+		}
+
+		public boolean isEmpty() {
+			return written == 0;
+		}
+
+		public void add(Num object) {
+			data[write_index & address_mask] = object;
+			write_index++;
+			if (written < len)
+				written++;
+			end_index++;
+			begin_index = end_index + 1 - written;
+		}
+
+		public Num get(int index) {
+			assert (index >= begin_index);
+			assert (index <= end_index);
+			return data[index & address_mask];
+		}
+	}
+
+	/**
+     * List of cached cache.
      */
-    private static final int RECURSION_THRESHOLD = 100;
+    private final Cache cache;
 
     /**
      * Constructor.
@@ -51,6 +110,9 @@ public abstract class RecursiveCachedIndicator<T> extends CachedIndicator<T> {
      */
     protected RecursiveCachedIndicator(BarSeries series) {
         super(series);
+		assert (series != null);
+
+		cache = new Cache(series.getMaximumBarCount());
     }
 
     /**
@@ -62,25 +124,44 @@ public abstract class RecursiveCachedIndicator<T> extends CachedIndicator<T> {
         this(indicator.getBarSeries());
     }
 
+	/**
+     * @param index the bar index
+     * @return the value of the indicator
+     */
+    protected abstract T calculate(int index);
+
     @Override
     public T getValue(int index) {
-        BarSeries series = getBarSeries();
-        if (series != null) {
-            final int seriesEndIndex = series.getEndIndex();
-            if (index <= seriesEndIndex) {
-                // We are not after the end of the series
-                final int removedBarsCount = series.getRemovedBarsCount();
-                int startIndex = Math.max(removedBarsCount, highestResultIndex);
-                if (index - startIndex > RECURSION_THRESHOLD) {
-                    // Too many uncalculated values; the risk for a StackOverflowError becomes high.
-                    // Calculating the previous values iteratively
-                    for (int prevIdx = startIndex; prevIdx < index; prevIdx++) {
-                        super.getValue(prevIdx);
-                    }
-                }
-            }
-        }
+		BarSeries series = getBarSeries();
 
-        return super.getValue(index);
+		assert (index >= series.getBeginIndex());
+		assert (index <= series.getEndIndex());
+
+		Num result;
+
+		if (index >= cache.beginIndex() && index <= cache.endIndex()) {
+			result = cache.get(index);
+
+		} else {
+			int startIndex = Math.max(series.getBeginIndex(), cache.endIndex() + 1);
+			for (int i = startIndex; i < index; ++i) {
+				Num value = calculate(i);
+				assert (value != null);
+
+				cache.add(value);
+			}
+
+			result = calculate(index);
+			assert (result != null);
+
+			if (index != series.getEndIndex()) // andrewp: do not cache the last candle result
+				cache.add(result);
+		}
+
+		if (log.isTraceEnabled()) {
+			log.trace("{}({}): {}", this, index, result);
+		}
+
+		return (T) result;
     }
 }

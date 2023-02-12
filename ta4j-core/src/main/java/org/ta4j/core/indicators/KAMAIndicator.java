@@ -28,7 +28,7 @@ import org.ta4j.core.num.Num;
 
 /**
  * The Kaufman's Adaptive Moving Average (KAMA) Indicator.
- * 
+ *
  * @see <a href=
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:kaufman_s_adaptive_moving_average">
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:kaufman_s_adaptive_moving_average</a>
@@ -84,7 +84,7 @@ public class KAMAIndicator extends RecursiveCachedIndicator<Num> {
          * sum of the absolute value of the last ten price changes (Close - Prior
          * Close).
          */
-        int startChangeIndex = Math.max(0, index - barCountEffectiveRatio);
+        int startChangeIndex = Math.max(getBarSeries().getBeginIndex(), index - barCountEffectiveRatio); // andrewp
         Num change = currentPrice.minus(price.getValue(startChangeIndex)).abs();
         Num volatility = zero();
         for (int i = startChangeIndex; i < index; i++) {

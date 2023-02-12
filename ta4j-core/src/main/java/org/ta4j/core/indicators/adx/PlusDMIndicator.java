@@ -39,7 +39,7 @@ public class PlusDMIndicator extends CachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
-        if (index == 0) {
+        if (index == getBarSeries().getBeginIndex()) { // andrewp
             return zero();
         }
         final Bar prevBar = getBarSeries().getBar(index - 1);

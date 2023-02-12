@@ -44,7 +44,7 @@ public class IsFallingRule extends AbstractRule {
 
     /**
      * Constructor.
-     * 
+     *
      * @param ref      the indicator
      * @param barCount the time frame
      */
@@ -54,7 +54,7 @@ public class IsFallingRule extends AbstractRule {
 
     /**
      * Constructor.
-     * 
+     *
      * @param ref         the indicator
      * @param barCount    the time frame
      * @param minStrenght the minimum required falling strength (between '0' and
@@ -71,7 +71,7 @@ public class IsFallingRule extends AbstractRule {
     public boolean isSatisfied(int index, TradingRecord tradingRecord) {
 
         int count = 0;
-        for (int i = Math.max(0, index - barCount + 1); i <= index; i++) {
+        for (int i = Math.max(ref.getBarSeries().getBeginIndex(), index - barCount + 1); i <= index; i++) { // andrewp
             if (ref.getValue(i).isLessThan(ref.getValue(Math.max(0, i - 1)))) {
                 count += 1;
             }

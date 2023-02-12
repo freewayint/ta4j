@@ -44,8 +44,8 @@ public abstract class AbstractEMAIndicator extends RecursiveCachedIndicator<Num>
 
     @Override
     protected Num calculate(int index) {
-        if (index == 0) {
-            return indicator.getValue(0);
+        if (index == getBarSeries().getBeginIndex()) { // andrewp
+            return indicator.getValue(index);
         }
         Num prevValue = getValue(index - 1);
         return indicator.getValue(index).minus(prevValue).multipliedBy(multiplier).plus(prevValue);

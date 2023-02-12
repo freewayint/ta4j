@@ -76,7 +76,8 @@ public class ChopIndicator extends CachedIndicator<Num> {
     public Num calculate(int index) {
         Num summ = atrIndicator.getValue(index);
         for (int i = 1; i < timeFrame; ++i) {
-            summ = summ.plus(atrIndicator.getValue(index - i));
+			if (index - i >= getBarSeries().getBeginIndex()) // andrewp
+				summ = summ.plus(atrIndicator.getValue(index - i));
         }
         Num a = summ.dividedBy((hvi.getValue(index).minus(lvi.getValue(index))));
         // TODO: implement Num.log10(Num)

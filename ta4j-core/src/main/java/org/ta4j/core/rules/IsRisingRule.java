@@ -44,7 +44,7 @@ public class IsRisingRule extends AbstractRule {
 
     /**
      * Constructor for strict rising.
-     * 
+     *
      * @param ref      the indicator
      * @param barCount the time frame
      */
@@ -70,7 +70,7 @@ public class IsRisingRule extends AbstractRule {
     @Override
     public boolean isSatisfied(int index, TradingRecord tradingRecord) {
         int count = 0;
-        for (int i = Math.max(0, index - barCount + 1); i <= index; i++) {
+        for (int i = Math.max(ref.getBarSeries().getBeginIndex(), index - barCount + 1); i <= index; i++) { // andrewp
             if (ref.getValue(i).isGreaterThan(ref.getValue(Math.max(0, i - 1)))) {
                 count += 1;
             }

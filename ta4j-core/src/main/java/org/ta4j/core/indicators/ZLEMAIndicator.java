@@ -54,9 +54,9 @@ public class ZLEMAIndicator extends RecursiveCachedIndicator<Num> {
             // Starting point of the ZLEMA
             return new SMAIndicator(indicator, barCount).getValue(index);
         }
-        if (index == 0) {
+        if (index == getBarSeries().getBeginIndex()) { // andrewp
             // If the barCount is bigger than the indicator's value count
-            return indicator.getValue(0);
+            return indicator.getValue(index);
         }
         Num zlemaPrev = getValue(index - 1);
         return k.multipliedBy(numOf(2).multipliedBy(indicator.getValue(index)).minus(indicator.getValue(index - lag)))

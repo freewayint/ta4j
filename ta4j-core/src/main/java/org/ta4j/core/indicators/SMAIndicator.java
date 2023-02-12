@@ -47,7 +47,7 @@ public class SMAIndicator extends CachedIndicator<Num> {
     @Override
     protected Num calculate(int index) {
         Num sum = zero();
-        for (int i = Math.max(0, index - barCount + 1); i <= index; i++) {
+        for (int i = Math.max(getBarSeries().getBeginIndex(), index - barCount + 1); i <= index; i++) { // andrewp
             sum = sum.plus(indicator.getValue(i));
         }
 

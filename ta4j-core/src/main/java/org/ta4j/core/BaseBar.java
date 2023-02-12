@@ -63,7 +63,7 @@ public class BaseBar implements Bar {
 
     /**
      * Constructor.
-     * 
+     *
      * @param timePeriod  the time period
      * @param endTime     the end time of the bar period
      * @param numFunction the numbers precision
@@ -79,7 +79,7 @@ public class BaseBar implements Bar {
 
     /**
      * Constructor.
-     * 
+     *
      * @param timePeriod the time period
      * @param endTime    the end time of the bar period
      * @param openPrice  the open price of the bar period
@@ -95,7 +95,7 @@ public class BaseBar implements Bar {
 
     /**
      * Constructor.
-     * 
+     *
      * @param timePeriod the time period
      * @param endTime    the end time of the bar period
      * @param openPrice  the open price of the bar period
@@ -112,7 +112,7 @@ public class BaseBar implements Bar {
 
     /**
      * Constructor.
-     * 
+     *
      * @param timePeriod  the time period
      * @param endTime     the end time of the bar period
      * @param openPrice   the open price of the bar period
@@ -133,7 +133,7 @@ public class BaseBar implements Bar {
 
     /**
      * Constructor.
-     * 
+     *
      * @param timePeriod the time period
      * @param endTime    the end time of the bar period
      * @param openPrice  the open price of the bar period
@@ -149,7 +149,7 @@ public class BaseBar implements Bar {
 
     /**
      * Constructor.
-     * 
+     *
      * @param timePeriod the time period
      * @param endTime    the end time of the bar period
      * @param openPrice  the open price of the bar period
@@ -166,7 +166,7 @@ public class BaseBar implements Bar {
 
     /**
      * Constructor.
-     * 
+     *
      * @param timePeriod  the time period
      * @param endTime     the end time of the bar period
      * @param openPrice   the open price of the bar period
@@ -188,7 +188,7 @@ public class BaseBar implements Bar {
 
     /**
      * Constructor.
-     * 
+     *
      * @param timePeriod the time period
      * @param endTime    the end time of the bar period
      * @param openPrice  the open price of the bar period
@@ -204,7 +204,7 @@ public class BaseBar implements Bar {
 
     /**
      * Constructor.
-     * 
+     *
      * @param timePeriod the time period
      * @param endTime    the end time of the bar period
      * @param openPrice  the open price of the bar period
@@ -221,7 +221,7 @@ public class BaseBar implements Bar {
 
     /**
      * Constructor.
-     * 
+     *
      * @param timePeriod  the time period
      * @param endTime     the end time of the bar period
      * @param openPrice   the open price of the bar period
@@ -243,7 +243,7 @@ public class BaseBar implements Bar {
 
     /**
      * Constructor.
-     * 
+     *
      * @param timePeriod the time period
      * @param endTime    the end time of the bar period
      * @param openPrice  the open price of the bar period
@@ -260,7 +260,7 @@ public class BaseBar implements Bar {
 
     /**
      * Constructor.
-     * 
+     *
      * @param timePeriod the time period
      * @param endTime    the end time of the bar period
      * @param openPrice  the open price of the bar period
@@ -286,9 +286,24 @@ public class BaseBar implements Bar {
         this.trades = trades;
     }
 
+	// andrewp: endTime.minus(timePeriod) is quite complex
+	public BaseBar(Duration timePeriod, ZonedDateTime beginTime, ZonedDateTime endTime, Num openPrice, Num highPrice, Num lowPrice,
+            Num closePrice, Num volume, Num amount, long trades) {
+        this.timePeriod = timePeriod;
+        this.endTime = endTime;
+        this.beginTime = beginTime;
+        this.openPrice = openPrice;
+        this.highPrice = highPrice;
+        this.lowPrice = lowPrice;
+        this.closePrice = closePrice;
+        this.volume = volume;
+        this.amount = amount;
+        this.trades = trades;
+    }
+
     /**
      * Returns BaseBarBuilder
-     * 
+     *
      * @return builder of class BaseBarBuilder
      */
     public static BaseBarBuilder builder() {
@@ -297,7 +312,7 @@ public class BaseBar implements Bar {
 
     /**
      * Returns BaseBarBuilder.
-     * 
+     *
      * @param <T>   the type of the clazz
      * @param num   any instance of Num to determine its Num function; with this, we
      *              can convert a {@link Number} to a {@link Num Num implementation}
@@ -311,7 +326,7 @@ public class BaseBar implements Bar {
 
     /**
      * Returns BaseBarBuilder.
-     * 
+     *
      * @param <T>   the type of the clazz
      * @param num   any Num function; with this, we can convert a {@link Number} to
      *              a {@link Num Num implementation}
@@ -394,7 +409,7 @@ public class BaseBar implements Bar {
 
     /**
      * Adds a trade at the end of bar period.
-     * 
+     *
      * @param tradeVolume the traded volume
      * @param tradePrice  the price
      */

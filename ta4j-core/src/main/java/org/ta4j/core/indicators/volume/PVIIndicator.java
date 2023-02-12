@@ -45,7 +45,7 @@ public class PVIIndicator extends RecursiveCachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
-        if (index == 0) {
+        if (index == getBarSeries().getBeginIndex()) { // andrewp
             return numOf(1000);
         }
 

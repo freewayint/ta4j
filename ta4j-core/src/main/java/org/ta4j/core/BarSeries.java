@@ -175,22 +175,6 @@ public interface BarSeries extends Serializable {
     int getMaximumBarCount();
 
     /**
-     * Sets the maximum number of bars that will be retained in the series.
-     *
-     * If a new bar is added to the series such that the number of bars will exceed
-     * the maximum bar count, then the FIRST bar in the series is automatically
-     * removed, ensuring that the maximum bar count is not exceeded.
-     *
-     * @param maximumBarCount the maximum bar count
-     */
-    void setMaximumBarCount(int maximumBarCount);
-
-    /**
-     * @return the number of removed bars
-     */
-    int getRemovedBarsCount();
-
-    /**
      * Adds a bar at the end of the series.
      *
      * Begin index set to 0 if it wasn't initialized.<br>
@@ -367,23 +351,4 @@ public interface BarSeries extends Serializable {
     default void addPrice(Number price) {
         addPrice(numOf(price));
     }
-
-    /**
-     * Returns a new {@link BarSeries} instance that is a subset of this BarSeries
-     * instance. It holds a copy of all {@link Bar bars} between <tt>startIndex</tt>
-     * (inclusive) and <tt>endIndex</tt> (exclusive) of this BarSeries. The indices
-     * of this BarSeries and the new subset BarSeries can be different. I. e. index
-     * 0 of the new BarSeries will be index <tt>startIndex</tt> of this BarSeries.
-     * If <tt>startIndex</tt> < this.seriesBeginIndex the new BarSeries will start
-     * with the first available Bar of this BarSeries. If <tt>endIndex</tt> >
-     * this.seriesEndIndex the new BarSeries will end at the last available Bar of
-     * this BarSeries
-     *
-     * @param startIndex the startIndex (inclusive)
-     * @param endIndex   the endIndex (exclusive)
-     * @return a new BarSeries with Bars from startIndex to endIndex-1
-     * @throws IllegalArgumentException if endIndex <= startIndex or startIndex < 0
-     */
-    BarSeries getSubSeries(int startIndex, int endIndex);
-
 }

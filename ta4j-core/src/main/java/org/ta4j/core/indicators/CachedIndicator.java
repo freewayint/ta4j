@@ -42,18 +42,6 @@ import org.ta4j.core.Indicator;
  * {@link #calculate(int)} again.
  */
 public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
-
-    /**
-     * List of cached results.
-     */
-    private final List<T> results;
-
-    /**
-     * Should always be the index of the last (calculated) result in
-     * {@link #results}.
-     */
-    protected int highestResultIndex = -1;
-
     /**
      * Constructor.
      *
@@ -61,8 +49,6 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
      */
     protected CachedIndicator(BarSeries series) {
         super(series);
-        int limit = series.getMaximumBarCount();
-        results = limit == Integer.MAX_VALUE ? new ArrayList<>() : new ArrayList<>(limit);
     }
 
     /**
@@ -80,22 +66,38 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
      */
     protected abstract T calculate(int index);
 
+	private boolean recursionProtection;
+
     @Override
     public T getValue(int index) {
-        BarSeries series = getBarSeries();
-        if (series == null) {
-            // Series is null; the indicator doesn't need cache.
-            // (e.g. simple computation of the value)
-            // --> Calculating the value
-            T result = calculate(index);
-            if (log.isTraceEnabled()) {
-                log.trace("{}({}): {}", this, index, result);
-            }
-            return result;
-        }
+		T result;
 
-        // Series is not null
+		assert (recursionProtection == false); // andrewp: inherit from RecursiveCachedIndicator instead!
+		recursionProtection = true;
 
+		BarSeries series = getBarSeries();
+		if (series == null) {
+			result = calculate(index);
+
+		} else {
+			int seriesEndIndex = series.getEndIndex();
+			assert (index <= seriesEndIndex);
+
+			int seriesBeginIndex = series.getBeginIndex();
+			assert (index >= seriesBeginIndex);
+
+			result = calculate(index);
+		}
+
+		if (log.isTraceEnabled()) {
+			log.trace("{}({}): {}", this, index, result);
+		}
+
+		recursionProtection = false;
+
+		return result;
+
+/*
         final int removedBarsCount = series.getRemovedBarsCount();
         final int maximumResultCount = series.getMaximumBarCount();
 
@@ -139,10 +141,11 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
             }
 
         }
-        if (log.isTraceEnabled()) {
+*/
+        /*if (log.isTraceEnabled()) {
             log.trace("{}({}): {}", this, index, result);
         }
-        return result;
+        return result;*/
     }
 
     /**
@@ -151,7 +154,7 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
      * @param index     the index to increase length to
      * @param maxLength the maximum length of the results buffer
      */
-    private void increaseLengthTo(int index, int maxLength) {
+    /*private void increaseLengthTo(int index, int maxLength) {
         if (highestResultIndex > -1) {
             int newResultsCount = Math.min(index - highestResultIndex, maxLength);
             if (newResultsCount == maxLength) {
@@ -166,7 +169,7 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
             assert results.isEmpty() : "Cache results list should be empty";
             results.addAll(Collections.nCopies(Math.min(index + 1, maxLength), null));
         }
-    }
+    }*/
 
     /**
      * Removes the N first results which exceed the maximum bar count. (i.e. keeps
@@ -174,7 +177,7 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
      *
      * @param maximumResultCount the number of results to keep
      */
-    private void removeExceedingResults(int maximumResultCount) {
+    /*private void removeExceedingResults(int maximumResultCount) {
         int resultCount = results.size();
         if (resultCount > maximumResultCount) {
             // Removing old results
@@ -185,5 +188,5 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
                 results.subList(0, nbResultsToRemove).clear();
             }
         }
-    }
+    }*/
 }

@@ -43,6 +43,6 @@ public class BaseBarSeriesAggregator implements BarSeriesAggregator {
     @Override
     public BarSeries aggregate(BarSeries series, String aggregatedSeriesName) {
         final List<Bar> aggregatedBars = barAggregator.aggregate(series.getBarData());
-        return new BaseBarSeries(aggregatedSeriesName, aggregatedBars);
+        return null; // andrewp: not implemented, was new BaseBarSeries(aggregatedSeriesName, aggregatedBars);
     }
 }

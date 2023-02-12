@@ -45,7 +45,7 @@ public class VolumeIndicator extends CachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
-        int startIndex = Math.max(0, index - barCount + 1);
+        int startIndex = Math.max(getBarSeries().getBeginIndex(), index - barCount + 1); // andrewp
         Num sumOfVolume = zero();
         for (int i = startIndex; i <= index; i++) {
             sumOfVolume = sumOfVolume.plus(getBarSeries().getBar(i).getVolume());

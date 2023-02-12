@@ -47,7 +47,7 @@ public class LowestValueIndicator extends CachedIndicator<Num> {
         if (indicator.getValue(index).isNaN() && barCount != 1) {
             return new LowestValueIndicator(indicator, barCount - 1).getValue(index - 1);
         }
-        int end = Math.max(0, index - barCount + 1);
+        int end = Math.max(getBarSeries().getBeginIndex(), index - barCount + 1); // andrewp
         Num lowest = indicator.getValue(index);
         for (int i = index - 1; i >= end; i--) {
             if (lowest.isGreaterThan(indicator.getValue(i))) {

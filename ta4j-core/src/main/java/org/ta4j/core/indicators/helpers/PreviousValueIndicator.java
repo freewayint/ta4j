@@ -61,8 +61,9 @@ public class PreviousValueIndicator extends CachedIndicator<Num> {
         this.indicator = indicator;
     }
 
+	@Override
     protected Num calculate(int index) {
-        int previousValue = Math.max(0, (index - n));
+        int previousValue = Math.max(getBarSeries().getBeginIndex(), (index - n)); // andrewp
         return this.indicator.getValue(previousValue);
     }
 

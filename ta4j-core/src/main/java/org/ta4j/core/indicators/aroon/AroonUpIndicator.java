@@ -79,7 +79,7 @@ public class AroonUpIndicator extends CachedIndicator<Num> {
             return NaN;
 
         // Getting the number of bars since the highest close price
-        int endIndex = Math.max(0, index - barCount);
+        int endIndex = Math.max(getBarSeries().getBeginIndex(), index - barCount); // andrewp
         int nbBars = 0;
         for (int i = index; i > endIndex; i--) {
             if (highPriceIndicator.getValue(i).isEqual(highestHighPriceIndicator.getValue(index))) {

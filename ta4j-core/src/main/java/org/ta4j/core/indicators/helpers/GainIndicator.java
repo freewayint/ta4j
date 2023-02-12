@@ -41,7 +41,7 @@ public class GainIndicator extends CachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
-        if (index == 0) {
+        if (index == getBarSeries().getBeginIndex()) { // andrewp
             return zero();
         }
         if (indicator.getValue(index).isGreaterThan(indicator.getValue(index - 1))) {

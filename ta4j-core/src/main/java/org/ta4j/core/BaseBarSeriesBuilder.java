@@ -37,14 +37,13 @@ public class BaseBarSeriesBuilder implements BarSeriesBuilder {
      * Default instance of Num to determine its Num type and function.
      **/
     private static Num defaultNum = DecimalNum.ZERO;
-    private List<Bar> bars;
     private String name;
     private Num num;
-    private boolean constrained;
     private int maxBarCount;
 
-    public BaseBarSeriesBuilder() {
+    public BaseBarSeriesBuilder(int maxBarCount) {
         initValues();
+		this.maxBarCount = maxBarCount;
     }
 
     /**
@@ -66,10 +65,8 @@ public class BaseBarSeriesBuilder implements BarSeriesBuilder {
     }
 
     private void initValues() {
-        this.bars = new ArrayList<>();
         this.name = "unnamed_series";
         this.num = BaseBarSeriesBuilder.defaultNum;
-        this.constrained = false;
         this.maxBarCount = Integer.MAX_VALUE;
     }
 
@@ -77,23 +74,9 @@ public class BaseBarSeriesBuilder implements BarSeriesBuilder {
     public BaseBarSeries build() {
         int beginIndex = -1;
         int endIndex = -1;
-        if (!bars.isEmpty()) {
-            beginIndex = 0;
-            endIndex = bars.size() - 1;
-        }
-        BaseBarSeries series = new BaseBarSeries(name, bars, beginIndex, endIndex, constrained, num);
-        series.setMaximumBarCount(maxBarCount);
+        BaseBarSeries series = new BaseBarSeries(name, maxBarCount, beginIndex, endIndex, num);
         initValues(); // reinitialize values for next series
         return series;
-    }
-
-    /**
-     * @param name to set {@link BaseBarSeries#constrained}
-     * @return {@code this}
-     */
-    public BaseBarSeriesBuilder setConstrained(boolean constrained) {
-        this.constrained = constrained;
-        return this;
     }
 
     /**
@@ -102,15 +85,6 @@ public class BaseBarSeriesBuilder implements BarSeriesBuilder {
      */
     public BaseBarSeriesBuilder withName(String name) {
         this.name = name;
-        return this;
-    }
-
-    /**
-     * @param bars to set {@link BaseBarSeries#getBarData()}
-     * @return {@code this}
-     */
-    public BaseBarSeriesBuilder withBars(List<Bar> bars) {
-        this.bars = bars;
         return this;
     }
 

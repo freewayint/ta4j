@@ -38,7 +38,7 @@ public class StandardErrorIndicator extends CachedIndicator<Num> {
 
     /**
      * Constructor.
-     * 
+     *
      * @param indicator the indicator
      * @param barCount  the time frame
      */
@@ -50,7 +50,7 @@ public class StandardErrorIndicator extends CachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
-        final int startIndex = Math.max(0, index - barCount + 1);
+        final int startIndex = Math.max(getBarSeries().getBeginIndex(), index - barCount + 1); // andrewp
         final int numberOfObservations = index - startIndex + 1;
         return sdev.getValue(index).dividedBy(numOf(numberOfObservations).sqrt());
     }
