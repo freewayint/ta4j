@@ -39,6 +39,6 @@ public class AmountIndicator extends CachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
-        return getBarSeries().getBar(index).getAmount();
+        return getBarSeries().getBar(index).getBuyVolume();
     }
 }

@@ -24,7 +24,7 @@
 package org.ta4j.core.rules;
 
 import java.time.LocalTime;
-import java.time.ZonedDateTime;
+import org.ta4j.core.BarDateTime;
 import java.util.List;
 
 import org.ta4j.core.TradingRecord;
@@ -50,7 +50,7 @@ public class TimeRangeRule extends AbstractRule {
     @Override
     public boolean isSatisfied(int index, TradingRecord tradingRecord) {
         boolean satisfied = false;
-        ZonedDateTime dateTime = this.timeIndicator.getValue(index);
+        BarDateTime dateTime = this.timeIndicator.getValue(index);
         LocalTime localTime = dateTime.toLocalTime();
         satisfied = this.timeRanges.stream()
                 .anyMatch(

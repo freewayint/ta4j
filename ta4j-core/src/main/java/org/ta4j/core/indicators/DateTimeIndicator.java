@@ -23,7 +23,7 @@
  */
 package org.ta4j.core.indicators;
 
-import java.time.ZonedDateTime;
+import org.ta4j.core.BarDateTime;
 import java.util.function.Function;
 
 import org.ta4j.core.Bar;
@@ -32,21 +32,21 @@ import org.ta4j.core.BarSeries;
 /**
  * DateTime indicator.
  */
-public class DateTimeIndicator extends CachedIndicator<ZonedDateTime> {
+public class DateTimeIndicator extends CachedIndicator<BarDateTime> {
 
-    private final Function<Bar, ZonedDateTime> action;
+    private final Function<Bar, BarDateTime> action;
 
     public DateTimeIndicator(BarSeries barSeries) {
         this(barSeries, Bar::getBeginTime);
     }
 
-    public DateTimeIndicator(BarSeries barSeries, Function<Bar, ZonedDateTime> action) {
+    public DateTimeIndicator(BarSeries barSeries, Function<Bar, BarDateTime> action) {
         super(barSeries);
         this.action = action;
     }
 
     @Override
-    protected ZonedDateTime calculate(int index) {
+    protected BarDateTime calculate(int index) {
         Bar bar = getBarSeries().getBar(index);
         return this.action.apply(bar);
     }

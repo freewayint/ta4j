@@ -27,7 +27,7 @@ import static org.ta4j.core.num.NaN.NaN;
 
 import java.math.BigDecimal;
 import java.time.Duration;
-import java.time.ZonedDateTime;
+import org.ta4j.core.BarDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -93,16 +93,6 @@ public class BaseBarSeries implements BarSeries {
 			return data[index & address_mask];
 		}
 	}
-
-    /**
-     * The logger
-     */
-    private final transient Logger log = LoggerFactory.getLogger(getClass());
-
-    /**
-     * Name for unnamed series
-     */
-    private static final String UNNAMED_SERIES_NAME = "unnamed_series";
 
     /**
      * Any instance of Num to determine its Num type.
@@ -202,7 +192,7 @@ public class BaseBarSeries implements BarSeries {
 
     /**
      * @param bar the <code>Bar</code> to be added
-     * @apiNote to add bar data directly use #addBar(Duration, ZonedDateTime, Num,
+     * @apiNote to add bar data directly use #addBar(Duration, BarDateTime, Num,
      *          Num, Num, Num, Num)
      * @throws NullPointerException if bar is null
      */
@@ -212,7 +202,7 @@ public class BaseBarSeries implements BarSeries {
         if (!bars.isEmpty()) {
             if (replace) {
 				if (bars.size() >= 2) { // andrewp
-					ZonedDateTime seriesEndTime = bars.get(seriesEndIndex - 1).getEndTime();
+					BarDateTime seriesEndTime = bars.get(seriesEndIndex - 1).getEndTime();
 					if (!bar.getEndTime().isAfter(seriesEndTime)) {
 						throw new IllegalArgumentException(
 								String.format("Cannot replace a bar with end time:%s that is <= to series end time: %s",
@@ -222,7 +212,7 @@ public class BaseBarSeries implements BarSeries {
                 bars.set(seriesEndIndex, bar);
                 return;
             }
-            ZonedDateTime seriesEndTime = bars.get(seriesEndIndex).getEndTime();
+            BarDateTime seriesEndTime = bars.get(seriesEndIndex).getEndTime();
             if (!bar.getEndTime().isAfter(seriesEndTime)) {
                 throw new IllegalArgumentException(
                         String.format("Cannot add a bar with end time:%s that is <= to series end time: %s",
@@ -234,55 +224,5 @@ public class BaseBarSeries implements BarSeries {
 
         seriesEndIndex++;
 		seriesBeginIndex = seriesEndIndex + 1 - bars.size();
-    }
-
-    @Override
-    public void addBar(Duration timePeriod, ZonedDateTime endTime) {
-        this.addBar(new BaseBar(timePeriod, endTime, function()));
-    }
-
-    @Override
-    public void addBar(ZonedDateTime endTime, Num openPrice, Num highPrice, Num lowPrice, Num closePrice, Num volume) {
-        this.addBar(
-                new BaseBar(Duration.ofDays(1), endTime, openPrice, highPrice, lowPrice, closePrice, volume, zero()));
-    }
-
-    @Override
-    public void addBar(ZonedDateTime endTime, Num openPrice, Num highPrice, Num lowPrice, Num closePrice, Num volume,
-            Num amount) {
-        this.addBar(
-                new BaseBar(Duration.ofDays(1), endTime, openPrice, highPrice, lowPrice, closePrice, volume, amount));
-    }
-
-    @Override
-    public void addBar(Duration timePeriod, ZonedDateTime endTime, Num openPrice, Num highPrice, Num lowPrice,
-            Num closePrice, Num volume) {
-        this.addBar(new BaseBar(timePeriod, endTime, openPrice, highPrice, lowPrice, closePrice, volume, zero()));
-    }
-
-    @Override
-    public void addBar(Duration timePeriod, ZonedDateTime endTime, Num openPrice, Num highPrice, Num lowPrice,
-            Num closePrice, Num volume, Num amount) {
-        this.addBar(new BaseBar(timePeriod, endTime, openPrice, highPrice, lowPrice, closePrice, volume, amount));
-    }
-
-    @Override
-    public void addTrade(Number price, Number amount) {
-        addTrade(numOf(price), numOf(amount));
-    }
-
-    @Override
-    public void addTrade(String price, String amount) {
-        addTrade(numOf(new BigDecimal(price)), numOf(new BigDecimal(amount)));
-    }
-
-    @Override
-    public void addTrade(Num tradeVolume, Num tradePrice) {
-        getLastBar().addTrade(tradeVolume, tradePrice);
-    }
-
-    @Override
-    public void addPrice(Num price) {
-        getLastBar().addPrice(price);
     }
 }
