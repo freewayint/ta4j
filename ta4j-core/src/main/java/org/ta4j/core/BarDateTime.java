@@ -1,5 +1,6 @@
 package org.ta4j.core;
 
+import java.io.Serializable;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
@@ -7,7 +8,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class BarDateTime { // andrewp
+public class BarDateTime implements Serializable { // andrewp
 	private final long timestamp_ms;
 
 	public BarDateTime(long timestamp_ms) {

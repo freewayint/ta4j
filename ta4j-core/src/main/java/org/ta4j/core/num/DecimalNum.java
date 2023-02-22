@@ -45,6 +45,7 @@
  */
 package org.ta4j.core.num;
 
+import java.io.Serializable;
 import static org.ta4j.core.num.NaN.NaN;
 
 import java.math.BigDecimal;
@@ -69,7 +70,7 @@ import org.slf4j.LoggerFactory;
  * @see RoundingMode
  * @see Num
  */
-public final class DecimalNum implements Num {
+public final class DecimalNum implements Num, Serializable {
 
     private static final int DEFAULT_PRECISION = 32;
     private static final Logger log = LoggerFactory.getLogger(DecimalNum.class);
@@ -166,7 +167,7 @@ public final class DecimalNum implements Num {
      * Returns a {@code Num} version of the given {@code String} with a precision.
      *
      * @param val       the number
-     * 
+     *
      * @param precision the precision
      * @return the {@code Num}
      */
@@ -554,7 +555,7 @@ public final class DecimalNum implements Num {
     /**
      * Returns a {@code num} whose value is (-this), and whose scale is
      * this.scale().
-     * 
+     *
      * @return {@code negate(this)}
      */
     @Override

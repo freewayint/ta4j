@@ -23,6 +23,7 @@
  */
 package org.ta4j.core.num;
 
+import java.io.Serializable;
 import static org.ta4j.core.num.NaN.NaN;
 
 import java.util.function.Function;
@@ -33,7 +34,7 @@ import java.util.function.Function;
  * @apiNote the delegate should never become a NaN value. No self NaN checks
  *          provided
  */
-public class DoubleNum implements Num {
+public class DoubleNum implements Num, Serializable {
 
     public static final DoubleNum ZERO = DoubleNum.valueOf(0);
     private static final DoubleNum ONE = DoubleNum.valueOf(1);
