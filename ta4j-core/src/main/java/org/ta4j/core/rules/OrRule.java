@@ -39,7 +39,7 @@ public class OrRule extends AbstractRule {
 
     /**
      * Constructor.
-     * 
+     *
      * @param rule1 a trading rule
      * @param rule2 another trading rule
      */
@@ -54,6 +54,11 @@ public class OrRule extends AbstractRule {
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }
+
+	@Override
+	public boolean isSatisfiedNow() { // andrewp
+		return rule1.isSatisfiedNow() || rule2.isSatisfiedNow();
+	}
 
     /**
      * @return first trading rule

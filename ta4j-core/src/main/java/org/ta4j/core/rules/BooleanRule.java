@@ -60,4 +60,9 @@ public class BooleanRule extends AbstractRule {
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }
+
+	@Override
+	public boolean isSatisfiedNow() { // andrewp
+		return satisfied;
+	}
 }

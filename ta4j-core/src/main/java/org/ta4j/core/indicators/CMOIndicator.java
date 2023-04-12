@@ -60,11 +60,11 @@ public class CMOIndicator extends CachedIndicator<Num> {
     @Override
     protected Num calculate(int index) {
         Num sumOfGains = zero();
-        for (int i = Math.max(1, index - barCount + 1); i <= index; i++) {
+        for (int i = Math.max(getBarSeries().getBeginIndex() + 1, index - barCount + 1); i <= index; i++) {
             sumOfGains = sumOfGains.plus(gainIndicator.getValue(i));
         }
         Num sumOfLosses = zero();
-        for (int i = Math.max(1, index - barCount + 1); i <= index; i++) {
+        for (int i = Math.max(getBarSeries().getBeginIndex() + 1, index - barCount + 1); i <= index; i++) {
             sumOfLosses = sumOfLosses.plus(lossIndicator.getValue(i));
         }
         return sumOfGains.minus(sumOfLosses).dividedBy(sumOfGains.plus(sumOfLosses)).multipliedBy(hundred());

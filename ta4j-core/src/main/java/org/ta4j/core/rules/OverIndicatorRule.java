@@ -83,4 +83,9 @@ public class OverIndicatorRule extends AbstractRule {
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }
+
+	@Override
+	public boolean isSatisfiedNow() { // andrewp
+		return first.getValue(first.getBarSeries().getEndIndex()).isGreaterThan(second.getValue(second.getBarSeries().getEndIndex()));
+	}
 }

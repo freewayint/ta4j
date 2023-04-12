@@ -42,12 +42,13 @@ public class WMAIndicator extends CachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
-        if (index == getBarSeries().getBeginIndex()) { // andrewp
+		int begin_index = getBarSeries().getBeginIndex(); // andrewp
+        if (index == begin_index) {
             return indicator.getValue(index);
         }
 
         Num value = numOf(0);
-        int loopLength = (index - barCount < 0) ? index + 1 : barCount;
+        int loopLength = (index - barCount < begin_index) ? index - begin_index + 1 : barCount;
         int actualIndex = index;
         for (int i = loopLength; i > 0; i--) {
             value = value.plus(numOf(i).multipliedBy(indicator.getValue(actualIndex)));

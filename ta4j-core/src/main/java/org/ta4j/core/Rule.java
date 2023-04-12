@@ -87,4 +87,9 @@ public interface Rule {
      *         otherwise
      */
     boolean isSatisfied(int index, TradingRecord tradingRecord);
+
+	default boolean isSatisfiedNow() { // andrewp: isSatisfied at getEndIndex
+        assert false;
+		return false;
+    }
 }

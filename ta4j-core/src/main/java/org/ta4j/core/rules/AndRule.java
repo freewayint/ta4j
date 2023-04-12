@@ -55,6 +55,11 @@ public class AndRule extends AbstractRule {
         return satisfied;
     }
 
+	@Override
+	public boolean isSatisfiedNow() { // andrewp
+		return rule1.isSatisfiedNow() && rule2.isSatisfiedNow();
+	}
+
     public Rule getRule1() {
         return rule1;
     }

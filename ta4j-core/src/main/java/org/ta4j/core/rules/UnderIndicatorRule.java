@@ -83,4 +83,9 @@ public class UnderIndicatorRule extends AbstractRule {
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }
+
+	@Override
+	public boolean isSatisfiedNow() { // andrewp
+		return first.getValue(first.getBarSeries().getEndIndex()).isLessThan(second.getValue(second.getBarSeries().getEndIndex()));
+	}
 }

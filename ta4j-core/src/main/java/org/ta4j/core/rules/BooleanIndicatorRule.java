@@ -51,4 +51,9 @@ public class BooleanIndicatorRule extends AbstractRule {
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }
+
+	@Override
+	public boolean isSatisfiedNow() { // andrewp
+		return indicator.getValue(indicator.getBarSeries().getEndIndex());
+	}
 }
