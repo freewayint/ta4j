@@ -42,6 +42,10 @@ public interface Indicator<T> {
      */
     T getValue(int index);
 
+	default T getValue() { // andrewp
+		return getValue(getBarSeries().getEndIndex());
+	}
+
     /**
      * @return the related bar series
      */

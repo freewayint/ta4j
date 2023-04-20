@@ -30,32 +30,10 @@ import org.ta4j.core.num.Num;
 /**
  * Lowest value indicator.
  */
-public class LowestValueIndicator extends CachedIndicator<Num> {
-
-    private final Indicator<Num> indicator;
-
-    private final int barCount;
-
+public class LowestValueIndicator extends ExtremaValueIndicator {
     public LowestValueIndicator(Indicator<Num> indicator, int barCount) {
-        super(indicator);
-        this.indicator = indicator;
-        this.barCount = barCount;
-    }
-
-    @Override
-    protected Num calculate(int index) {
-        if (indicator.getValue(index).isNaN() && barCount != 1) {
-            return new LowestValueIndicator(indicator, barCount - 1).getValue(index - 1);
-        }
-        int end = Math.max(getBarSeries().getBeginIndex(), index - barCount + 1); // andrewp
-        Num lowest = indicator.getValue(index);
-        for (int i = index - 1; i >= end; i--) {
-            if (lowest.isGreaterThan(indicator.getValue(i))) {
-                lowest = indicator.getValue(i);
-            }
-        }
-        return lowest;
-    }
+		super(indicator, barCount, false);
+	}
 
     @Override
     public String toString() {

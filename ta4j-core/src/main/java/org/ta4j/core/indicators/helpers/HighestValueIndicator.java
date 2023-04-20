@@ -30,32 +30,10 @@ import org.ta4j.core.num.Num;
 /**
  * Highest value indicator.
  */
-public class HighestValueIndicator extends CachedIndicator<Num> {
-
-    private final Indicator<Num> indicator;
-
-    private final int barCount;
-
+public class HighestValueIndicator extends ExtremaValueIndicator {
     public HighestValueIndicator(Indicator<Num> indicator, int barCount) {
-        super(indicator);
-        this.indicator = indicator;
-        this.barCount = barCount;
-    }
-
-    @Override
-    protected Num calculate(int index) {
-        if (indicator.getValue(index).isNaN() && barCount != 1) {
-            return new HighestValueIndicator(indicator, barCount - 1).getValue(index - 1);
-        }
-        int end = Math.max(getBarSeries().getBeginIndex(), index - barCount + 1); // andrewp
-        Num highest = indicator.getValue(index);
-        for (int i = index - 1; i >= end; i--) {
-            if (highest.isLessThan(indicator.getValue(i))) {
-                highest = indicator.getValue(i);
-            }
-        }
-        return highest;
-    }
+		super(indicator, barCount, true);
+	}
 
     @Override
     public String toString() {
