@@ -34,7 +34,7 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:correlation_coeffici">
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:correlation_coeffici</a>
  */
-public class CorrelationCoefficientIndicator extends CachedIndicator<Num> {
+public class CorrelationCoefficientIndicator extends CachedIndicator {
 
     private final VarianceIndicator variance1;
     private final VarianceIndicator variance2;
@@ -47,7 +47,7 @@ public class CorrelationCoefficientIndicator extends CachedIndicator<Num> {
      * @param indicator2 the second indicator
      * @param barCount   the time frame
      */
-    public CorrelationCoefficientIndicator(Indicator<Num> indicator1, Indicator<Num> indicator2, int barCount) {
+    public CorrelationCoefficientIndicator(Indicator indicator1, Indicator indicator2, int barCount) {
         super(indicator1);
         variance1 = new VarianceIndicator(indicator1, barCount);
         variance2 = new VarianceIndicator(indicator2, barCount);

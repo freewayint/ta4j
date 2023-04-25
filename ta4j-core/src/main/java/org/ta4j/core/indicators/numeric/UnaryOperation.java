@@ -34,20 +34,20 @@ import org.ta4j.core.num.Num;
  * 
  * There may be other unary operations on Num that could be added here.
  */
-class UnaryOperation implements Indicator<Num> {
+class UnaryOperation implements Indicator {
 
-    public static UnaryOperation sqrt(Indicator<Num> operand) {
+    public static UnaryOperation sqrt(Indicator operand) {
         return new UnaryOperation(Num::sqrt, operand);
     }
 
-    public static UnaryOperation abs(Indicator<Num> operand) {
+    public static UnaryOperation abs(Indicator operand) {
         return new UnaryOperation(Num::abs, operand);
     }
 
     private final UnaryOperator<Num> operator;
-    private final Indicator<Num> operand;
+    private final Indicator operand;
 
-    private UnaryOperation(UnaryOperator<Num> operator, Indicator<Num> operand) {
+    private UnaryOperation(UnaryOperator<Num> operator, Indicator operand) {
         this.operator = operator;
         this.operand = operand;
     }

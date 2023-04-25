@@ -31,11 +31,11 @@ import org.ta4j.core.num.Num;
 /**
  * A fixed decimal indicator.
  */
-public class FixedDecimalIndicator extends FixedIndicator<Num> {
+public class FixedDecimalIndicator extends FixedIndicator {
 
     /**
      * Constructor.
-     * 
+     *
      * @param values the values to be returned by this indicator
      */
     public FixedDecimalIndicator(BarSeries series, double... values) {
@@ -47,7 +47,7 @@ public class FixedDecimalIndicator extends FixedIndicator<Num> {
 
     /**
      * Constructor.
-     * 
+     *
      * @param values the values to be returned by this indicator
      */
     public FixedDecimalIndicator(BarSeries series, String... values) {

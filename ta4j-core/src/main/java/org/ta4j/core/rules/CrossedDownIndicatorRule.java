@@ -42,38 +42,38 @@ public class CrossedDownIndicatorRule extends AbstractRule {
 
     /**
      * Constructor.
-     * 
+     *
      * @param indicator the indicator
      * @param threshold a threshold
      */
-    public CrossedDownIndicatorRule(Indicator<Num> indicator, Number threshold) {
-        this(indicator, indicator.numOf(threshold));
+    public CrossedDownIndicatorRule(Indicator indicator, Number threshold) {
+        this(indicator, Num.valueOf(threshold));
     }
 
     /**
      * Constructor.
-     * 
+     *
      * @param indicator the indicator
      * @param threshold a threshold
      */
-    public CrossedDownIndicatorRule(Indicator<Num> indicator, Num threshold) {
-        this(indicator, new ConstantIndicator<>(indicator.getBarSeries(), threshold));
+    public CrossedDownIndicatorRule(Indicator indicator, Num threshold) {
+        this(indicator, new ConstantIndicator(indicator.getBarSeries(), threshold));
     }
 
     /**
      * Constructor.
-     * 
+     *
      * @param first  the first indicator
      * @param second the second indicator
      */
-    public CrossedDownIndicatorRule(Indicator<Num> first, Indicator<Num> second) {
+    public CrossedDownIndicatorRule(Indicator first, Indicator second) {
         this.cross = new CrossIndicator(first, second);
     }
 
     /** This rule does not use the {@code tradingRecord}. */
     @Override
     public boolean isSatisfied(int index, TradingRecord tradingRecord) {
-        final boolean satisfied = cross.getValue(index);
+        final boolean satisfied = cross.getValue(index).doubleValue() != .0;
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }
@@ -81,14 +81,14 @@ public class CrossedDownIndicatorRule extends AbstractRule {
     /**
      * @return the initial lower indicator
      */
-    public Indicator<Num> getLow() {
+    public Indicator getLow() {
         return cross.getLow();
     }
 
     /**
      * @return the initial upper indicator
      */
-    public Indicator<Num> getUp() {
+    public Indicator getUp() {
         return cross.getUp();
     }
 }

@@ -42,11 +42,11 @@ import org.ta4j.core.num.Num;
  * @see <a href="https://en.wikipedia.org/wiki/Volume-weighted_average_price">
  *      https://en.wikipedia.org/wiki/Volume-weighted_average_price</a>
  */
-public class VWAPIndicator extends CachedIndicator<Num> {
+public class VWAPIndicator extends CachedIndicator {
 
     private final int barCount;
-    private final Indicator<Num> typicalPrice;
-    private final Indicator<Num> volume;
+    private final Indicator typicalPrice;
+    private final Indicator volume;
     private final Num zero;
 
     /**

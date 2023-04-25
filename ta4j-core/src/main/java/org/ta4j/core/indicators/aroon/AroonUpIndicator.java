@@ -23,8 +23,6 @@
  */
 package org.ta4j.core.indicators.aroon;
 
-import static org.ta4j.core.num.NaN.NaN;
-
 import org.ta4j.core.BarSeries;
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
@@ -38,11 +36,11 @@ import org.ta4j.core.num.Num;
  * @see <a href=
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:aroon">chart_school:technical_indicators:aroon</a>
  */
-public class AroonUpIndicator extends CachedIndicator<Num> {
+public class AroonUpIndicator extends CachedIndicator {
 
     private final int barCount;
     private final HighestValueIndicator highestHighPriceIndicator;
-    private final Indicator<Num> highPriceIndicator;
+    private final Indicator highPriceIndicator;
     private final Num hundred;
     private final Num barCountNum;
 
@@ -53,11 +51,11 @@ public class AroonUpIndicator extends CachedIndicator<Num> {
      *                           {@link HighPriceIndicator})
      * @param barCount           the time frame
      */
-    public AroonUpIndicator(Indicator<Num> highPriceIndicator, int barCount) {
+    public AroonUpIndicator(Indicator highPriceIndicator, int barCount) {
         super(highPriceIndicator);
         this.barCount = barCount;
         this.highPriceIndicator = highPriceIndicator;
-        this.hundred = hundred();
+        this.hundred = Num.valueOf(100);
         this.barCountNum = numOf(barCount);
         // + 1 needed for last possible iteration in loop
         this.highestHighPriceIndicator = new HighestValueIndicator(highPriceIndicator, barCount + 1);
@@ -76,7 +74,7 @@ public class AroonUpIndicator extends CachedIndicator<Num> {
     @Override
     protected Num calculate(int index) {
         if (getBarSeries().getBar(index).getHighPrice().isNaN())
-            return NaN;
+            return Num.NaN;
 
         // Getting the number of bars since the highest close price
         int endIndex = Math.max(getBarSeries().getBeginIndex(), index - barCount); // andrewp

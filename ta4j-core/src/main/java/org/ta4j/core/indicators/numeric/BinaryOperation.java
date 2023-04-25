@@ -34,37 +34,37 @@ import org.ta4j.core.num.Num;
  * 
  * This is a lightweight version of the CombineIndicator; it doesn't cache.
  */
-class BinaryOperation implements Indicator<Num> {
+class BinaryOperation implements Indicator {
 
-    public static BinaryOperation sum(Indicator<Num> left, Indicator<Num> right) {
+    public static BinaryOperation sum(Indicator left, Indicator right) {
         return new BinaryOperation(Num::plus, left, right);
     }
 
-    public static BinaryOperation difference(Indicator<Num> left, Indicator<Num> right) {
+    public static BinaryOperation difference(Indicator left, Indicator right) {
         return new BinaryOperation(Num::minus, left, right);
     }
 
-    public static BinaryOperation product(Indicator<Num> left, Indicator<Num> right) {
+    public static BinaryOperation product(Indicator left, Indicator right) {
         return new BinaryOperation(Num::multipliedBy, left, right);
     }
 
-    public static BinaryOperation quotient(Indicator<Num> left, Indicator<Num> right) {
+    public static BinaryOperation quotient(Indicator left, Indicator right) {
         return new BinaryOperation(Num::dividedBy, left, right);
     }
 
-    public static BinaryOperation min(Indicator<Num> left, Indicator<Num> right) {
+    public static BinaryOperation min(Indicator left, Indicator right) {
         return new BinaryOperation(Num::min, left, right);
     }
 
-    public static BinaryOperation max(Indicator<Num> left, Indicator<Num> right) {
+    public static BinaryOperation max(Indicator left, Indicator right) {
         return new BinaryOperation(Num::max, left, right);
     }
 
     private final BinaryOperator<Num> operator;
-    private final Indicator<Num> left;
-    private final Indicator<Num> right;
+    private final Indicator left;
+    private final Indicator right;
 
-    private BinaryOperation(BinaryOperator<Num> operator, Indicator<Num> left, Indicator<Num> right) {
+    private BinaryOperation(BinaryOperator<Num> operator, Indicator left, Indicator right) {
         this.operator = operator;
         this.left = left;
         this.right = right;

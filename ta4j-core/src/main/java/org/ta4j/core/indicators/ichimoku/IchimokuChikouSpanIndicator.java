@@ -26,7 +26,6 @@ package org.ta4j.core.indicators.ichimoku;
 import org.ta4j.core.BarSeries;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.num.NaN;
 import org.ta4j.core.num.Num;
 
 /**
@@ -36,7 +35,7 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:ichimoku_cloud">
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:ichimoku_cloud</a>
  */
-public class IchimokuChikouSpanIndicator extends CachedIndicator<Num> {
+public class IchimokuChikouSpanIndicator extends CachedIndicator {
 
     /**
      * The close price
@@ -75,7 +74,7 @@ public class IchimokuChikouSpanIndicator extends CachedIndicator<Num> {
         if (spanIndex <= getBarSeries().getEndIndex()) {
             return closePriceIndicator.getValue(spanIndex);
         } else {
-            return NaN.NaN;
+            return Num.NaN;
         }
     }
 

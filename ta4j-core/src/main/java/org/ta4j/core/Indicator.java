@@ -32,17 +32,16 @@ import org.ta4j.core.num.Num;
  * Indicator over a {@link BarSeries bar series}. <p/p> For each index of the
  * bar series, returns a value of type <b>T</b>.
  *
- * @param <T> the type of returned value (Double, Boolean, etc.)
  */
-public interface Indicator<T> {
+public interface Indicator {
 
     /**
      * @param index the bar index
      * @return the value of the indicator
      */
-    T getValue(int index);
+    Num getValue(int index);
 
-	default T getValue() { // andrewp
+	default Num getValue() { // andrewp
 		return getValue(getBarSeries().getEndIndex());
 	}
 
@@ -55,28 +54,21 @@ public interface Indicator<T> {
      * @return the Num of 0
      */
     default Num zero() {
-        return getBarSeries().zero();
+        return Num.ZERO;
     }
 
     /**
      * @return the Num of 1
      */
     default Num one() {
-        return getBarSeries().one();
-    }
-
-    /**
-     * @return the Num of 100
-     */
-    default Num hundred() {
-        return getBarSeries().hundred();
+        return Num.ONE;
     }
 
     /**
      * @return the {@link Num Num extending class} for the given {@link Number}
      */
     default Num numOf(Number number) {
-        return getBarSeries().numOf(number);
+        return Num.valueOf(number);
     }
 
     /**
@@ -89,7 +81,7 @@ public interface Indicator<T> {
      * @param barCount the barCount
      * @return array of Doubles within the barCount
      */
-    static Double[] toDouble(Indicator<Num> ref, int index, int barCount) {
+    static Double[] toDouble(Indicator ref, int index, int barCount) {
         int startIndex = Math.max(0, index - barCount + 1);
         return IntStream.range(startIndex, startIndex + barCount)
                 .mapToObj(ref::getValue)
@@ -97,7 +89,7 @@ public interface Indicator<T> {
                 .toArray(Double[]::new);
     }
 
-    default Stream<T> stream() {
+    default Stream<Num> stream() {
         return IntStream.range(getBarSeries().getBeginIndex(), getBarSeries().getEndIndex() + 1)
                 .mapToObj(this::getValue);
     }

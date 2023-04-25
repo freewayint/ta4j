@@ -38,7 +38,7 @@ import org.ta4j.core.num.Num;
  * @see <a
  *      href="https://www.investopedia.com/terms/a/adx.asp>https://www.investopedia.com/terms/a/adx.asp</a>
  */
-public class MinusDIIndicator extends CachedIndicator<Num> {
+public class MinusDIIndicator extends CachedIndicator {
 
     private final MMAIndicator avgMinusDMIndicator;
     private final ATRIndicator atrIndicator;
@@ -53,7 +53,7 @@ public class MinusDIIndicator extends CachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
-        return avgMinusDMIndicator.getValue(index).dividedBy(atrIndicator.getValue(index)).multipliedBy(hundred());
+        return avgMinusDMIndicator.getValue(index).dividedBy(atrIndicator.getValue(index)).multipliedBy(Num.valueOf(100));
     }
 
     @Override

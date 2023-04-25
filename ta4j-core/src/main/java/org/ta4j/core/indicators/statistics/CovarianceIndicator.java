@@ -31,10 +31,10 @@ import org.ta4j.core.num.Num;
 /**
  * Covariance indicator.
  */
-public class CovarianceIndicator extends CachedIndicator<Num> {
+public class CovarianceIndicator extends CachedIndicator {
 
-    private final Indicator<Num> indicator1;
-    private final Indicator<Num> indicator2;
+    private final Indicator indicator1;
+    private final Indicator indicator2;
     private final int barCount;
     private final SMAIndicator sma1;
     private final SMAIndicator sma2;
@@ -46,7 +46,7 @@ public class CovarianceIndicator extends CachedIndicator<Num> {
      * @param indicator2 the second indicator
      * @param barCount   the time frame
      */
-    public CovarianceIndicator(Indicator<Num> indicator1, Indicator<Num> indicator2, int barCount) {
+    public CovarianceIndicator(Indicator indicator1, Indicator indicator2, int barCount) {
         super(indicator1);
         this.indicator1 = indicator1;
         this.indicator2 = indicator2;

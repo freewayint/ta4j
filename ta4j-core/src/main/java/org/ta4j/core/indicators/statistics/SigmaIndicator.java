@@ -33,9 +33,9 @@ import org.ta4j.core.num.Num;
  *
  * see http://www.statisticshowto.com/probability-and-statistics/z-score/
  */
-public class SigmaIndicator extends CachedIndicator<Num> {
+public class SigmaIndicator extends CachedIndicator {
 
-    private final Indicator<Num> ref;
+    private final Indicator ref;
     private final int barCount;
 
     private final SMAIndicator mean;
@@ -47,7 +47,7 @@ public class SigmaIndicator extends CachedIndicator<Num> {
      * @param ref      the indicator
      * @param barCount the time frame
      */
-    public SigmaIndicator(Indicator<Num> ref, int barCount) {
+    public SigmaIndicator(Indicator ref, int barCount) {
         super(ref);
         this.ref = ref;
         this.barCount = barCount;

@@ -30,7 +30,7 @@ import org.ta4j.core.num.Num;
 /**
  * Price variation indicator.
  */
-public class PriceVariationIndicator extends CachedIndicator<Num> {
+public class PriceVariationIndicator extends CachedIndicator {
 
     public PriceVariationIndicator(BarSeries series) {
         super(series);

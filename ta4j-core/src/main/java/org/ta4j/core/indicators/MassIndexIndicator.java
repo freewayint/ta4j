@@ -37,7 +37,7 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:mass_index">
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:mass_index</a>
  */
-public class MassIndexIndicator extends CachedIndicator<Num> {
+public class MassIndexIndicator extends CachedIndicator {
 
     private final EMAIndicator singleEma;
     private final EMAIndicator doubleEma;
@@ -52,7 +52,7 @@ public class MassIndexIndicator extends CachedIndicator<Num> {
      */
     public MassIndexIndicator(BarSeries series, int emaBarCount, int barCount) {
         super(series);
-        Indicator<Num> highLowDifferential = CombineIndicator.minus(new HighPriceIndicator(series),
+        Indicator highLowDifferential = CombineIndicator.minus(new HighPriceIndicator(series),
                 new LowPriceIndicator(series));
         singleEma = new EMAIndicator(highLowDifferential, emaBarCount);
         doubleEma = new EMAIndicator(singleEma, emaBarCount); // Not the same formula as DoubleEMAIndicator

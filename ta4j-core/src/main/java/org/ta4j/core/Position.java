@@ -23,8 +23,6 @@
  */
 package org.ta4j.core;
 
-import static org.ta4j.core.num.NaN.NaN;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -67,7 +65,7 @@ public class Position implements Serializable {
 
     /**
      * Constructor.
-     * 
+     *
      * @param startingType the starting {@link TradeType trade type} of the position
      *                     (i.e. type of the entry trade)
      */
@@ -77,7 +75,7 @@ public class Position implements Serializable {
 
     /**
      * Constructor.
-     * 
+     *
      * @param startingType         the starting {@link TradeType trade type} of the
      *                             position (i.e. type of the entry trade)
      * @param transactionCostModel the cost model for transactions of the asset
@@ -94,7 +92,7 @@ public class Position implements Serializable {
 
     /**
      * Constructor.
-     * 
+     *
      * @param entry the entry {@link Trade trade}
      * @param exit  the exit {@link Trade trade}
      */
@@ -104,7 +102,7 @@ public class Position implements Serializable {
 
     /**
      * Constructor.
-     * 
+     *
      * @param entry                the entry {@link Trade trade}
      * @param exit                 the exit {@link Trade trade}
      * @param transactionCostModel the cost model for transactions of the asset
@@ -159,17 +157,17 @@ public class Position implements Serializable {
 
     /**
      * Operates the position at the index-th position
-     * 
+     *
      * @param index the bar index
      * @return the trade
      */
     public Trade operate(int index) {
-        return operate(index, NaN, NaN);
+        return operate(index, Num.NaN, Num.NaN);
     }
 
     /**
      * Operates the position at the index-th position
-     * 
+     *
      * @param index  the bar index
      * @param price  the price
      * @param amount the amount
@@ -269,7 +267,7 @@ public class Position implements Serializable {
 
     /**
      * Calculate the gross profit of the position.
-     * 
+     *
      * @param finalPrice the price of the final bar to be considered (if position is
      *                   open)
      * @return the profit or loss of the position
@@ -318,7 +316,7 @@ public class Position implements Serializable {
      * Calculates the gross return of the position. If either the entry or the exit
      * price are <code>NaN</code>, the close price from the supplied
      * {@link BarSeries} is used.
-     * 
+     *
      * @param barSeries
      * @return the gross return in percent with entry and exit prices from the
      *         barSeries
@@ -332,14 +330,14 @@ public class Position implements Serializable {
     /**
      * Calculates the gross return between entry and exit price in percent. Includes
      * the base.
-     * 
+     *
      * <p>
      * For example:
      * <ul>
      * <li>For buy position with a profit of 4%, it returns 1.04 (includes the base)
      * <li>For sell position with a loss of 4%, it returns 0.96 (includes the base)
      * </ul>
-     * 
+     *
      * @param entryPrice the entry price
      * @param exitPrice  the exit price
      * @return the gross return in percent between entryPrice and exitPrice
@@ -356,7 +354,7 @@ public class Position implements Serializable {
 
     /**
      * Calculates the total cost of the position
-     * 
+     *
      * @param finalIndex the index of the final bar to be considered (if position is
      *                   open)
      * @return the cost of the position
@@ -369,7 +367,7 @@ public class Position implements Serializable {
 
     /**
      * Calculates the total cost of the closed position
-     * 
+     *
      * @return the cost of the position
      */
     public Num getPositionCost() {
@@ -380,7 +378,7 @@ public class Position implements Serializable {
 
     /**
      * Calculates the holding cost of the closed position
-     * 
+     *
      * @return the cost of the position
      */
     public Num getHoldingCost() {
@@ -389,7 +387,7 @@ public class Position implements Serializable {
 
     /**
      * Calculates the holding cost of the position
-     * 
+     *
      * @param finalIndex the index of the final bar to be considered (if position is
      *                   open)
      * @return the cost of the position

@@ -36,7 +36,7 @@ import org.ta4j.core.num.Num;
 public class IsFallingRule extends AbstractRule {
 
     /** The actual indicator */
-    private final Indicator<Num> ref;
+    private final Indicator ref;
     /** The barCount */
     private final int barCount;
     /** The minimum required strenght of the falling */
@@ -48,7 +48,7 @@ public class IsFallingRule extends AbstractRule {
      * @param ref      the indicator
      * @param barCount the time frame
      */
-    public IsFallingRule(Indicator<Num> ref, int barCount) {
+    public IsFallingRule(Indicator ref, int barCount) {
         this(ref, barCount, 1.0);
     }
 
@@ -60,7 +60,7 @@ public class IsFallingRule extends AbstractRule {
      * @param minStrenght the minimum required falling strength (between '0' and
      *                    '1', e.g. '1' for strict falling)
      */
-    public IsFallingRule(Indicator<Num> ref, int barCount, double minStrenght) {
+    public IsFallingRule(Indicator ref, int barCount, double minStrenght) {
         this.ref = ref;
         this.barCount = barCount;
         this.minStrength = minStrenght >= 1 ? 0.99 : minStrenght;

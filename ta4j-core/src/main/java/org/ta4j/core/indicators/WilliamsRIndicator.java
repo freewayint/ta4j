@@ -39,9 +39,9 @@ import org.ta4j.core.num.Num;
  * @see <a href=
  *      "https://www.investopedia.com/terms/w/williamsr.asp">https://www.investopedia.com/terms/w/williamsr.asp</a>
  */
-public class WilliamsRIndicator extends CachedIndicator<Num> {
+public class WilliamsRIndicator extends CachedIndicator {
 
-    private final Indicator<Num> closePriceIndicator;
+    private final Indicator closePriceIndicator;
     private final int barCount;
     private final HighPriceIndicator highPriceIndicator;
     private final LowPriceIndicator lowPriceIndicator;

@@ -40,8 +40,8 @@ import org.ta4j.core.num.Num;
  * indicator, HighPriceIndicator and LowPriceIndicator and returns
  * StochasticOsiclatorK over this indicator.
  */
-public class StochasticOscillatorKIndicator extends CachedIndicator<Num> {
-    private final Indicator<Num> indicator;
+public class StochasticOscillatorKIndicator extends CachedIndicator {
+    private final Indicator indicator;
 
     private final int barCount;
 
@@ -54,7 +54,7 @@ public class StochasticOscillatorKIndicator extends CachedIndicator<Num> {
                 new LowPriceIndicator(barSeries));
     }
 
-    public StochasticOscillatorKIndicator(Indicator<Num> indicator, int barCount, HighPriceIndicator highPriceIndicator,
+    public StochasticOscillatorKIndicator(Indicator indicator, int barCount, HighPriceIndicator highPriceIndicator,
             LowPriceIndicator lowPriceIndicator) {
         super(indicator);
         this.indicator = indicator;
@@ -74,7 +74,7 @@ public class StochasticOscillatorKIndicator extends CachedIndicator<Num> {
         return indicator.getValue(index)
                 .minus(lowestLowPrice)
                 .dividedBy(highestHighPrice.minus(lowestLowPrice))
-                .multipliedBy(hundred());
+                .multipliedBy(Num.valueOf(100));
     }
 
     @Override

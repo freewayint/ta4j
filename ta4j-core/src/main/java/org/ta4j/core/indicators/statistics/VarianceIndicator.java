@@ -31,9 +31,9 @@ import org.ta4j.core.num.Num;
 /**
  * Variance indicator.
  */
-public class VarianceIndicator extends CachedIndicator<Num> {
+public class VarianceIndicator extends CachedIndicator {
 
-    private final Indicator<Num> indicator;
+    private final Indicator indicator;
     private final int barCount;
     private final SMAIndicator sma;
 
@@ -43,7 +43,7 @@ public class VarianceIndicator extends CachedIndicator<Num> {
      * @param indicator the indicator
      * @param barCount  the time frame
      */
-    public VarianceIndicator(Indicator<Num> indicator, int barCount) {
+    public VarianceIndicator(Indicator indicator, int barCount) {
         super(indicator);
         this.indicator = indicator;
         this.barCount = barCount;

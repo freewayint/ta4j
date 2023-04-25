@@ -31,7 +31,7 @@ import org.ta4j.core.num.Num;
 /**
  * Typical price indicator.
  */
-public class TypicalPriceIndicator extends CachedIndicator<Num> {
+public class TypicalPriceIndicator extends CachedIndicator {
 
     public TypicalPriceIndicator(BarSeries series) {
         super(series);

@@ -39,11 +39,11 @@ public class OverIndicatorRule extends AbstractRule {
     /**
      * The first indicator
      */
-    private final Indicator<Num> first;
+    private final Indicator first;
     /**
      * The second indicator
      */
-    private final Indicator<Num> second;
+    private final Indicator second;
 
     /**
      * Constructor.
@@ -51,8 +51,8 @@ public class OverIndicatorRule extends AbstractRule {
      * @param indicator the indicator
      * @param threshold a threshold
      */
-    public OverIndicatorRule(Indicator<Num> indicator, Number threshold) {
-        this(indicator, indicator.numOf(threshold));
+    public OverIndicatorRule(Indicator indicator, Number threshold) {
+        this(indicator, Num.valueOf(threshold));
     }
 
     /**
@@ -61,8 +61,8 @@ public class OverIndicatorRule extends AbstractRule {
      * @param indicator the indicator
      * @param threshold a threshold
      */
-    public OverIndicatorRule(Indicator<Num> indicator, Num threshold) {
-        this(indicator, new ConstantIndicator<Num>(indicator.getBarSeries(), threshold));
+    public OverIndicatorRule(Indicator indicator, Num threshold) {
+        this(indicator, new ConstantIndicator(indicator.getBarSeries(), threshold));
     }
 
     /**
@@ -71,7 +71,7 @@ public class OverIndicatorRule extends AbstractRule {
      * @param first  the first indicator
      * @param second the second indicator
      */
-    public OverIndicatorRule(Indicator<Num> first, Indicator<Num> second) {
+    public OverIndicatorRule(Indicator first, Indicator second) {
         this.first = first;
         this.second = second;
     }

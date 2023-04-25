@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import org.ta4j.core.num.DecimalNum;
-import org.ta4j.core.num.DoubleNum;
 import org.ta4j.core.num.Num;
 
 public class BaseBarSeriesBuilder implements BarSeriesBuilder {
@@ -36,9 +34,7 @@ public class BaseBarSeriesBuilder implements BarSeriesBuilder {
     /**
      * Default instance of Num to determine its Num type and function.
      **/
-    private static Num defaultNum = DecimalNum.ZERO;
     private String name;
-    private Num num;
     private int maxBarCount;
 
     public BaseBarSeriesBuilder(int maxBarCount) {
@@ -46,27 +42,8 @@ public class BaseBarSeriesBuilder implements BarSeriesBuilder {
 		this.maxBarCount = maxBarCount;
     }
 
-    /**
-     * @param defaultNum any instance of Num to be used as default to determine its
-     *                   Num function; with this, we can convert a {@link Number} to
-     *                   a {@link Num Num implementation}
-     */
-    public static void setDefaultNum(Num defaultNum) {
-        BaseBarSeriesBuilder.defaultNum = defaultNum;
-    }
-
-    /**
-     * @param defaultFunction a Num function to be used as default; with this, we
-     *                        can convert a {@link Number} to a {@link Num Num
-     *                        implementation}
-     */
-    public static void setDefaultNum(Function<Number, Num> defaultFunction) {
-        BaseBarSeriesBuilder.defaultNum = defaultFunction.apply(0);
-    }
-
     private void initValues() {
         this.name = "unnamed_series";
-        this.num = BaseBarSeriesBuilder.defaultNum;
         this.maxBarCount = Integer.MAX_VALUE;
     }
 
@@ -74,7 +51,7 @@ public class BaseBarSeriesBuilder implements BarSeriesBuilder {
     public BaseBarSeries build() {
         int beginIndex = -1;
         int endIndex = -1;
-        BaseBarSeries series = new BaseBarSeries(name, maxBarCount, beginIndex, endIndex, num);
+        BaseBarSeries series = new BaseBarSeries(name, maxBarCount, beginIndex, endIndex);
         initValues(); // reinitialize values for next series
         return series;
     }
@@ -96,43 +73,4 @@ public class BaseBarSeriesBuilder implements BarSeriesBuilder {
         this.maxBarCount = maxBarCount;
         return this;
     }
-
-    /**
-     * @param type any instance of Num to determine its Num function; with this, we
-     *             can convert a {@link Number} to a {@link Num Num implementation}
-     * @return {@code this}
-     */
-    public BaseBarSeriesBuilder withNumTypeOf(Num type) {
-        this.num = type;
-        return this;
-    }
-
-    /**
-     * @param type any Num function; with this, we can convert a {@link Number} to a
-     *             {@link Num Num implementation}
-     * @return {@code this}
-     */
-    public BaseBarSeriesBuilder withNumTypeOf(Function<Number, Num> function) {
-        this.num = function.apply(0);
-        return this;
-    }
-
-    /**
-     * @param clazz any Num class; with this, we can convert a {@link Number} to a
-     *              {@link Num Num implementation}; if {@code clazz} is not
-     *              registered, then {@link #defaultNum} is used.
-     * @return {@code this}
-     */
-    public BaseBarSeriesBuilder withNumTypeOf(Class<? extends Num> clazz) {
-        if (clazz == DecimalNum.class) {
-            this.num = DecimalNum.ZERO;
-            return this;
-        } else if (clazz == DoubleNum.class) {
-            this.num = DoubleNum.ZERO;
-            return this;
-        }
-        this.num = defaultNum;
-        return this;
-    }
-
 }

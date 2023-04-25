@@ -25,6 +25,7 @@ package org.ta4j.core.rules;
 
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TradingRecord;
+import org.ta4j.core.num.Num;
 
 /**
  * A boolean-indicator-based rule.
@@ -33,27 +34,27 @@ import org.ta4j.core.TradingRecord;
  */
 public class BooleanIndicatorRule extends AbstractRule {
 
-    private final Indicator<Boolean> indicator;
+    private final Indicator indicator;
 
     /**
      * Constructor.
      *
      * @param indicator a boolean indicator
      */
-    public BooleanIndicatorRule(Indicator<Boolean> indicator) {
+    public BooleanIndicatorRule(Indicator indicator) {
         this.indicator = indicator;
     }
 
     /** This rule does not use the {@code tradingRecord}. */
     @Override
     public boolean isSatisfied(int index, TradingRecord tradingRecord) {
-        final boolean satisfied = indicator.getValue(index);
+        final boolean satisfied = indicator.getValue(index).doubleValue() != .0;
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }
 
 	@Override
 	public boolean isSatisfiedNow() { // andrewp
-		return indicator.getValue(indicator.getBarSeries().getEndIndex());
+		return indicator.getValue(indicator.getBarSeries().getEndIndex()).doubleValue() != .0;
 	}
 }

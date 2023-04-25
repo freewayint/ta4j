@@ -23,347 +23,268 @@
  */
 package org.ta4j.core.num;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
-import java.util.function.Function;
+import java.io.Serializable;
 
-/**
- * Ta4js definition of operations that must be fulfilled by an object that
- * should be used as base for calculations
- * 
- * @see Num
- * @see Num#function()
- * @see DoubleNum
- * @see DecimalNum
- * 
- */
-public interface Num extends Comparable<Num> {
+// andrewp: DoubleNum -> Num collapsed
+public final class Num implements Comparable<Num>, Serializable {
+	public static final Num NaN = Num.valueOf(Double.NaN);
+	public static final Num ZERO = Num.valueOf(0);
+    public static final Num ONE = Num.valueOf(1);
 
-    /**
-     * @return the Num of 0
-     */
-    default Num zero() {
-        return numOf(0);
+	private final double delegate;
+
+	private Num(double val) {
+        delegate = val;
     }
 
-    /**
-     * @return the Num of 1
-     */
-    default Num one() {
-        return numOf(1);
+    public Num numOf(Number value) {
+        return new Num((double) value);
     }
 
-    /**
-     * @return the Num of 100
-     */
-    default Num hundred() {
-        return numOf(100);
+    public static Num valueOf(int i) {
+        return new Num((double) i);
     }
 
-    /**
-     * @return the delegate used from this <code>Num</code> implementation
-     */
-    Number getDelegate();
+	public static Num valueOf(boolean i) {
+        return new Num(i ? 1.0 : 0.0);
+    }
 
-    /**
-     * Returns the name/description of this Num implementation
-     * 
-     * @return the name/description
-     */
-    String getName();
+    public static Num valueOf(long i) {
+        return new Num((double) i);
+    }
 
-    /**
-     * Returns a {@code num} whose value is {@code (this + augend)},
-     * 
-     * @param augend value to be added to this {@code num}.
-     * @return {@code this + augend}, rounded as necessary
-     */
-    Num plus(Num augend);
+    public static Num valueOf(short i) {
+        return new Num((double) i);
+    }
 
-    /**
-     * Returns a {@code num} whose value is {@code (this - augend)},
-     * 
-     * @param subtrahend value to be subtracted from this {@code num}.
-     * @return {@code this - subtrahend}, rounded as necessary
-     */
-    Num minus(Num subtrahend);
+    public static Num valueOf(float i) {
+        return new Num((double) i);
+    }
 
-    /**
-     * Returns a {@code num} whose value is {@code this * multiplicand},
-     * 
-     * @param multiplicand value to be multiplied by this {@code num}.
-     * @return {@code this * multiplicand}, rounded as necessary
-     */
-    Num multipliedBy(Num multiplicand);
+    public static Num valueOf(String i) {
+        return new Num(Double.parseDouble(i));
+    }
 
-    /**
-     * Returns a {@code num} whose value is {@code (this / divisor)},
-     * 
-     * @param divisor value by which this {@code num} is to be divided.
-     * @return {@code this / divisor}, rounded as necessary
-     */
-    Num dividedBy(Num divisor);
+    public static Num valueOf(Number i) {
+        return new Num(i.doubleValue());
+    }
 
-    /**
-     * Returns a {@code num} whose value is {@code (this % divisor)},
-     * 
-     * @param divisor value by which this {@code num} is to be divided.
-     * @return {@code this % divisor}, rounded as necessary.
-     */
-    Num remainder(Num divisor);
+    public Num zero() {
+        return ZERO;
+    }
 
-    /**
-     * Returns a {@code Num} whose value is rounded down to the nearest whole
-     * number.
-     *
-     * @return <code>this</code> to whole Num rounded down
-     */
-    Num floor();
+    public Num one() {
+        return ONE;
+    }
 
-    /**
-     * Returns a {@code Num} whose value is rounded up to the nearest whole number.
-     * 
-     * @return <code>this</code> to whole Num rounded up
-     */
-    Num ceil();
+    public Num plus(Num augend) {
+        return new Num(delegate + augend.delegate);
+    }
 
-    /**
-     * Returns a {@code num} whose value is <code>(this<sup>n</sup>)</code>.
-     * 
-     * @param n power to raise this {@code num} to.
-     * @return <code>this<sup>n</sup></code>
-     */
-    Num pow(int n);
+    public Num minus(Num subtrahend) {
+        return new Num(delegate - subtrahend.delegate);
+    }
 
-    /**
-     * Returns a {@code num} whose value is <code>(this<sup>n</sup>)</code>.
-     * 
-     * @param n power to raise this {@code num} to.
-     * @return <code>this<sup>n</sup></code>
-     */
-    Num pow(Num n);
+    public Num multipliedBy(Num multiplicand) {
+        return new Num(delegate * multiplicand.delegate);
+    }
 
-    /**
-     * Returns a {@code num} whose value is <code>ln(this)</code>.
-     * 
-     * @return <code>this<sup>n</sup></code>
-     */
-    Num log();
+    public Num dividedBy(Num divisor) {
+        if (divisor.isZero()) {
+            return NaN;
+        }
+        return new Num(delegate / divisor.delegate);
+    }
 
-    /**
-     * Returns a {@code num} whose value is <code>√(this)</code>.
-     * 
-     * @return <code>this<sup>n</sup></code>
-     */
-    Num sqrt();
+    public Num remainder(Num divisor) {
+        return new Num(delegate % divisor.delegate);
+    }
 
-    /**
-     * Returns a {@code num} whose value is <code>√(this)</code>.
-     * 
-     * @param precision to calculate.
-     * @return <code>this<sup>n</sup></code>
-     */
-    Num sqrt(int precision);
+    public Num floor() {
+        return new Num(Math.floor(delegate));
+    }
 
-    /**
-     * Returns a {@code num} whose value is the absolute value of this {@code num}.
-     * 
-     * @return {@code abs(this)}
-     */
-    Num abs();
+    public Num ceil() {
+        return new Num(Math.ceil(delegate));
+    }
 
-    /**
-     * Returns a {@code num} whose value is (-this), and whose scale is
-     * this.scale().
-     * 
-     * @return {@code negate(this)}
-     */
-    Num negate();
+    public Num pow(int n) {
+        return new Num(Math.pow(delegate, n));
+    }
 
-    /**
-     * Checks if the value is zero.
-     * 
-     * @return true if the value is zero, false otherwise
-     */
-    boolean isZero();
+    public Num pow(Num n) {
+        return new Num(Math.pow(delegate, n.doubleValue()));
+    }
 
-    /**
-     * Checks if the value is greater than zero.
-     * 
-     * @return true if the value is greater than zero, false otherwise
-     */
-    boolean isPositive();
+    public Num sqrt() {
+        if (delegate < 0) {
+            return NaN;
+        }
+        return new Num(Math.sqrt(delegate));
+    }
 
-    /**
-     * Checks if the value is zero or greater.
-     * 
-     * @return true if the value is zero or greater, false otherwise
-     */
-    boolean isPositiveOrZero();
+    public Num sqrt(int precision) {
+        return sqrt();
+    }
 
-    /**
-     * Checks if the value is less than zero.
-     * 
-     * @return true if the value is less than zero, false otherwise
-     */
-    boolean isNegative();
+    public Num abs() {
+        return new Num(Math.abs(delegate));
+    }
 
-    /**
-     * Checks if the value is zero or less.
-     * 
-     * @return true if the value is zero or less, false otherwise
-     */
-    boolean isNegativeOrZero();
+    public Num negate() {
+        return new Num(-delegate);
+    }
 
-    /**
-     * Checks if this value is equal to another.
-     * 
-     * @param other the other value, not null
-     * @return true if this is equal to the specified value, false otherwise
-     */
-    boolean isEqual(Num other);
+    public boolean isZero() {
+        return delegate == 0;
+    }
+
+    public boolean isPositive() {
+        return delegate > 0;
+    }
+
+    public boolean isPositiveOrZero() {
+        return delegate >= 0;
+    }
+
+    public boolean isNegative() {
+        return delegate < 0;
+    }
+
+    public boolean isNegativeOrZero() {
+        return delegate <= 0;
+    }
+
+    public boolean isEqual(Num other) {
+        return delegate == other.delegate;
+    }
+
+    public Num log() {
+        if (delegate <= 0) {
+            return NaN;
+        }
+        return new Num(Math.log(delegate));
+    }
 
     /**
      * Checks if this value is greater than another.
-     * 
+     *
      * @param other the other value, not null
-     * @return true if this is greater than the specified value, false otherwise
+     * @return true is this is greater than the specified value, false otherwise
      */
-    boolean isGreaterThan(Num other);
-
-    /**
-     * Checks if this value is greater than or equal to another.
-     * 
-     * @param other the other value, not null
-     * @return true if this is greater than or equal to the specified value, false
-     *         otherwise
-     */
-    boolean isGreaterThanOrEqual(Num other);
-
-    /**
-     * Checks if this value is less than another.
-     * 
-     * @param other the other value, not null
-     * @return true if this is less than the specified value, false otherwise
-     */
-    boolean isLessThan(Num other);
-
-    /**
-     * Checks if this value is less than another.
-     * 
-     * @param other the other value, not null
-     * @return true if this is less than or equal the specified value, false
-     *         otherwise
-     */
-    boolean isLessThanOrEqual(Num other);
-
-    /**
-     * Returns the minimum of this {@code num} and {@code other}.
-     * 
-     * @param other value with which the minimum is to be computed
-     * @return the {@code num} whose value is the lesser of this {@code num} and
-     *         {@code other}. If they are equal, method, {@code this} is returned.
-     */
-    Num min(Num other);
-
-    /**
-     * Returns the maximum of this {@code num} and {@code other}.
-     * 
-     * @param other value with which the maximum is to be computed
-     * @return the {@code num} whose value is the greater of this {@code num} and
-     *         {@code other}. If they are equal, method, {@code this} is returned.
-     */
-    Num max(Num other);
-
-    /**
-     * Returns the {@link Function} to convert a number instance into the
-     * corresponding Num instance
-     * 
-     * @return function which converts a number instance into the corresponding Num
-     *         instance
-     */
-    Function<Number, Num> function();
-
-    /**
-     * Transforms a {@link Number} into a new Num instance of this <code>Num</code>
-     * implementation
-     * 
-     * @param value the Number to transform
-     * @return the corresponding Num implementation of the <code>value</code>
-     */
-    default Num numOf(Number value) {
-        return function().apply(value);
+    public boolean isGreaterThan(Num other) {
+        return delegate > other.delegate;
     }
 
     /**
-     * Transforms a {@link String} into a new Num instance of this with a precision
-     * <code>Num</code> implementation
-     * 
-     * @param value     the String to transform
-     * @param precision the precision
-     * @return the corresponding Num implementation of the <code>value</code>
+     * Checks if this value is greater than or equal to another.
+     *
+     * @param other the other value, not null
+     * @return true is this is greater than or equal to the specified value, false
+     *         otherwise
      */
-    default Num numOf(String value, int precision) {
-        MathContext mathContext = new MathContext(precision, RoundingMode.HALF_UP);
-        return this.numOf(new BigDecimal(value, mathContext));
+    public boolean isGreaterThanOrEqual(Num other) {
+        return delegate >= other.delegate;
+    }
+
+    /**
+     * Checks if this value is less than another.
+     *
+     * @param other the other value, not null
+     * @return true is this is less than the specified value, false otherwise
+     */
+    public boolean isLessThan(Num other) {
+        return delegate < other.delegate;
+    }
+
+    public boolean isLessThanOrEqual(Num other) {
+        return delegate <= other.delegate;
+    }
+
+    public Num min(Num other) {
+		if (delegate < other.delegate)
+			return this;
+		else
+			return other;
+    }
+
+    public Num max(Num other) {
+        if (delegate > other.delegate)
+			return this;
+		else
+			return other;
+    }
+
+    @Override
+    public int hashCode() {
+        return ((Double) (delegate)).hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return Double.toString(delegate);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Num)) {
+            return false;
+        }
+
+		Num otherNum = (Num) obj;
+		return delegate == otherNum.delegate;
+    }
+
+    @Override
+    public int compareTo(Num o) {
+        if (this == NaN || o == NaN) {
+            return 0;
+        }
+        return Double.compare(delegate, o.delegate);
     }
 
     /**
      * Only for NaN this should be true
-     * 
+     *
      * @return false if this implementation is not NaN
      */
-    default boolean isNaN() {
-        return false;
+    public boolean isNaN() {
+        return this == NaN || Double.isNaN(delegate);
     }
 
     /**
      * Converts this {@code num} to a {@code double}.
-     * 
+     *
      * @return this {@code num} converted to a {@code double}
      */
-    default double doubleValue() {
-        return getDelegate().doubleValue();
+    public double doubleValue() {
+        return delegate;
     }
 
     /**
      * Converts this {@code num} to an {@code integer}.
-     * 
+     *
      * @return this {@code num} converted to an {@code integer}
      */
-    default int intValue() {
-        return getDelegate().intValue();
+    public int intValue() {
+        return (int) delegate;
     }
 
     /**
      * Converts this {@code num} to a {@code long}.
-     * 
+     *
      * @return this {@code num} converted to a {@code loong}
      */
-    default long longValue() {
-        return getDelegate().longValue();
+    public long longValue() {
+        return (long) delegate;
     }
 
     /**
      * Converts this {@code num} to a {@code float}.
-     * 
+     *
      * @return this {@code num} converted to a {@code float}
      */
-    default float floatValue() {
-        return getDelegate().floatValue();
+    public float floatValue() {
+        return (float) delegate;
     }
-
-    @Override
-    int hashCode();
-
-    @Override
-    String toString();
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    boolean equals(Object obj);
-
 }

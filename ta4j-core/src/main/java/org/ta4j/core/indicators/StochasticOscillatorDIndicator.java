@@ -32,15 +32,15 @@ import org.ta4j.core.num.Num;
  * Receive {@link StochasticOscillatorKIndicator} and returns its
  * {@link SMAIndicator SMAIndicator(3)}.
  */
-public class StochasticOscillatorDIndicator extends CachedIndicator<Num> {
+public class StochasticOscillatorDIndicator extends CachedIndicator {
 
-    private Indicator<Num> indicator;
+    private Indicator indicator;
 
     public StochasticOscillatorDIndicator(StochasticOscillatorKIndicator k) {
         this(new SMAIndicator(k, 3));
     }
 
-    public StochasticOscillatorDIndicator(Indicator<Num> indicator) {
+    public StochasticOscillatorDIndicator(Indicator indicator) {
         super(indicator);
         this.indicator = indicator;
     }

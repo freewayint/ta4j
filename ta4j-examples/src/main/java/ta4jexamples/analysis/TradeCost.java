@@ -81,7 +81,7 @@ public class TradeCost {
     }
 
     private static Strategy buildShortSellingMomentumStrategy(BarSeries series) {
-        Indicator<Num> closingPrices = new ClosePriceIndicator(series);
+        Indicator closingPrices = new ClosePriceIndicator(series);
         SMAIndicator shortEma = new SMAIndicator(closingPrices, 10);
         SMAIndicator longEma = new SMAIndicator(closingPrices, 50);
         Rule shortOverLongRule = new OverIndicatorRule(shortEma, longEma);

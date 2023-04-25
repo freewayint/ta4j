@@ -25,21 +25,22 @@ package org.ta4j.core.indicators.helpers;
 
 import org.ta4j.core.BarSeries;
 import org.ta4j.core.indicators.AbstractIndicator;
+import org.ta4j.core.num.Num;
 
 /**
  * Constant indicator.
  */
-public class ConstantIndicator<T> extends AbstractIndicator<T> {
+public class ConstantIndicator extends AbstractIndicator {
 
-    private final T value;
+    private final Num value;
 
-    public ConstantIndicator(BarSeries series, T t) {
+    public ConstantIndicator(BarSeries series, Num t) {
         super(series);
         this.value = t;
     }
 
     @Override
-    public T getValue(int index) {
+    public Num getValue(int index) {
         return value;
     }
 

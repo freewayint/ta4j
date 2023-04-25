@@ -42,39 +42,39 @@ import org.ta4j.core.rules.OverIndicatorRule;
 import org.ta4j.core.rules.UnderIndicatorRule;
 
 /**
- * NumericIndicator is a "fluent decorator" for Indicator<Num>. It provides
+ * NumericIndicator is a "fluent decorator" for Indicator. It provides
  * methods to create rules and other "lightweight" indicators, using a
  * (hopefully) natural-looking and expressive series of method calls.
  * <p>
  * Methods like plus(), minus() and sqrt() correspond directly to methods in the
  * Num interface. These methods create "lightweight" (not cached) indicators to
  * add, subtract, etc. Many methods are overloaded to accept either
- * Indicator<Num> or Number arguments.
+ * Indicator or Number arguments.
  * <p>
  * Methods like sma() and ema() simply create the corresponding indicator
  * objects, (SMAIndicator or EMAIndicator, for example) with "this" as the first
  * argument. These methods usually instantiate cached objects.
  * <p>
  * Another set of methods, like crossedOver() and isGreaterThan() create Rule
- * objects. These are also overloaded to accept both Indicator<Num> and Number
+ * objects. These are also overloaded to accept both Indicator and Number
  * arguments.
  */
-public class NumericIndicator implements Indicator<Num> {
+public class NumericIndicator implements Indicator {
 
     /**
      * Creates a fluent NumericIndicator wrapped around a "regular" indicator.
-     * 
+     *
      * @param delegate an indicator
-     * 
+     *
      * @return a fluent NumericIndicator wrapped around the argument
      */
-    public static NumericIndicator of(Indicator<Num> delegate) {
+    public static NumericIndicator of(Indicator delegate) {
         return new NumericIndicator(delegate);
     }
 
     /**
      * Creates a fluent version of the ClosePriceIndicator
-     * 
+     *
      * @return a NumericIndicator wrapped around a ClosePriceIndicator
      */
     public static NumericIndicator closePrice(BarSeries bs) {
@@ -83,24 +83,24 @@ public class NumericIndicator implements Indicator<Num> {
 
     /**
      * Creates a fluent version of the VolumeIndicator
-     * 
+     *
      * @return a NumericIndicator wrapped around a VolumeIndicator
      */
     public static NumericIndicator volume(BarSeries bs) {
         return of(new VolumeIndicator(bs));
     }
 
-    protected final Indicator<Num> delegate;
+    protected final Indicator delegate;
 
-    protected NumericIndicator(Indicator<Num> delegate) {
+    protected NumericIndicator(Indicator delegate) {
         this.delegate = delegate;
     }
 
-    public Indicator<Num> delegate() {
+    public Indicator delegate() {
         return delegate;
     }
 
-    public NumericIndicator plus(Indicator<Num> other) {
+    public NumericIndicator plus(Indicator other) {
         return NumericIndicator.of(BinaryOperation.sum(this, other));
     }
 
@@ -108,7 +108,7 @@ public class NumericIndicator implements Indicator<Num> {
         return plus(createConstant(n));
     }
 
-    public NumericIndicator minus(Indicator<Num> other) {
+    public NumericIndicator minus(Indicator other) {
         return NumericIndicator.of(BinaryOperation.difference(this, other));
     }
 
@@ -116,7 +116,7 @@ public class NumericIndicator implements Indicator<Num> {
         return minus(createConstant(n));
     }
 
-    public NumericIndicator multipliedBy(Indicator<Num> other) {
+    public NumericIndicator multipliedBy(Indicator other) {
         return NumericIndicator.of(BinaryOperation.product(this, other));
     }
 
@@ -124,7 +124,7 @@ public class NumericIndicator implements Indicator<Num> {
         return multipliedBy(createConstant(n));
     }
 
-    public NumericIndicator dividedBy(Indicator<Num> other) {
+    public NumericIndicator dividedBy(Indicator other) {
         return NumericIndicator.of(BinaryOperation.quotient(this, other));
     }
 
@@ -132,7 +132,7 @@ public class NumericIndicator implements Indicator<Num> {
         return dividedBy(createConstant(n));
     }
 
-    public NumericIndicator min(Indicator<Num> other) {
+    public NumericIndicator min(Indicator other) {
         return NumericIndicator.of(BinaryOperation.min(this, other));
     }
 
@@ -140,7 +140,7 @@ public class NumericIndicator implements Indicator<Num> {
         return min(createConstant(n));
     }
 
-    public NumericIndicator max(Indicator<Num> other) {
+    public NumericIndicator max(Indicator other) {
         return NumericIndicator.of(BinaryOperation.max(this, other));
     }
 
@@ -185,11 +185,11 @@ public class NumericIndicator implements Indicator<Num> {
         return NumericIndicator.of(new PreviousValueIndicator(this, n));
     }
 
-    public Indicator<Num> previous() {
+    public Indicator previous() {
         return previous(1);
     }
 
-    public Rule crossedOver(Indicator<Num> other) {
+    public Rule crossedOver(Indicator other) {
         return new CrossedUpIndicatorRule(this, other);
     }
 
@@ -197,7 +197,7 @@ public class NumericIndicator implements Indicator<Num> {
         return crossedOver(createConstant(n));
     }
 
-    public Rule crossedUnder(Indicator<Num> other) {
+    public Rule crossedUnder(Indicator other) {
         return new CrossedDownIndicatorRule(this, other);
     }
 
@@ -205,7 +205,7 @@ public class NumericIndicator implements Indicator<Num> {
         return crossedUnder(createConstant(n));
     }
 
-    public Rule isGreaterThan(Indicator<Num> other) {
+    public Rule isGreaterThan(Indicator other) {
         return new OverIndicatorRule(this, other);
     }
 
@@ -213,7 +213,7 @@ public class NumericIndicator implements Indicator<Num> {
         return isGreaterThan(createConstant(n));
     }
 
-    public Rule isLessThan(Indicator<Num> other) {
+    public Rule isLessThan(Indicator other) {
         return new UnderIndicatorRule(this, other);
     }
 
@@ -221,8 +221,8 @@ public class NumericIndicator implements Indicator<Num> {
         return isLessThan(createConstant(n));
     }
 
-    private Indicator<Num> createConstant(Number n) {
-        return new ConstantIndicator<>(getBarSeries(), numOf(n));
+    private Indicator createConstant(Number n) {
+        return new ConstantIndicator(getBarSeries(), numOf(n));
     }
 
     @Override

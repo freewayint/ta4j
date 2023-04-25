@@ -34,7 +34,7 @@ import org.ta4j.core.num.Num;
  * @see <a href="http://www.investopedia.com/terms/b/bearishharami.asp">
  *      http://www.investopedia.com/terms/b/bearishharami.asp</a>
  */
-public class BearishHaramiIndicator extends CachedIndicator<Boolean> {
+public class BearishHaramiIndicator extends CachedIndicator {
 
     /**
      * Constructor.
@@ -46,10 +46,10 @@ public class BearishHaramiIndicator extends CachedIndicator<Boolean> {
     }
 
     @Override
-    protected Boolean calculate(int index) {
+    protected Num calculate(int index) {
         if (index < 1) {
             // Harami is a 2-candle pattern
-            return false;
+            return Num.ZERO;
         }
         Bar prevBar = getBarSeries().getBar(index - 1);
         Bar currBar = getBarSeries().getBar(index);
@@ -58,9 +58,9 @@ public class BearishHaramiIndicator extends CachedIndicator<Boolean> {
             final Num prevClosePrice = prevBar.getClosePrice();
             final Num currOpenPrice = currBar.getOpenPrice();
             final Num currClosePrice = currBar.getClosePrice();
-            return currOpenPrice.isGreaterThan(prevOpenPrice) && currOpenPrice.isLessThan(prevClosePrice)
-                    && currClosePrice.isGreaterThan(prevOpenPrice) && currClosePrice.isLessThan(prevClosePrice);
+            return (currOpenPrice.isGreaterThan(prevOpenPrice) && currOpenPrice.isLessThan(prevClosePrice)
+                    && currClosePrice.isGreaterThan(prevOpenPrice) && currClosePrice.isLessThan(prevClosePrice)) ? Num.ONE : Num.ZERO;
         }
-        return false;
+        return Num.ZERO;
     }
 }

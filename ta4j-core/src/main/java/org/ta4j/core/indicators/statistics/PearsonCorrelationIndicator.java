@@ -23,8 +23,6 @@
  */
 package org.ta4j.core.indicators.statistics;
 
-import static org.ta4j.core.num.NaN.NaN;
-
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.RecursiveCachedIndicator;
 import org.ta4j.core.num.Num;
@@ -36,10 +34,10 @@ import org.ta4j.core.num.Num;
  *      "http://www.statisticshowto.com/probability-and-statistics/correlation-coefficient-formula/">
  *      http://www.statisticshowto.com/probability-and-statistics/correlation-coefficient-formula/</a>
  */
-public class PearsonCorrelationIndicator extends RecursiveCachedIndicator<Num> {
+public class PearsonCorrelationIndicator extends RecursiveCachedIndicator {
 
-    private final Indicator<Num> indicator1;
-    private final Indicator<Num> indicator2;
+    private final Indicator indicator1;
+    private final Indicator indicator2;
     private final int barCount;
 
     /**
@@ -49,7 +47,7 @@ public class PearsonCorrelationIndicator extends RecursiveCachedIndicator<Num> {
      * @param indicator2 the second indicator
      * @param barCount   the time frame
      */
-    public PearsonCorrelationIndicator(Indicator<Num> indicator1, Indicator<Num> indicator2, int barCount) {
+    public PearsonCorrelationIndicator(Indicator indicator1, Indicator indicator2, int barCount) {
         super(indicator1);
         this.indicator1 = indicator1;
         this.indicator2 = indicator2;
@@ -90,6 +88,6 @@ public class PearsonCorrelationIndicator extends RecursiveCachedIndicator<Num> {
             return (n.multipliedBy(Sxy).minus(Sx.multipliedBy(Sy))).dividedBy(toSqrt.sqrt());
         }
 
-        return NaN;
+        return Num.NaN;
     }
 }

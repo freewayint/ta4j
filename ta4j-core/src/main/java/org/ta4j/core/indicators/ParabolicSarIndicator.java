@@ -23,8 +23,6 @@
  */
 package org.ta4j.core.indicators;
 
-import static org.ta4j.core.num.NaN.NaN;
-
 import org.ta4j.core.BarSeries;
 import org.ta4j.core.indicators.helpers.HighPriceIndicator;
 import org.ta4j.core.indicators.helpers.HighestValueIndicator;
@@ -44,7 +42,7 @@ import java.util.Map;
  * @see <a href="https://www.investopedia.com/terms/p/parabolicindicator.asp">
  *      https://www.investopedia.com/terms/p/parabolicindicator.asp</a>
  */
-public class ParabolicSarIndicator extends RecursiveCachedIndicator<Num> {
+public class ParabolicSarIndicator extends RecursiveCachedIndicator {
 
     private final Map<Integer, Boolean> isUpTrendMap = new HashMap<>();
     private final Map<Integer, Num> lastExtreme = new HashMap<>();
@@ -94,7 +92,7 @@ public class ParabolicSarIndicator extends RecursiveCachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
-        Num sar = NaN;
+        Num sar = Num.NaN;
         boolean is_up_trend;
 
         if (index == getBarSeries().getBeginIndex()) {

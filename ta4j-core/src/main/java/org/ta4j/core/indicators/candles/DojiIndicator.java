@@ -40,12 +40,12 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:introduction_to_candlesticks#doji">
  *      http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:introduction_to_candlesticks#doji</a>
  */
-public class DojiIndicator extends CachedIndicator<Boolean> {
+public class DojiIndicator extends CachedIndicator {
 
     /**
      * Body height
      */
-    private final Indicator<Num> bodyHeightInd;
+    private final Indicator bodyHeightInd;
     /**
      * Average body height
      */
@@ -69,14 +69,14 @@ public class DojiIndicator extends CachedIndicator<Boolean> {
     }
 
     @Override
-    protected Boolean calculate(int index) {
+    protected Num calculate(int index) {
         if (index < 1) {
-            return bodyHeightInd.getValue(index).isZero();
+            return bodyHeightInd.getValue(index).isZero() ? Num.ONE : Num.ZERO;
         }
 
         Num averageBodyHeight = averageBodyHeightInd.getValue(index - 1);
         Num currentBodyHeight = bodyHeightInd.getValue(index);
 
-        return currentBodyHeight.isLessThan(averageBodyHeight.multipliedBy(factor));
+        return currentBodyHeight.isLessThan(averageBodyHeight.multipliedBy(factor)) ? Num.ONE : Num.ZERO;
     }
 }

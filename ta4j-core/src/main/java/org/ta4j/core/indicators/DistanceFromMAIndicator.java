@@ -40,12 +40,12 @@ import org.ta4j.core.num.Num;
  *      https://school.stockcharts.com/doku.php?id=technical_indicators:distance_from_ma
  *      </a>
  */
-public class DistanceFromMAIndicator extends CachedIndicator<Num> {
+public class DistanceFromMAIndicator extends CachedIndicator {
     private static final Set<Class<?>> supportedMovingAverages = new HashSet<>(
             Arrays.asList(EMAIndicator.class, DoubleEMAIndicator.class, TripleEMAIndicator.class, SMAIndicator.class,
                     WMAIndicator.class, ZLEMAIndicator.class, HMAIndicator.class, KAMAIndicator.class,
                     LWMAIndicator.class, AbstractEMAIndicator.class, MMAIndicator.class));
-    private final Indicator<Num> movingAverage;
+    private final Indicator movingAverage;
 
     /**
      * Constructor.
@@ -53,7 +53,7 @@ public class DistanceFromMAIndicator extends CachedIndicator<Num> {
      * @param series        the bar series {@link BarSeries}.
      * @param movingAverage the moving average.
      */
-    public DistanceFromMAIndicator(BarSeries series, Indicator<Num> movingAverage) {
+    public DistanceFromMAIndicator(BarSeries series, Indicator movingAverage) {
         super(series);
         if (!(supportedMovingAverages.contains(movingAverage.getClass()))) {
             throw new IllegalArgumentException(

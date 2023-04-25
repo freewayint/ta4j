@@ -37,7 +37,7 @@ import org.ta4j.core.num.Num;
  * @see <a href="http://www.investopedia.com/terms/p/pvi.asp">
  *      http://www.investopedia.com/terms/p/pvi.asp</a>
  */
-public class PVIIndicator extends RecursiveCachedIndicator<Num> {
+public class PVIIndicator extends RecursiveCachedIndicator {
 
     public PVIIndicator(BarSeries series) {
         super(series);

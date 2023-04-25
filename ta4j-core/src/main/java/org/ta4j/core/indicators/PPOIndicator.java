@@ -33,7 +33,7 @@ import org.ta4j.core.num.Num;
  * @see <a href=
  *      "https://www.investopedia.com/terms/p/ppo.asp">https://www.investopedia.com/terms/p/ppo.asp</a>
  */
-public class PPOIndicator extends CachedIndicator<Num> {
+public class PPOIndicator extends CachedIndicator {
 
     private final EMAIndicator shortTermEma;
     private final EMAIndicator longTermEma;
@@ -43,7 +43,7 @@ public class PPOIndicator extends CachedIndicator<Num> {
      *
      * @param indicator the indicator
      */
-    public PPOIndicator(Indicator<Num> indicator) {
+    public PPOIndicator(Indicator indicator) {
         this(indicator, 12, 26);
     }
 
@@ -54,7 +54,7 @@ public class PPOIndicator extends CachedIndicator<Num> {
      * @param shortBarCount the short time frame
      * @param longBarCount  the long time frame
      */
-    public PPOIndicator(Indicator<Num> indicator, int shortBarCount, int longBarCount) {
+    public PPOIndicator(Indicator indicator, int shortBarCount, int longBarCount) {
         super(indicator);
         if (shortBarCount > longBarCount) {
             throw new IllegalArgumentException("Long term period count must be greater than short term period count");
@@ -67,6 +67,6 @@ public class PPOIndicator extends CachedIndicator<Num> {
     protected Num calculate(int index) {
         Num shortEmaValue = shortTermEma.getValue(index);
         Num longEmaValue = longTermEma.getValue(index);
-        return shortEmaValue.minus(longEmaValue).dividedBy(longEmaValue).multipliedBy(hundred());
+        return shortEmaValue.minus(longEmaValue).dividedBy(longEmaValue).multipliedBy(Num.valueOf(100));
     }
 }

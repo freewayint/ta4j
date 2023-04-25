@@ -39,11 +39,11 @@ public class IsEqualRule extends AbstractRule {
     /**
      * The first indicator
      */
-    private final Indicator<Num> first;
+    private final Indicator first;
     /**
      * The second indicator
      */
-    private final Indicator<Num> second;
+    private final Indicator second;
 
     /**
      * Constructor.
@@ -51,7 +51,7 @@ public class IsEqualRule extends AbstractRule {
      * @param indicator the indicator
      * @param value     the value to check
      */
-    public IsEqualRule(Indicator<Num> indicator, Number value) {
+    public IsEqualRule(Indicator indicator, Number value) {
         this(indicator, indicator.numOf(value));
     }
 
@@ -61,8 +61,8 @@ public class IsEqualRule extends AbstractRule {
      * @param indicator the indicator
      * @param value     the value to check
      */
-    public IsEqualRule(Indicator<Num> indicator, Num value) {
-        this(indicator, new ConstantIndicator<>(indicator.getBarSeries(), value));
+    public IsEqualRule(Indicator indicator, Num value) {
+        this(indicator, new ConstantIndicator(indicator.getBarSeries(), value));
     }
 
     /**
@@ -71,7 +71,7 @@ public class IsEqualRule extends AbstractRule {
      * @param first  the first indicator
      * @param second the second indicator
      */
-    public IsEqualRule(Indicator<Num> first, Indicator<Num> second) {
+    public IsEqualRule(Indicator first, Indicator second) {
         this.first = first;
         this.second = second;
     }
@@ -83,4 +83,9 @@ public class IsEqualRule extends AbstractRule {
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }
+
+	@Override
+	public boolean isSatisfiedNow() { // andrewp
+		return first.getValue(first.getBarSeries().getEndIndex()).isEqual(second.getValue(second.getBarSeries().getEndIndex()));
+	}
 }

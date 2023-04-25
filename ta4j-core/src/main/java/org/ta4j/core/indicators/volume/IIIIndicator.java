@@ -37,7 +37,7 @@ import org.ta4j.core.num.Num;
  * @see <a href=
  *      "https://www.investopedia.com/terms/i/intradayintensityindex.asp">https://www.investopedia.com/terms/i/intradayintensityindex.asp</a>
  */
-public class IIIIndicator extends CachedIndicator<Num> {
+public class IIIIndicator extends CachedIndicator {
 
     private final ClosePriceIndicator closePriceIndicator;
     private final HighPriceIndicator highPriceIndicator;

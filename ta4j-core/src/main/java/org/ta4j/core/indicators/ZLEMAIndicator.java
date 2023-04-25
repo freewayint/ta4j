@@ -33,14 +33,14 @@ import org.ta4j.core.num.Num;
  *      "http://www.fmlabs.com/reference/default.htm?url=ZeroLagExpMA.htm">
  *      http://www.fmlabs.com/reference/default.htm?url=ZeroLagExpMA.htm</a>
  */
-public class ZLEMAIndicator extends RecursiveCachedIndicator<Num> {
+public class ZLEMAIndicator extends RecursiveCachedIndicator {
 
-    private final Indicator<Num> indicator;
+    private final Indicator indicator;
     private final int barCount;
     private final Num k;
     private final int lag;
 
-    public ZLEMAIndicator(Indicator<Num> indicator, int barCount) {
+    public ZLEMAIndicator(Indicator indicator, int barCount) {
         super(indicator);
         this.indicator = indicator;
         this.barCount = barCount;

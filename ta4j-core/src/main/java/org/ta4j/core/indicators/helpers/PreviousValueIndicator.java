@@ -30,10 +30,10 @@ import org.ta4j.core.num.Num;
 /**
  * Returns the previous (n-th) value of an indicator
  */
-public class PreviousValueIndicator extends CachedIndicator<Num> {
+public class PreviousValueIndicator extends CachedIndicator {
 
     private final int n;
-    private final Indicator<Num> indicator;
+    private final Indicator indicator;
 
     /**
      * Constructor.
@@ -41,7 +41,7 @@ public class PreviousValueIndicator extends CachedIndicator<Num> {
      * @param indicator the indicator of which the previous value should be
      *                  calculated
      */
-    public PreviousValueIndicator(Indicator<Num> indicator) {
+    public PreviousValueIndicator(Indicator indicator) {
         this(indicator, 1);
     }
 
@@ -52,7 +52,7 @@ public class PreviousValueIndicator extends CachedIndicator<Num> {
      *                  calculated
      * @param n         parameter defines the previous n-th value
      */
-    public PreviousValueIndicator(Indicator<Num> indicator, int n) {
+    public PreviousValueIndicator(Indicator indicator, int n) {
         super(indicator);
         if (n < 1) {
             throw new IllegalArgumentException("n must be positive number, but was: " + n);

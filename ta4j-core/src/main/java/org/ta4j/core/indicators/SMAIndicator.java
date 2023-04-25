@@ -32,13 +32,13 @@ import org.ta4j.core.num.Num;
  * @see <a href=
  *      "https://www.investopedia.com/terms/s/sma.asp">https://www.investopedia.com/terms/s/sma.asp</a>
  */
-public class SMAIndicator extends CachedIndicator<Num> {
+public class SMAIndicator extends CachedIndicator {
 
-    private final Indicator<Num> indicator;
+    private final Indicator indicator;
 
     private final int barCount;
 
-    public SMAIndicator(Indicator<Num> indicator, int barCount) {
+    public SMAIndicator(Indicator indicator, int barCount) {
         super(indicator);
         this.indicator = indicator;
         this.barCount = barCount;

@@ -23,8 +23,6 @@
  */
 package org.ta4j.core.indicators.statistics;
 
-import static org.ta4j.core.num.NaN.NaN;
-
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.num.Num;
@@ -36,7 +34,7 @@ import org.ta4j.core.num.Num;
  * y = slope * x + intercept See also:
  * http://introcs.cs.princeton.edu/java/97data/LinearRegression.java.html
  */
-public class SimpleLinearRegressionIndicator extends CachedIndicator<Num> {
+public class SimpleLinearRegressionIndicator extends CachedIndicator {
 
     /**
      * The type for the outcome of the {@link SimpleLinearRegressionIndicator}
@@ -45,7 +43,7 @@ public class SimpleLinearRegressionIndicator extends CachedIndicator<Num> {
         Y, SLOPE, INTERCEPT
     }
 
-    private final Indicator<Num> indicator;
+    private final Indicator indicator;
     private final int barCount;
     private Num slope;
     private Num intercept;
@@ -57,7 +55,7 @@ public class SimpleLinearRegressionIndicator extends CachedIndicator<Num> {
      * @param indicator the indicator for the x-values of the formula.
      * @param barCount  the time frame
      */
-    public SimpleLinearRegressionIndicator(Indicator<Num> indicator, int barCount) {
+    public SimpleLinearRegressionIndicator(Indicator indicator, int barCount) {
         this(indicator, barCount, SimpleLinearRegressionType.Y);
     }
 
@@ -68,7 +66,7 @@ public class SimpleLinearRegressionIndicator extends CachedIndicator<Num> {
      * @param barCount  the time frame
      * @param type      the type of the outcome value (y, slope, intercept)
      */
-    public SimpleLinearRegressionIndicator(Indicator<Num> indicator, int barCount, SimpleLinearRegressionType type) {
+    public SimpleLinearRegressionIndicator(Indicator indicator, int barCount, SimpleLinearRegressionType type) {
         super(indicator);
         this.indicator = indicator;
         this.barCount = barCount;
@@ -80,7 +78,7 @@ public class SimpleLinearRegressionIndicator extends CachedIndicator<Num> {
         final int startIndex = Math.max(getBarSeries().getBeginIndex(), index - barCount + 1); // andrewp
         if (index - startIndex + 1 < 2) {
             // Not enough observations to compute a regression line
-            return NaN;
+            return Num.NaN;
         }
         calculateRegressionLine(startIndex, index);
 

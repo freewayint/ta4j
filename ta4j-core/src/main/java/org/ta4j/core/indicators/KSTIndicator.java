@@ -37,7 +37,7 @@ import org.ta4j.core.num.Num;
  *      https://school.stockcharts.com/doku.php?id=technical_indicators:know_sure_thing_kst
  *      </a>
  */
-public class KSTIndicator extends CachedIndicator<Num> {
+public class KSTIndicator extends CachedIndicator {
     private SMAIndicator RCMA1;
     private SMAIndicator RCMA2;
     private SMAIndicator RCMA3;
@@ -51,7 +51,7 @@ public class KSTIndicator extends CachedIndicator<Num> {
      *                  Rate-of-Change RCMA4 = 15-Period SMA of 30-Period
      *                  Rate-of-Change
      */
-    public KSTIndicator(Indicator<Num> indicator) {
+    public KSTIndicator(Indicator indicator) {
         super(indicator);
         this.RCMA1 = new SMAIndicator(new ROCIndicator(indicator, 10), 10);
         this.RCMA2 = new SMAIndicator(new ROCIndicator(indicator, 15), 10);
@@ -71,7 +71,7 @@ public class KSTIndicator extends CachedIndicator<Num> {
      * @param rcma4SMABarCount RCMA4 SMA period.
      * @param rcma4ROCBarCount RCMA4 ROC period.
      */
-    public KSTIndicator(Indicator<Num> indicator, int rcma1SMABarCount, int rcma1ROCBarCount, int rcma2SMABarCount,
+    public KSTIndicator(Indicator indicator, int rcma1SMABarCount, int rcma1ROCBarCount, int rcma2SMABarCount,
             int rcma2ROCBarCount, int rcma3SMABarCount, int rcma3ROCBarCount, int rcma4SMABarCount,
             int rcma4ROCBarCount) {
         super(indicator);

@@ -31,7 +31,7 @@ import org.ta4j.core.num.Num;
  * Lowest value indicator.
  */
 public class LowestValueIndicator extends ExtremaValueIndicator {
-    public LowestValueIndicator(Indicator<Num> indicator, int barCount) {
+    public LowestValueIndicator(Indicator indicator, int barCount) {
 		super(indicator, barCount, false);
 	}
 

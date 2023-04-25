@@ -23,8 +23,6 @@
  */
 package org.ta4j.core;
 
-import static org.ta4j.core.num.NaN.NaN;
-
 import java.math.BigDecimal;
 import java.time.Duration;
 import org.ta4j.core.BarDateTime;
@@ -34,7 +32,6 @@ import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ta4j.core.num.DecimalNum;
 import org.ta4j.core.num.Num;
 
 /**
@@ -95,11 +92,6 @@ public class BaseBarSeries implements BarSeries {
 	}
 
     /**
-     * Any instance of Num to determine its Num type.
-     */
-    protected final transient Num num;
-
-    /**
      * Name of the series
      */
     private final String name;
@@ -131,19 +123,13 @@ public class BaseBarSeries implements BarSeries {
      *                         with this, we can convert a {@link Number} to a
      *                         {@link Num Num implementation}
      */
-    public BaseBarSeries(String name, int maximumBarCount, int seriesBeginIndex, int seriesEndIndex, Num num) {
+    public BaseBarSeries(String name, int maximumBarCount, int seriesBeginIndex, int seriesEndIndex) {
         this.name = name;
 		this.maximumBarCount = maximumBarCount;
 		this.seriesBeginIndex = -1;
 		this.seriesEndIndex = -1;
-		this.num = num;
 
 		bars = new BarCircularBuffer(maximumBarCount);
-    }
-
-    @Override
-    public Num num() {
-        return num;
     }
 
     @Override

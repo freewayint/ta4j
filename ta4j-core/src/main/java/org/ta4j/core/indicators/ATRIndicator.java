@@ -30,7 +30,7 @@ import org.ta4j.core.num.Num;
 /**
  * Average true range indicator.
  */
-public class ATRIndicator extends AbstractIndicator<Num> {
+public class ATRIndicator extends AbstractIndicator {
 
     private final TRIndicator trIndicator;
     private final MMAIndicator averageTrueRangeIndicator;

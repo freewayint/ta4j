@@ -33,7 +33,7 @@ import org.ta4j.core.num.Num;
  * Transforms any decimal indicator to a boolean indicator by using common
  * logical operators.
  */
-public class BooleanTransformIndicator extends CachedIndicator<Boolean> {
+public class BooleanTransformIndicator extends CachedIndicator {
 
     /**
      * Select the type for transformation.
@@ -111,19 +111,19 @@ public class BooleanTransformIndicator extends CachedIndicator<Boolean> {
         isZero
     }
 
-    private final Indicator<Num> indicator;
+    private final Indicator indicator;
     private final Num coefficient;
     private final BooleanTransformType type;
     private final BooleanTransformSimpleType simpleType;
 
     /**
      * Constructor.
-     * 
+     *
      * @param indicator   the indicator
      * @param coefficient the value for transformation
      * @param type        the type of the transformation
      */
-    public BooleanTransformIndicator(Indicator<Num> indicator, Num coefficient, BooleanTransformType type) {
+    public BooleanTransformIndicator(Indicator indicator, Num coefficient, BooleanTransformType type) {
         super(indicator);
         this.indicator = indicator;
         this.coefficient = coefficient;
@@ -133,11 +133,11 @@ public class BooleanTransformIndicator extends CachedIndicator<Boolean> {
 
     /**
      * Constructor.
-     * 
+     *
      * @param indicator the indicator
      * @param type      the type of the transformation
      */
-    public BooleanTransformIndicator(Indicator<Num> indicator, BooleanTransformSimpleType type) {
+    public BooleanTransformIndicator(Indicator indicator, BooleanTransformSimpleType type) {
         super(indicator);
         this.indicator = indicator;
         this.simpleType = type;
@@ -146,22 +146,22 @@ public class BooleanTransformIndicator extends CachedIndicator<Boolean> {
     }
 
     @Override
-    protected Boolean calculate(int index) {
+    protected Num calculate(int index) {
 
         Num val = indicator.getValue(index);
 
         if (type != null) {
             switch (type) {
             case equals:
-                return val.equals(coefficient);
+                return val.equals(coefficient) ? Num.ONE : Num.ZERO;
             case isGreaterThan:
-                return val.isGreaterThan(coefficient);
+                return val.isGreaterThan(coefficient) ? Num.ONE : Num.ZERO;
             case isGreaterThanOrEqual:
-                return val.isGreaterThanOrEqual(coefficient);
+                return val.isGreaterThanOrEqual(coefficient) ? Num.ONE : Num.ZERO;
             case isLessThan:
-                return val.isLessThan(coefficient);
+                return val.isLessThan(coefficient) ? Num.ONE : Num.ZERO;
             case isLessThanOrEqual:
-                return val.isLessThanOrEqual(coefficient);
+                return val.isLessThanOrEqual(coefficient) ? Num.ONE : Num.ZERO;
             default:
                 break;
             }
@@ -170,23 +170,23 @@ public class BooleanTransformIndicator extends CachedIndicator<Boolean> {
         else if (simpleType != null) {
             switch (simpleType) {
             case isNaN:
-                return val.isNaN();
+                return val.isNaN() ? Num.ONE : Num.ZERO;
             case isNegative:
-                return val.isNegative();
+                return val.isNegative() ? Num.ONE : Num.ZERO;
             case isNegativeOrZero:
-                return val.isNegativeOrZero();
+                return val.isNegativeOrZero() ? Num.ONE : Num.ZERO;
             case isPositive:
-                return val.isPositive();
+                return val.isPositive() ? Num.ONE : Num.ZERO;
             case isPositiveOrZero:
-                return val.isPositiveOrZero();
+                return val.isPositiveOrZero() ? Num.ONE : Num.ZERO;
             case isZero:
-                return val.isZero();
+                return val.isZero() ? Num.ONE : Num.ZERO;
             default:
                 break;
             }
         }
 
-        return false;
+        return Num.ZERO;
     }
 
     @Override

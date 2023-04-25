@@ -35,9 +35,9 @@ import org.ta4j.core.num.Num;
  *      "http://www.investopedia.com/articles/trading/11/trading-with-vwap-mvwap.asp">
  *      http://www.investopedia.com/articles/trading/11/trading-with-vwap-mvwap.asp</a>
  */
-public class MVWAPIndicator extends CachedIndicator<Num> {
+public class MVWAPIndicator extends CachedIndicator {
 
-    private final Indicator<Num> sma;
+    private final Indicator sma;
 
     /**
      * Constructor.

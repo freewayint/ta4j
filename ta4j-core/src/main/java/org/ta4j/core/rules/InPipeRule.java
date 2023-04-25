@@ -37,11 +37,11 @@ import org.ta4j.core.num.Num;
 public class InPipeRule extends AbstractRule {
 
     /** The upper indicator */
-    private Indicator<Num> upper;
+    private Indicator upper;
     /** The lower indicator */
-    private Indicator<Num> lower;
+    private Indicator lower;
     /** The evaluated indicator */
-    private Indicator<Num> ref;
+    private Indicator ref;
 
     /**
      * Constructor.
@@ -50,7 +50,7 @@ public class InPipeRule extends AbstractRule {
      * @param upper the upper threshold
      * @param lower the lower threshold
      */
-    public InPipeRule(Indicator<Num> ref, Number upper, Number lower) {
+    public InPipeRule(Indicator ref, Number upper, Number lower) {
         this(ref, ref.numOf(upper), ref.numOf(lower));
     }
 
@@ -61,9 +61,9 @@ public class InPipeRule extends AbstractRule {
      * @param upper the upper threshold
      * @param lower the lower threshold
      */
-    public InPipeRule(Indicator<Num> ref, Num upper, Num lower) {
-        this(ref, new ConstantIndicator<>(ref.getBarSeries(), upper),
-                new ConstantIndicator<>(ref.getBarSeries(), lower));
+    public InPipeRule(Indicator ref, Num upper, Num lower) {
+        this(ref, new ConstantIndicator(ref.getBarSeries(), upper),
+                new ConstantIndicator(ref.getBarSeries(), lower));
     }
 
     /**
@@ -73,7 +73,7 @@ public class InPipeRule extends AbstractRule {
      * @param upper the upper indicator
      * @param lower the lower indicator
      */
-    public InPipeRule(Indicator<Num> ref, Indicator<Num> upper, Indicator<Num> lower) {
+    public InPipeRule(Indicator ref, Indicator upper, Indicator lower) {
         this.upper = upper;
         this.lower = lower;
         this.ref = ref;

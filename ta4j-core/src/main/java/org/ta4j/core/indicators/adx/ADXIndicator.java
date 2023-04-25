@@ -34,7 +34,7 @@ import org.ta4j.core.num.Num;
  * @see <a
  *      href="https://www.investopedia.com/terms/a/adx.asp>https://www.investopedia.com/terms/a/adx.asp</a>
  */
-public class ADXIndicator extends CachedIndicator<Num> {
+public class ADXIndicator extends CachedIndicator {
 
     private final MMAIndicator averageDXIndicator;
     private final int diBarCount;

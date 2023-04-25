@@ -38,7 +38,7 @@ import org.ta4j.core.num.Num;
  * @see <a
  *      href="https://www.investopedia.com/terms/a/adx.asp>https://www.investopedia.com/terms/a/adx.asp</a>
  */
-public class PlusDIIndicator extends CachedIndicator<Num> {
+public class PlusDIIndicator extends CachedIndicator {
 
     private final MMAIndicator avgPlusDMIndicator;
     private final ATRIndicator atrIndicator;

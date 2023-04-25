@@ -33,9 +33,9 @@ import org.ta4j.core.num.Num;
  * the Upper Bollinger Band.
  * 
  */
-public class BollingerBandsMiddleIndicator extends CachedIndicator<Num> {
+public class BollingerBandsMiddleIndicator extends CachedIndicator {
 
-    private final Indicator<Num> indicator;
+    private final Indicator indicator;
 
     /**
      * Constructor.
@@ -43,7 +43,7 @@ public class BollingerBandsMiddleIndicator extends CachedIndicator<Num> {
      * @param indicator the indicator that gives the values of the middle band
      *
      */
-    public BollingerBandsMiddleIndicator(Indicator<Num> indicator) {
+    public BollingerBandsMiddleIndicator(Indicator indicator) {
         super(indicator);
         this.indicator = indicator;
     }
@@ -53,7 +53,7 @@ public class BollingerBandsMiddleIndicator extends CachedIndicator<Num> {
         return indicator.getValue(index);
     }
 
-    public Indicator<Num> getIndicator() {
+    public Indicator getIndicator() {
         return indicator;
     }
 

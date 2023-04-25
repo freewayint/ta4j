@@ -28,7 +28,6 @@ import org.ta4j.core.BarSeries;
 import org.ta4j.core.Position;
 import org.ta4j.core.TradingRecord;
 import org.ta4j.core.criteria.pnl.ReturnCriterion;
-import org.ta4j.core.num.NaN;
 import org.ta4j.core.num.Num;
 
 /**
@@ -44,7 +43,7 @@ public class ReturnOverMaxDrawdownCriterion extends AbstractAnalysisCriterion {
     public Num calculate(BarSeries series, Position position) {
         final Num maxDrawdown = maxDrawdownCriterion.calculate(series, position);
         if (maxDrawdown.isZero()) {
-            return NaN.NaN;
+            return Num.NaN;
         } else {
             final Num totalProfit = grossReturnCriterion.calculate(series, position);
             return totalProfit.dividedBy(maxDrawdown);
@@ -55,7 +54,7 @@ public class ReturnOverMaxDrawdownCriterion extends AbstractAnalysisCriterion {
     public Num calculate(BarSeries series, TradingRecord tradingRecord) {
         final Num maxDrawdown = maxDrawdownCriterion.calculate(series, tradingRecord);
         if (maxDrawdown.isZero()) {
-            return NaN.NaN;
+            return Num.NaN;
         } else {
             final Num totalProfit = grossReturnCriterion.calculate(series, tradingRecord);
             return totalProfit.dividedBy(maxDrawdown);

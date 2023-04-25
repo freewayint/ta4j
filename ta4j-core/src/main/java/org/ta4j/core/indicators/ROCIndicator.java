@@ -35,9 +35,9 @@ import org.ta4j.core.num.Num;
  * @see <a href=
  *      "https://www.investopedia.com/terms/p/pricerateofchange.asp">https://www.investopedia.com/terms/p/pricerateofchange.asp</a>
  */
-public class ROCIndicator extends CachedIndicator<Num> {
+public class ROCIndicator extends CachedIndicator {
 
-    private final Indicator<Num> indicator;
+    private final Indicator indicator;
     private final int barCount;
 
     /**
@@ -46,7 +46,7 @@ public class ROCIndicator extends CachedIndicator<Num> {
      * @param indicator the indicator
      * @param barCount  the time frame
      */
-    public ROCIndicator(Indicator<Num> indicator, int barCount) {
+    public ROCIndicator(Indicator indicator, int barCount) {
         super(indicator);
         this.indicator = indicator;
         this.barCount = barCount;
@@ -57,7 +57,7 @@ public class ROCIndicator extends CachedIndicator<Num> {
         int nIndex = Math.max(index - barCount, getBarSeries().getBeginIndex());
         Num nPeriodsAgoValue = indicator.getValue(nIndex);
         Num currentValue = indicator.getValue(index);
-        return currentValue.minus(nPeriodsAgoValue).dividedBy(nPeriodsAgoValue).multipliedBy(hundred());
+        return currentValue.minus(nPeriodsAgoValue).dividedBy(nPeriodsAgoValue).multipliedBy(Num.valueOf(100));
     }
 
     @Override

@@ -33,9 +33,9 @@ import org.ta4j.core.num.Num;
  * the Upper Bollinger Band.
  * 
  */
-public class BollingerBandsUpperIndicator extends CachedIndicator<Num> {
+public class BollingerBandsUpperIndicator extends CachedIndicator {
 
-    private final Indicator<Num> deviation;
+    private final Indicator deviation;
 
     private final BollingerBandsMiddleIndicator bbm;
 
@@ -49,7 +49,7 @@ public class BollingerBandsUpperIndicator extends CachedIndicator<Num> {
      * @param deviation the deviation above and below the middle, factored by k.
      *                  Typically a StandardDeviationIndicator is used.
      */
-    public BollingerBandsUpperIndicator(BollingerBandsMiddleIndicator bbm, Indicator<Num> deviation) {
+    public BollingerBandsUpperIndicator(BollingerBandsMiddleIndicator bbm, Indicator deviation) {
         this(bbm, deviation, bbm.getBarSeries().numOf(2));
     }
 
@@ -63,7 +63,7 @@ public class BollingerBandsUpperIndicator extends CachedIndicator<Num> {
      * @param k         the scaling factor to multiply the deviation by. Typically
      *                  2.
      */
-    public BollingerBandsUpperIndicator(BollingerBandsMiddleIndicator bbm, Indicator<Num> deviation, Num k) {
+    public BollingerBandsUpperIndicator(BollingerBandsMiddleIndicator bbm, Indicator deviation, Num k) {
         super(deviation);
         this.bbm = bbm;
         this.deviation = deviation;

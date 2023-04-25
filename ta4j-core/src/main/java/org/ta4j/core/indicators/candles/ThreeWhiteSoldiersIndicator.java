@@ -35,7 +35,7 @@ import org.ta4j.core.num.Num;
  * @see <a href="http://www.investopedia.com/terms/t/three_white_soldiers.asp">
  *      http://www.investopedia.com/terms/t/three_white_soldiers.asp</a>
  */
-public class ThreeWhiteSoldiersIndicator extends CachedIndicator<Boolean> {
+public class ThreeWhiteSoldiersIndicator extends CachedIndicator {
 
     /**
      * Upper shadow
@@ -68,14 +68,14 @@ public class ThreeWhiteSoldiersIndicator extends CachedIndicator<Boolean> {
     }
 
     @Override
-    protected Boolean calculate(int index) {
+    protected Num calculate(int index) {
         if (index < 3) {
             // We need 4 candles: 1 black, 3 white
-            return false;
+            return Num.ZERO;
         }
         blackCandleIndex = index - 3;
-        return getBarSeries().getBar(blackCandleIndex).isBearish() && isWhiteSoldier(index - 2)
-                && isWhiteSoldier(index - 1) && isWhiteSoldier(index);
+        return (getBarSeries().getBar(blackCandleIndex).isBearish() && isWhiteSoldier(index - 2)
+                && isWhiteSoldier(index - 1) && isWhiteSoldier(index)) ? Num.ONE : Num.ZERO;
     }
 
     /**

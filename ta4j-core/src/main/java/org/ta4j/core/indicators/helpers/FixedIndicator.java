@@ -29,19 +29,20 @@ import java.util.List;
 
 import org.ta4j.core.BarSeries;
 import org.ta4j.core.indicators.AbstractIndicator;
+import org.ta4j.core.num.Num;
 
 /**
  * A fixed indicator.
- * 
+ *
  * @param <T> the type of returned value (Double, Boolean, etc.)
  */
-public class FixedIndicator<T> extends AbstractIndicator<T> {
+public class FixedIndicator<T extends Num> extends AbstractIndicator {
 
     private final List<T> values = new ArrayList<>();
 
     /**
      * Constructor.
-     * 
+     *
      * @param values the values to be returned by this indicator
      */
     @SafeVarargs

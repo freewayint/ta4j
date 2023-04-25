@@ -33,9 +33,9 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:kaufman_s_adaptive_moving_average">
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:kaufman_s_adaptive_moving_average</a>
  */
-public class KAMAIndicator extends RecursiveCachedIndicator<Num> {
+public class KAMAIndicator extends RecursiveCachedIndicator {
 
-    private final Indicator<Num> price;
+    private final Indicator price;
 
     private final int barCountEffectiveRatio;
 
@@ -52,7 +52,7 @@ public class KAMAIndicator extends RecursiveCachedIndicator<Num> {
      * @param barCountFast           the time frame fast (usually 2)
      * @param barCountSlow           the time frame slow (usually 30)
      */
-    public KAMAIndicator(Indicator<Num> price, int barCountEffectiveRatio, int barCountFast, int barCountSlow) {
+    public KAMAIndicator(Indicator price, int barCountEffectiveRatio, int barCountFast, int barCountSlow) {
         super(price);
         this.price = price;
         this.barCountEffectiveRatio = barCountEffectiveRatio;
@@ -68,7 +68,7 @@ public class KAMAIndicator extends RecursiveCachedIndicator<Num> {
      *
      * @param price the priceindicator
      */
-    public KAMAIndicator(Indicator<Num> price) {
+    public KAMAIndicator(Indicator price) {
         this(price, 10, 2, 30);
     }
 

@@ -39,7 +39,7 @@ public class IsHighestRule extends AbstractRule {
     /**
      * The actual indicator
      */
-    private final Indicator<Num> ref;
+    private final Indicator ref;
     /**
      * The barCount
      */
@@ -51,7 +51,7 @@ public class IsHighestRule extends AbstractRule {
      * @param ref      the indicator
      * @param barCount the time frame
      */
-    public IsHighestRule(Indicator<Num> ref, int barCount) {
+    public IsHighestRule(Indicator ref, int barCount) {
         this.ref = ref;
         this.barCount = barCount;
     }

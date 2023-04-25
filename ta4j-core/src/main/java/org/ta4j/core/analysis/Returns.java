@@ -31,7 +31,6 @@ import org.ta4j.core.BarSeries;
 import org.ta4j.core.Indicator;
 import org.ta4j.core.Position;
 import org.ta4j.core.TradingRecord;
-import org.ta4j.core.num.NaN;
 import org.ta4j.core.num.Num;
 
 /**
@@ -39,7 +38,7 @@ import org.ta4j.core.num.Num;
  *
  * This class allows to compute the return rate of a price time-series
  */
-public class Returns implements Indicator<Num> {
+public class Returns implements Indicator {
 
     public enum ReturnType {
         LOG {
@@ -91,7 +90,7 @@ public class Returns implements Indicator<Num> {
         this.barSeries = barSeries;
         this.type = type;
         // at index 0, there is no return
-        values = new ArrayList<>(Collections.singletonList(NaN.NaN));
+        values = new ArrayList<>(Collections.singletonList(Num.NaN));
         calculate(position, barSeries.getEndIndex());
 
         fillToTheEnd(barSeries.getEndIndex());
@@ -108,7 +107,7 @@ public class Returns implements Indicator<Num> {
         this.barSeries = barSeries;
         this.type = type;
         // at index 0, there is no return
-        values = new ArrayList<>(Collections.singletonList(NaN.NaN));
+        values = new ArrayList<>(Collections.singletonList(Num.NaN));
         calculate(tradingRecord);
 
         fillToTheEnd(tradingRecord.getEndIndex(barSeries));

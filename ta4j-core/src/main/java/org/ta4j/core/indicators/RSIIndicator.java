@@ -33,12 +33,14 @@ import org.ta4j.core.num.Num;
  *
  * Computed using original Welles Wilder formula.
  */
-public class RSIIndicator extends CachedIndicator<Num> {
+public class RSIIndicator extends CachedIndicator {
 
     private final MMAIndicator averageGainIndicator;
     private final MMAIndicator averageLossIndicator;
 
-    public RSIIndicator(Indicator<Num> indicator, int barCount) {
+	private final static Num hundred = Num.valueOf(100);
+
+    public RSIIndicator(Indicator indicator, int barCount) {
         super(indicator);
         this.averageGainIndicator = new MMAIndicator(new GainIndicator(indicator), barCount);
         this.averageLossIndicator = new MMAIndicator(new LossIndicator(indicator), barCount);
@@ -53,11 +55,11 @@ public class RSIIndicator extends CachedIndicator<Num> {
             if (averageGain.isZero()) {
                 return zero();
             } else {
-                return hundred();
+                return hundred;
             }
         }
         Num relativeStrength = averageGain.dividedBy(averageLoss);
         // compute relative strength index
-        return hundred().minus(hundred().dividedBy(one().plus(relativeStrength)));
+        return hundred.minus(hundred.dividedBy(one().plus(relativeStrength)));
     }
 }

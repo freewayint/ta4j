@@ -37,7 +37,7 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:keltner_channels">
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:keltner_channels</a>
  */
-public class KeltnerChannelMiddleIndicator extends AbstractIndicator<Num> {
+public class KeltnerChannelMiddleIndicator extends AbstractIndicator {
 
     private final EMAIndicator emaIndicator;
 
@@ -45,7 +45,7 @@ public class KeltnerChannelMiddleIndicator extends AbstractIndicator<Num> {
         this(new TypicalPriceIndicator(series), barCountEMA);
     }
 
-    public KeltnerChannelMiddleIndicator(Indicator<Num> indicator, int barCountEMA) {
+    public KeltnerChannelMiddleIndicator(Indicator indicator, int barCountEMA) {
         super(indicator.getBarSeries());
         emaIndicator = new EMAIndicator(indicator, barCountEMA);
     }

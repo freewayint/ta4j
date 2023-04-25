@@ -33,7 +33,7 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:bollinger_band_width">
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:bollinger_band_width</a>
  */
-public class BollingerBandWidthIndicator extends CachedIndicator<Num> {
+public class BollingerBandWidthIndicator extends CachedIndicator {
 
     private final BollingerBandsUpperIndicator bbu;
     private final BollingerBandsMiddleIndicator bbm;
@@ -53,7 +53,7 @@ public class BollingerBandWidthIndicator extends CachedIndicator<Num> {
         this.bbu = bbu;
         this.bbm = bbm;
         this.bbl = bbl;
-        this.hundred = bbm.getBarSeries().hundred();
+        this.hundred = Num.valueOf(100);
     }
 
     @Override

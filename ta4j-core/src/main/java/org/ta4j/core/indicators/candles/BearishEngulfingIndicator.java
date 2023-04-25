@@ -34,7 +34,7 @@ import org.ta4j.core.num.Num;
  * @see <a href="http://www.investopedia.com/terms/b/bearishengulfingp.asp">
  *      http://www.investopedia.com/terms/b/bearishengulfingp.asp</a>
  */
-public class BearishEngulfingIndicator extends CachedIndicator<Boolean> {
+public class BearishEngulfingIndicator extends CachedIndicator {
 
     /**
      * Constructor.
@@ -46,10 +46,10 @@ public class BearishEngulfingIndicator extends CachedIndicator<Boolean> {
     }
 
     @Override
-    protected Boolean calculate(int index) {
+    protected Num calculate(int index) {
         if (index < 1) {
             // Engulfing is a 2-candle pattern
-            return false;
+            return Num.ZERO;
         }
         Bar prevBar = getBarSeries().getBar(index - 1);
         Bar currBar = getBarSeries().getBar(index);
@@ -58,9 +58,9 @@ public class BearishEngulfingIndicator extends CachedIndicator<Boolean> {
             final Num prevClosePrice = prevBar.getClosePrice();
             final Num currOpenPrice = currBar.getOpenPrice();
             final Num currClosePrice = currBar.getClosePrice();
-            return currOpenPrice.isGreaterThan(prevOpenPrice) && currOpenPrice.isGreaterThan(prevClosePrice)
-                    && currClosePrice.isLessThan(prevOpenPrice) && currClosePrice.isLessThan(prevClosePrice);
+            return (currOpenPrice.isGreaterThan(prevOpenPrice) && currOpenPrice.isGreaterThan(prevClosePrice)
+                    && currClosePrice.isLessThan(prevOpenPrice) && currClosePrice.isLessThan(prevClosePrice)) ? Num.ONE : Num.ZERO;
         }
-        return false;
+        return Num.ZERO;
     }
 }

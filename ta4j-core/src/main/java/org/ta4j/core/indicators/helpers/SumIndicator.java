@@ -32,9 +32,9 @@ import org.ta4j.core.num.Num;
  *
  * I.e.: operand0 + operand1 + ... + operandN
  */
-public class SumIndicator extends CachedIndicator<Num> {
+public class SumIndicator extends CachedIndicator {
 
-    private final Indicator<Num>[] operands;
+    private final Indicator[] operands;
 
     /**
      * Constructor. (operand0 plus operand1 plus ... plus operandN)
@@ -42,7 +42,7 @@ public class SumIndicator extends CachedIndicator<Num> {
      * @param operands the operand indicators for the sum
      */
     @SafeVarargs
-    public SumIndicator(Indicator<Num>... operands) {
+    public SumIndicator(Indicator... operands) {
         // TODO: check if first series is equal to the other ones
         super(operands[0]);
         this.operands = operands;
@@ -51,7 +51,7 @@ public class SumIndicator extends CachedIndicator<Num> {
     @Override
     protected Num calculate(int index) {
         Num sum = numOf(0);
-        for (Indicator<Num> operand : operands) {
+        for (Indicator operand : operands) {
             sum = sum.plus(operand.getValue(index));
         }
         return sum;

@@ -31,7 +31,7 @@ import org.ta4j.core.num.Num;
  * Amount indicator.
  *
  */
-public class AmountIndicator extends CachedIndicator<Num> {
+public class AmountIndicator extends CachedIndicator {
 
     public AmountIndicator(BarSeries series) {
         super(series);

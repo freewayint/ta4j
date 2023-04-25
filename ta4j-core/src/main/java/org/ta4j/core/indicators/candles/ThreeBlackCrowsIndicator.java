@@ -25,6 +25,7 @@ package org.ta4j.core.indicators.candles;
 
 import org.ta4j.core.Bar;
 import org.ta4j.core.BarSeries;
+import org.ta4j.core.indicators.AbstractIndicator;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
 import org.ta4j.core.num.Num;
@@ -35,7 +36,7 @@ import org.ta4j.core.num.Num;
  * @see <a href="http://www.investopedia.com/terms/t/three_black_crows.asp">
  *      http://www.investopedia.com/terms/t/three_black_crows.asp</a>
  */
-public class ThreeBlackCrowsIndicator extends CachedIndicator<Boolean> {
+public class ThreeBlackCrowsIndicator extends CachedIndicator {
 
     /**
      * Lower shadow
@@ -68,14 +69,14 @@ public class ThreeBlackCrowsIndicator extends CachedIndicator<Boolean> {
     }
 
     @Override
-    protected Boolean calculate(int index) {
+    protected Num calculate(int index) {
         if (index < 3) {
             // We need 4 candles: 1 white, 3 black
-            return false;
+            return Num.ZERO;
         }
         whiteCandleIndex = index - 3;
-        return getBarSeries().getBar(whiteCandleIndex).isBullish() && isBlackCrow(index - 2) && isBlackCrow(index - 1)
-                && isBlackCrow(index);
+        return Num.valueOf(getBarSeries().getBar(whiteCandleIndex).isBullish() && isBlackCrow(index - 2) && isBlackCrow(index - 1)
+                && isBlackCrow(index));
     }
 
     /**

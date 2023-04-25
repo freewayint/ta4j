@@ -35,7 +35,7 @@ import org.ta4j.core.num.Num;
  * 
  * Stoch RSI = (RSI - MinimumRSIn) / (MaximumRSIn - MinimumRSIn)
  */
-public class StochasticRSIIndicator extends CachedIndicator<Num> {
+public class StochasticRSIIndicator extends CachedIndicator {
 
     private final RSIIndicator rsi;
     private final LowestValueIndicator minRsi;
@@ -58,7 +58,7 @@ public class StochasticRSIIndicator extends CachedIndicator<Num> {
      * @param indicator the Indicator, in practice is always a ClosePriceIndicator.
      * @param barCount  the time frame
      */
-    public StochasticRSIIndicator(Indicator<Num> indicator, int barCount) {
+    public StochasticRSIIndicator(Indicator indicator, int barCount) {
         this(new RSIIndicator(indicator, barCount), barCount);
     }
 

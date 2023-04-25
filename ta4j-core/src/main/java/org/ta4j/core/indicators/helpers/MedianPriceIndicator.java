@@ -31,7 +31,7 @@ import org.ta4j.core.num.Num;
 /**
  * Average high-low indicator.
  */
-public class MedianPriceIndicator extends CachedIndicator<Num> {
+public class MedianPriceIndicator extends CachedIndicator {
 
     public MedianPriceIndicator(BarSeries series) {
         super(series);

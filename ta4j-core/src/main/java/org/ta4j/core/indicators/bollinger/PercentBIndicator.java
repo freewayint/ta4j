@@ -36,9 +36,9 @@ import org.ta4j.core.num.Num;
  *      href="http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:bollinger_band_perce>
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:bollinger_band_perce</a>
  */
-public class PercentBIndicator extends CachedIndicator<Num> {
+public class PercentBIndicator extends CachedIndicator {
 
-    private final Indicator<Num> indicator;
+    private final Indicator indicator;
 
     private final BollingerBandsUpperIndicator bbu;
 
@@ -51,7 +51,7 @@ public class PercentBIndicator extends CachedIndicator<Num> {
      * @param barCount  the time frame
      * @param k         the K multiplier (usually 2.0)
      */
-    public PercentBIndicator(Indicator<Num> indicator, int barCount, double k) {
+    public PercentBIndicator(Indicator indicator, int barCount, double k) {
         super(indicator);
         this.indicator = indicator;
         BollingerBandsMiddleIndicator bbm = new BollingerBandsMiddleIndicator(new SMAIndicator(indicator, barCount));

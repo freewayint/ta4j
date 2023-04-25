@@ -42,38 +42,38 @@ public class CrossedUpIndicatorRule extends AbstractRule {
 
     /**
      * Constructor.
-     * 
+     *
      * @param indicator the indicator
      * @param threshold a threshold
      */
-    public CrossedUpIndicatorRule(Indicator<Num> indicator, Number threshold) {
-        this(indicator, indicator.numOf(threshold));
+    public CrossedUpIndicatorRule(Indicator indicator, Number threshold) {
+        this(indicator, Num.valueOf(threshold));
     }
 
     /**
      * Constructor.
-     * 
+     *
      * @param indicator the indicator
      * @param threshold a threshold
      */
-    public CrossedUpIndicatorRule(Indicator<Num> indicator, Num threshold) {
-        this(indicator, new ConstantIndicator<>(indicator.getBarSeries(), threshold));
+    public CrossedUpIndicatorRule(Indicator indicator, Num threshold) {
+        this(indicator, new ConstantIndicator(indicator.getBarSeries(), threshold));
     }
 
     /**
      * Constructor.
-     * 
+     *
      * @param first  the first indicator
      * @param second the second indicator
      */
-    public CrossedUpIndicatorRule(Indicator<Num> first, Indicator<Num> second) {
+    public CrossedUpIndicatorRule(Indicator first, Indicator second) {
         this.cross = new CrossIndicator(second, first);
     }
 
     /** This rule does not use the {@code tradingRecord}. */
     @Override
     public boolean isSatisfied(int index, TradingRecord tradingRecord) {
-        final boolean satisfied = cross.getValue(index);
+        final boolean satisfied = cross.getValue(index).doubleValue() != .0;
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }
@@ -81,14 +81,14 @@ public class CrossedUpIndicatorRule extends AbstractRule {
     /**
      * @return the initial lower indicator
      */
-    public Indicator<Num> getLow() {
+    public Indicator getLow() {
         return cross.getLow();
     }
 
     /**
      * @return the initial upper indicator
      */
-    public Indicator<Num> getUp() {
+    public Indicator getUp() {
         return cross.getUp();
     }
 }

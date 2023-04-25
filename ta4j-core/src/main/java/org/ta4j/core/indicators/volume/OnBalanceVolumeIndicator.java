@@ -33,7 +33,7 @@ import org.ta4j.core.num.Num;
  * @see <a href="https://www.investopedia.com/terms/o/onbalancevolume.asp">
  *      https://www.investopedia.com/terms/o/onbalancevolume.asp</a>
  */
-public class OnBalanceVolumeIndicator extends RecursiveCachedIndicator<Num> {
+public class OnBalanceVolumeIndicator extends RecursiveCachedIndicator {
 
     public OnBalanceVolumeIndicator(BarSeries series) {
         super(series);

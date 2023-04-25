@@ -38,7 +38,7 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:introduction_to_candlesticks#formation">
  *      http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:introduction_to_candlesticks#formation</a>
  */
-public class UpperShadowIndicator extends CachedIndicator<Num> {
+public class UpperShadowIndicator extends CachedIndicator {
 
     /**
      * Constructor.

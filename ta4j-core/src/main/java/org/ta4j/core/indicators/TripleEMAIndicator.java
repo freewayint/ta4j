@@ -39,7 +39,7 @@ import org.ta4j.core.num.Num;
  * @see <a href=
  *      "https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp">https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp</a>
  */
-public class TripleEMAIndicator extends CachedIndicator<Num> {
+public class TripleEMAIndicator extends CachedIndicator {
 
     private final int barCount;
     private final EMAIndicator ema;
@@ -52,7 +52,7 @@ public class TripleEMAIndicator extends CachedIndicator<Num> {
      * @param indicator the indicator
      * @param barCount  the time frame
      */
-    public TripleEMAIndicator(Indicator<Num> indicator, int barCount) {
+    public TripleEMAIndicator(Indicator indicator, int barCount) {
         super(indicator);
         this.barCount = barCount;
         this.ema = new EMAIndicator(indicator, barCount);

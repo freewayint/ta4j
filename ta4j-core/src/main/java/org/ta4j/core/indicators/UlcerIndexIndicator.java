@@ -35,12 +35,12 @@ import org.ta4j.core.num.Num;
  * @see <a href=
  *      "https://en.wikipedia.org/wiki/Ulcer_index">https://en.wikipedia.org/wiki/Ulcer_index</a>
  */
-public class UlcerIndexIndicator extends CachedIndicator<Num> {
+public class UlcerIndexIndicator extends CachedIndicator {
 
     private final Num hundred;
     private final Num zero;
 
-    private Indicator<Num> indicator;
+    private Indicator indicator;
     private int barCount;
 
     /**
@@ -49,12 +49,12 @@ public class UlcerIndexIndicator extends CachedIndicator<Num> {
      * @param indicator the indicator
      * @param barCount  the time frame
      */
-    public UlcerIndexIndicator(Indicator<Num> indicator, int barCount) {
+    public UlcerIndexIndicator(Indicator indicator, int barCount) {
         super(indicator);
         this.indicator = indicator;
         this.barCount = barCount;
         this.zero = zero();
-        this.hundred = hundred();
+        this.hundred = Num.valueOf(100);
     }
 
     @Override

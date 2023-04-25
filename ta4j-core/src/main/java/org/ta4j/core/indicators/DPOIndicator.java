@@ -46,7 +46,7 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:detrended_price_osci">
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:detrended_price_osci</a>
  */
-public class DPOIndicator extends CachedIndicator<Num> {
+public class DPOIndicator extends CachedIndicator {
 
     private final CombineIndicator indicatorMinusPreviousSMAIndicator;
     private final String name;
@@ -67,7 +67,7 @@ public class DPOIndicator extends CachedIndicator<Num> {
      * @param price    the price
      * @param barCount the time frame
      */
-    public DPOIndicator(Indicator<Num> price, int barCount) {
+    public DPOIndicator(Indicator price, int barCount) {
         super(price);
         int timeFrame = barCount / 2 + 1;
         final SMAIndicator simpleMovingAverage = new SMAIndicator(price, barCount);

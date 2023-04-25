@@ -24,7 +24,6 @@
 package org.ta4j.core.indicators;
 
 import org.ta4j.core.BarSeries;
-import org.ta4j.core.num.NaN;
 import org.ta4j.core.num.Num;
 
 /**
@@ -34,7 +33,7 @@ import org.ta4j.core.num.Num;
  *      "http://https://rtmath.net/helpFinAnalysis/html/934563a8-9171-42d2-8444-486691234b1d.html">Source
  *      of formular</a>
  */
-public class RWIHighIndicator extends CachedIndicator<Num> {
+public class RWIHighIndicator extends CachedIndicator {
 
     private final int barCount;
 
@@ -52,7 +51,7 @@ public class RWIHighIndicator extends CachedIndicator<Num> {
     @Override
     protected Num calculate(int index) {
         if (index - barCount + 1 < getBarSeries().getBeginIndex()) {
-            return NaN.NaN;
+            return Num.NaN;
         }
 
         Num maxRWIH = numOf(0);

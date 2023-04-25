@@ -34,7 +34,7 @@ import org.ta4j.core.num.Num;
  * @see <a href="http://www.investopedia.com/terms/b/bullishharami.asp">
  *      http://www.investopedia.com/terms/b/bullishharami.asp</a>
  */
-public class BullishHaramiIndicator extends CachedIndicator<Boolean> {
+public class BullishHaramiIndicator extends CachedIndicator {
 
     /**
      * Constructor.
@@ -46,10 +46,10 @@ public class BullishHaramiIndicator extends CachedIndicator<Boolean> {
     }
 
     @Override
-    protected Boolean calculate(int index) {
+    protected Num calculate(int index) {
         if (index < 1) {
             // Harami is a 2-candle pattern
-            return false;
+            return Num.ZERO;
         }
         Bar prevBar = getBarSeries().getBar(index - 1);
         Bar currBar = getBarSeries().getBar(index);
@@ -59,8 +59,8 @@ public class BullishHaramiIndicator extends CachedIndicator<Boolean> {
             final Num currOpenPrice = currBar.getOpenPrice();
             final Num currClosePrice = currBar.getClosePrice();
             return currOpenPrice.isLessThan(prevOpenPrice) && currOpenPrice.isGreaterThan(prevClosePrice)
-                    && currClosePrice.isLessThan(prevOpenPrice) && currClosePrice.isGreaterThan(prevClosePrice);
+                    && currClosePrice.isLessThan(prevOpenPrice) && currClosePrice.isGreaterThan(prevClosePrice) ? Num.ONE : Num.ZERO;
         }
-        return false;
+        return Num.ZERO;
     }
 }

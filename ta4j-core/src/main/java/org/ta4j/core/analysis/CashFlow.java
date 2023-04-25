@@ -39,7 +39,7 @@ import org.ta4j.core.num.Num;
  * This class allows to follow the money cash flow involved by a list of
  * positions over a bar series.
  */
-public class CashFlow implements Indicator<Num> {
+public class CashFlow implements Indicator {
 
     /**
      * The bar series

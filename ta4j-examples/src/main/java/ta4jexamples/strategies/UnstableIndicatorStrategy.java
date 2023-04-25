@@ -53,7 +53,7 @@ public class UnstableIndicatorStrategy {
     public static Strategy buildStrategy(BarSeries series) {
         ClosePriceIndicator close = new ClosePriceIndicator(series);
         int smaPeriod = 3;
-        Indicator<Num> sma = new UnstableIndicator(new SMAIndicator(close, smaPeriod), smaPeriod - 1);
+        Indicator sma = new UnstableIndicator(new SMAIndicator(close, smaPeriod), smaPeriod - 1);
 
         Rule entryRule = new CrossedUpIndicatorRule(close, sma);
         Rule exitRule = new CrossedDownIndicatorRule(close, sma);

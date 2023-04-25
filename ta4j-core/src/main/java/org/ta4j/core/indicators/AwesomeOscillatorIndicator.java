@@ -33,7 +33,7 @@ import org.ta4j.core.num.Num;
  *
  * see https://www.tradingview.com/wiki/Awesome_Oscillator_(AO)
  */
-public class AwesomeOscillatorIndicator extends CachedIndicator<Num> {
+public class AwesomeOscillatorIndicator extends CachedIndicator {
 
     private final SMAIndicator sma5;
 
@@ -46,7 +46,7 @@ public class AwesomeOscillatorIndicator extends CachedIndicator<Num> {
      * @param barCountSma1 (normally 5)
      * @param barCountSma2 (normally 34)
      */
-    public AwesomeOscillatorIndicator(Indicator<Num> indicator, int barCountSma1, int barCountSma2) {
+    public AwesomeOscillatorIndicator(Indicator indicator, int barCountSma1, int barCountSma2) {
         super(indicator);
         this.sma5 = new SMAIndicator(indicator, barCountSma1);
         this.sma34 = new SMAIndicator(indicator, barCountSma2);
@@ -57,7 +57,7 @@ public class AwesomeOscillatorIndicator extends CachedIndicator<Num> {
      *
      * @param indicator (normally {@link MedianPriceIndicator})
      */
-    public AwesomeOscillatorIndicator(Indicator<Num> indicator) {
+    public AwesomeOscillatorIndicator(Indicator indicator) {
         this(indicator, 5, 34);
     }
 

@@ -25,7 +25,6 @@ package org.ta4j.core.indicators.ichimoku;
 
 import org.ta4j.core.BarSeries;
 import org.ta4j.core.indicators.CachedIndicator;
-import org.ta4j.core.num.NaN;
 import org.ta4j.core.num.Num;
 
 /**
@@ -35,7 +34,7 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:ichimoku_cloud">
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:ichimoku_cloud</a>
  */
-public class IchimokuSenkouSpanBIndicator extends CachedIndicator<Num> {
+public class IchimokuSenkouSpanBIndicator extends CachedIndicator {
 
     // ichimoku avg line indicator
     private final IchimokuLineIndicator lineIndicator;
@@ -47,7 +46,7 @@ public class IchimokuSenkouSpanBIndicator extends CachedIndicator<Num> {
 
     /**
      * Constructor.
-     * 
+     *
      * @param series the series
      */
     public IchimokuSenkouSpanBIndicator(BarSeries series) {
@@ -57,7 +56,7 @@ public class IchimokuSenkouSpanBIndicator extends CachedIndicator<Num> {
 
     /**
      * Constructor.
-     * 
+     *
      * @param series   the series
      * @param barCount the time frame (usually 52)
      */
@@ -68,7 +67,7 @@ public class IchimokuSenkouSpanBIndicator extends CachedIndicator<Num> {
 
     /**
      * Constructor.
-     * 
+     *
      * @param series   the series
      * @param barCount the time frame (usually 52)
      * @param offset   displacement on the chart
@@ -86,7 +85,7 @@ public class IchimokuSenkouSpanBIndicator extends CachedIndicator<Num> {
         if (spanIndex >= getBarSeries().getBeginIndex()) {
             return lineIndicator.getValue(spanIndex);
         } else {
-            return NaN.NaN;
+            return Num.NaN;
         }
     }
 }

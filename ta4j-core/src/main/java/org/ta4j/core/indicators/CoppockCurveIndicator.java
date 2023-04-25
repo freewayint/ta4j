@@ -34,7 +34,7 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:coppock_curve">
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:coppock_curve</a>
  */
-public class CoppockCurveIndicator extends CachedIndicator<Num> {
+public class CoppockCurveIndicator extends CachedIndicator {
 
     private final WMAIndicator wma;
 
@@ -46,7 +46,7 @@ public class CoppockCurveIndicator extends CachedIndicator<Num> {
      *
      * @param indicator the indicator
      */
-    public CoppockCurveIndicator(Indicator<Num> indicator) {
+    public CoppockCurveIndicator(Indicator indicator) {
         this(indicator, 14, 11, 10);
     }
 
@@ -58,7 +58,7 @@ public class CoppockCurveIndicator extends CachedIndicator<Num> {
      * @param shortRoCBarCount the time frame for short term RoC
      * @param wmaBarCount      the time frame (for WMA)
      */
-    public CoppockCurveIndicator(Indicator<Num> indicator, int longRoCBarCount, int shortRoCBarCount, int wmaBarCount) {
+    public CoppockCurveIndicator(Indicator indicator, int longRoCBarCount, int shortRoCBarCount, int wmaBarCount) {
         super(indicator);
         SumIndicator sum = new SumIndicator(new ROCIndicator(indicator, longRoCBarCount),
                 new ROCIndicator(indicator, shortRoCBarCount));

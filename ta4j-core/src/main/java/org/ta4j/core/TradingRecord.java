@@ -23,8 +23,6 @@
  */
 package org.ta4j.core;
 
-import static org.ta4j.core.num.NaN.NaN;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -56,16 +54,16 @@ public interface TradingRecord extends Serializable {
 
     /**
      * Places a trade in the trading record.
-     * 
+     *
      * @param index the index to place the trade
      */
     default void operate(int index) {
-        operate(index, NaN, NaN);
+        operate(index, Num.NaN, Num.NaN);
     }
 
     /**
      * Places a trade in the trading record.
-     * 
+     *
      * @param index  the index to place the trade
      * @param price  the trade price
      * @param amount the trade amount
@@ -74,17 +72,17 @@ public interface TradingRecord extends Serializable {
 
     /**
      * Places an entry trade in the trading record.
-     * 
+     *
      * @param index the index to place the entry
      * @return true if the entry has been placed, false otherwise
      */
     default boolean enter(int index) {
-        return enter(index, NaN, NaN);
+        return enter(index, Num.NaN, Num.NaN);
     }
 
     /**
      * Places an entry trade in the trading record.
-     * 
+     *
      * @param index  the index to place the entry
      * @param price  the trade price
      * @param amount the trade amount
@@ -94,17 +92,17 @@ public interface TradingRecord extends Serializable {
 
     /**
      * Places an exit trade in the trading record.
-     * 
+     *
      * @param index the index to place the exit
      * @return true if the exit has been placed, false otherwise
      */
     default boolean exit(int index) {
-        return exit(index, NaN, NaN);
+        return exit(index, Num.NaN, Num.NaN);
     }
 
     /**
      * Places an exit trade in the trading record.
-     * 
+     *
      * @param index  the index to place the exit
      * @param price  the trade price
      * @param amount the trade amount

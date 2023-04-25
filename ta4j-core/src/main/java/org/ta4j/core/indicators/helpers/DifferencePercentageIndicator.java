@@ -25,7 +25,6 @@ package org.ta4j.core.indicators.helpers;
 
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
-import org.ta4j.core.num.NaN;
 import org.ta4j.core.num.Num;
 
 /**
@@ -38,26 +37,26 @@ import org.ta4j.core.num.Num;
  * percentage from the precious value.
  *
  */
-public class DifferencePercentageIndicator extends CachedIndicator<Num> {
+public class DifferencePercentageIndicator extends CachedIndicator {
 
-    private final Indicator<Num> indicator;
+    private final Indicator indicator;
     private final Num percentageThreshold;
     private final Num hundred;
     private Num lastNotification;
 
-    public DifferencePercentageIndicator(Indicator<Num> indicator) {
+    public DifferencePercentageIndicator(Indicator indicator) {
         this(indicator, indicator.zero());
     }
 
-    public DifferencePercentageIndicator(Indicator<Num> indicator, Number percentageThreshold) {
+    public DifferencePercentageIndicator(Indicator indicator, Number percentageThreshold) {
         this(indicator, indicator.numOf(percentageThreshold));
     }
 
-    public DifferencePercentageIndicator(Indicator<Num> indicator, Num percentageThreshold) {
+    public DifferencePercentageIndicator(Indicator indicator, Num percentageThreshold) {
         super(indicator);
         this.indicator = indicator;
         this.percentageThreshold = percentageThreshold;
-        hundred = hundred();
+        hundred = Num.valueOf(100);
     }
 
     @Override
@@ -65,7 +64,7 @@ public class DifferencePercentageIndicator extends CachedIndicator<Num> {
         Num value = indicator.getValue((index));
         if (lastNotification == null) {
             lastNotification = value;
-            return NaN.NaN;
+            return Num.NaN;
         }
 
         Num changeFraction = value.dividedBy(lastNotification);

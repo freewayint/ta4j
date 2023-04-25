@@ -30,7 +30,7 @@ import org.ta4j.core.num.Num;
 /**
  * High price indicator.
  */
-public class HighPriceIndicator extends AbstractIndicator<Num> {
+public class HighPriceIndicator extends AbstractIndicator {
 
     public HighPriceIndicator(BarSeries series) {
         super(series);

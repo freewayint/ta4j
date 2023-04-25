@@ -29,12 +29,12 @@ import org.ta4j.core.num.Num;
 /**
  * WMA indicator.
  */
-public class WMAIndicator extends CachedIndicator<Num> {
+public class WMAIndicator extends CachedIndicator {
 
     private final int barCount;
-    private final Indicator<Num> indicator;
+    private final Indicator indicator;
 
-    public WMAIndicator(Indicator<Num> indicator, int barCount) {
+    public WMAIndicator(Indicator indicator, int barCount) {
         super(indicator);
         this.indicator = indicator;
         this.barCount = barCount;

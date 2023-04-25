@@ -34,7 +34,7 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:standard_deviation_volatility">
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:standard_deviation_volatility</a>
  */
-public class StandardDeviationIndicator extends CachedIndicator<Num> {
+public class StandardDeviationIndicator extends CachedIndicator {
 
     private final VarianceIndicator variance;
 
@@ -44,7 +44,7 @@ public class StandardDeviationIndicator extends CachedIndicator<Num> {
      * @param indicator the indicator
      * @param barCount  the time frame
      */
-    public StandardDeviationIndicator(Indicator<Num> indicator, int barCount) {
+    public StandardDeviationIndicator(Indicator indicator, int barCount) {
         super(indicator);
         variance = new VarianceIndicator(indicator, barCount);
     }

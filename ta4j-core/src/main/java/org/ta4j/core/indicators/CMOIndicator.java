@@ -38,7 +38,7 @@ import org.ta4j.core.num.Num;
  *      "http://www.investopedia.com/terms/c/chandemomentumoscillator.asp">
  *      href="http://www.investopedia.com/terms/c/chandemomentumoscillator.asp"</a>
  */
-public class CMOIndicator extends CachedIndicator<Num> {
+public class CMOIndicator extends CachedIndicator {
 
     private final GainIndicator gainIndicator;
     private final LossIndicator lossIndicator;
@@ -50,7 +50,7 @@ public class CMOIndicator extends CachedIndicator<Num> {
      * @param indicator a price indicator
      * @param barCount  the time frame
      */
-    public CMOIndicator(Indicator<Num> indicator, int barCount) {
+    public CMOIndicator(Indicator indicator, int barCount) {
         super(indicator);
         this.gainIndicator = new GainIndicator(indicator);
         this.lossIndicator = new LossIndicator(indicator);
@@ -67,6 +67,6 @@ public class CMOIndicator extends CachedIndicator<Num> {
         for (int i = Math.max(getBarSeries().getBeginIndex() + 1, index - barCount + 1); i <= index; i++) {
             sumOfLosses = sumOfLosses.plus(lossIndicator.getValue(i));
         }
-        return sumOfGains.minus(sumOfLosses).dividedBy(sumOfGains.plus(sumOfLosses)).multipliedBy(hundred());
+        return sumOfGains.minus(sumOfLosses).dividedBy(sumOfGains.plus(sumOfLosses)).multipliedBy(Num.valueOf(100));
     }
 }

@@ -30,11 +30,11 @@ import org.ta4j.core.num.Num;
 /**
  * Gain indicator.
  */
-public class LossIndicator extends CachedIndicator<Num> {
+public class LossIndicator extends CachedIndicator {
 
-    private final Indicator<Num> indicator;
+    private final Indicator indicator;
 
-    public LossIndicator(Indicator<Num> indicator) {
+    public LossIndicator(Indicator indicator) {
         super(indicator);
         this.indicator = indicator;
     }

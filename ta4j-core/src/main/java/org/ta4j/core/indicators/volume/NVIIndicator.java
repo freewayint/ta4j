@@ -40,7 +40,7 @@ import org.ta4j.core.num.Num;
  * @see <a href="http://www.investopedia.com/terms/n/nvi.asp">
  *      http://www.investopedia.com/terms/n/nvi.asp</a>
  */
-public class NVIIndicator extends RecursiveCachedIndicator<Num> {
+public class NVIIndicator extends RecursiveCachedIndicator {
 
     public NVIIndicator(BarSeries series) {
         super(series);

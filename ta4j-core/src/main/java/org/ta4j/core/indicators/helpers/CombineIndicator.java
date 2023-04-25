@@ -36,10 +36,10 @@ import org.ta4j.core.num.Num;
  * Combines two Num indicators by using common math operations.
  *
  */
-public class CombineIndicator extends CachedIndicator<Num> {
+public class CombineIndicator extends CachedIndicator {
 
-    private final Indicator<Num> indicatorLeft;
-    private final Indicator<Num> indicatorRight;
+    private final Indicator indicatorLeft;
+    private final Indicator indicatorRight;
     private final BinaryOperator<Num> combineFunction;
 
     /**
@@ -51,7 +51,7 @@ public class CombineIndicator extends CachedIndicator<Num> {
      * @param combination    a {@link Function} describing the combination function
      *                       to combine the values of the indicators
      */
-    public CombineIndicator(Indicator<Num> indicatorLeft, Indicator<Num> indicatorRight,
+    public CombineIndicator(Indicator indicatorLeft, Indicator indicatorRight,
             BinaryOperator<Num> combination) {
         // TODO check both indicators use the same series/num function
         super(indicatorLeft);
@@ -68,21 +68,21 @@ public class CombineIndicator extends CachedIndicator<Num> {
     /**
      * Combines the two input indicators by indicatorLeft.plus(indicatorRight).
      */
-    public static CombineIndicator plus(Indicator<Num> indicatorLeft, Indicator<Num> indicatorRight) {
+    public static CombineIndicator plus(Indicator indicatorLeft, Indicator indicatorRight) {
         return new CombineIndicator(indicatorLeft, indicatorRight, Num::plus);
     }
 
     /**
      * Combines the two input indicators by indicatorLeft.minus(indicatorRight).
      */
-    public static CombineIndicator minus(Indicator<Num> indicatorLeft, Indicator<Num> indicatorRight) {
+    public static CombineIndicator minus(Indicator indicatorLeft, Indicator indicatorRight) {
         return new CombineIndicator(indicatorLeft, indicatorRight, Num::minus);
     }
 
     /**
      * Combines the two input indicators by indicatorLeft.dividedBy(indicatorRight).
      */
-    public static CombineIndicator divide(Indicator<Num> indicatorLeft, Indicator<Num> indicatorRight) {
+    public static CombineIndicator divide(Indicator indicatorLeft, Indicator indicatorRight) {
         return new CombineIndicator(indicatorLeft, indicatorRight, Num::dividedBy);
     }
 
@@ -90,21 +90,21 @@ public class CombineIndicator extends CachedIndicator<Num> {
      * Combines the two input indicators by
      * indicatorLeft.multipliedBy(indicatorRight).
      */
-    public static CombineIndicator multiply(Indicator<Num> indicatorLeft, Indicator<Num> indicatorRight) {
+    public static CombineIndicator multiply(Indicator indicatorLeft, Indicator indicatorRight) {
         return new CombineIndicator(indicatorLeft, indicatorRight, Num::multipliedBy);
     }
 
     /**
      * Combines the two input indicators by indicatorLeft.max(indicatorRight).
      */
-    public static CombineIndicator max(Indicator<Num> indicatorLeft, Indicator<Num> indicatorRight) {
+    public static CombineIndicator max(Indicator indicatorLeft, Indicator indicatorRight) {
         return new CombineIndicator(indicatorLeft, indicatorRight, Num::max);
     }
 
     /**
      * Combines the two input indicators by indicatorLeft.min(indicatorRight).
      */
-    public static CombineIndicator min(Indicator<Num> indicatorLeft, Indicator<Num> indicatorRight) {
+    public static CombineIndicator min(Indicator indicatorLeft, Indicator indicatorRight) {
         return new CombineIndicator(indicatorLeft, indicatorRight, Num::min);
     }
 

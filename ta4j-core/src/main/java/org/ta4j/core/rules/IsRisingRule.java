@@ -36,7 +36,7 @@ import org.ta4j.core.num.Num;
 public class IsRisingRule extends AbstractRule {
 
     /** The actual indicator */
-    private final Indicator<Num> ref;
+    private final Indicator ref;
     /** The barCount */
     private final int barCount;
     /** The minimum required strenght of the rising */
@@ -48,7 +48,7 @@ public class IsRisingRule extends AbstractRule {
      * @param ref      the indicator
      * @param barCount the time frame
      */
-    public IsRisingRule(Indicator<Num> ref, int barCount) {
+    public IsRisingRule(Indicator ref, int barCount) {
         this(ref, barCount, 1);
     }
 
@@ -60,7 +60,7 @@ public class IsRisingRule extends AbstractRule {
      * @param minStrenght the minimum required rising strenght (between '0' and '1',
      *                    e.g. '1' for strict rising)
      */
-    public IsRisingRule(Indicator<Num> ref, int barCount, double minStrenght) {
+    public IsRisingRule(Indicator ref, int barCount, double minStrenght) {
         this.ref = ref;
         this.barCount = barCount;
         this.minStrength = minStrenght >= 1 ? 0.99 : minStrenght;

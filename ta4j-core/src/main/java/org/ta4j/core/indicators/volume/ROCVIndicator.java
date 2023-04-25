@@ -33,7 +33,7 @@ import org.ta4j.core.num.Num;
  * The ROCVIndicator calculation compares the current volume with the volume "n"
  * periods ago.
  */
-public class ROCVIndicator extends CachedIndicator<Num> {
+public class ROCVIndicator extends CachedIndicator {
 
     private final int barCount;
     private final Num hundred;
@@ -47,7 +47,7 @@ public class ROCVIndicator extends CachedIndicator<Num> {
     public ROCVIndicator(BarSeries series, int barCount) {
         super(series);
         this.barCount = barCount;
-        this.hundred = hundred();
+        this.hundred = Num.valueOf(100);
     }
 
     @Override

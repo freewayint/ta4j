@@ -72,13 +72,13 @@ public class SimpleMovingAverageRangeBacktest {
     }
 
     private static Rule createEntryRule(BarSeries series, int barCount) {
-        Indicator<Num> closePrice = new ClosePriceIndicator(series);
+        Indicator closePrice = new ClosePriceIndicator(series);
         SMAIndicator sma = new SMAIndicator(closePrice, barCount);
         return new UnderIndicatorRule(sma, closePrice);
     }
 
     private static Rule createExitRule(BarSeries series, int barCount) {
-        Indicator<Num> closePrice = new ClosePriceIndicator(series);
+        Indicator closePrice = new ClosePriceIndicator(series);
         SMAIndicator sma = new SMAIndicator(closePrice, barCount);
         return new OverIndicatorRule(sma, closePrice);
     }

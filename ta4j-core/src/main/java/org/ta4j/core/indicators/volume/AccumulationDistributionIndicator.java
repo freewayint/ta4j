@@ -31,7 +31,7 @@ import org.ta4j.core.num.Num;
 /**
  * Accumulation-distribution indicator.
  */
-public class AccumulationDistributionIndicator extends RecursiveCachedIndicator<Num> {
+public class AccumulationDistributionIndicator extends RecursiveCachedIndicator {
 
     private final CloseLocationValueIndicator clvIndicator;
 

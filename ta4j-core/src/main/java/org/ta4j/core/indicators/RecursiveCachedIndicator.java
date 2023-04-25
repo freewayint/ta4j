@@ -29,6 +29,7 @@ import java.util.List;
 import org.ta4j.core.BarSeries;
 import org.ta4j.core.Indicator;
 import org.ta4j.core.num.Num;
+import org.ta4j.core.utils.NumCache;
 
 /**
  * Recursive cached {@link Indicator indicator}.
@@ -40,68 +41,12 @@ import org.ta4j.core.num.Num;
  * old/far, the computation of all the values between the last cached and the
  * asked one is executed iteratively.
  */
-public abstract class RecursiveCachedIndicator<T extends Num> extends AbstractIndicator<T> {
-	// andrewp:
-	private class Cache {
-		private final Num[] data;
-		private final int len;
-		private final int address_mask;
-		private final int capacity;
-		private int written;
-		private int write_index;
-		private int begin_index;
-		private int end_index;
-
-		Cache(int len) {
-			this.len = len;
-
-			int capacity_bits = 32 - Integer.numberOfLeadingZeros(len - 1);
-			capacity = 1 << capacity_bits;
-			assert (len <= capacity);
-
-			data = new Num[capacity];
-
-			address_mask = capacity - 1;
-			end_index = -1;
-			begin_index = -1;
-		}
-
-		public int size() {
-			return written;
-		}
-
-		public int beginIndex() {
-			return begin_index;
-		}
-
-		public int endIndex() {
-			return end_index;
-		}
-
-		public boolean isEmpty() {
-			return written == 0;
-		}
-
-		public void add(Num object) {
-			data[write_index & address_mask] = object;
-			write_index++;
-			if (written < len)
-				written++;
-			end_index++;
-			begin_index = end_index + 1 - written;
-		}
-
-		public Num get(int index) {
-			assert (index >= begin_index);
-			assert (index <= end_index);
-			return data[index & address_mask];
-		}
-	}
-
+public abstract class RecursiveCachedIndicator extends AbstractIndicator {
 	/**
      * List of cached cache.
      */
-    private final Cache cache;
+    private final NumCache cache;
+	private boolean cache_end_index = true;
 
     /**
      * Constructor.
@@ -112,7 +57,7 @@ public abstract class RecursiveCachedIndicator<T extends Num> extends AbstractIn
         super(series);
 		assert (series != null);
 
-		cache = new Cache(series.getMaximumBarCount());
+		cache = new NumCache(series.getMaximumBarCount());
     }
 
     /**
@@ -120,18 +65,22 @@ public abstract class RecursiveCachedIndicator<T extends Num> extends AbstractIn
      *
      * @param indicator a related indicator (with a bar series)
      */
-    protected RecursiveCachedIndicator(Indicator<?> indicator) {
+    protected RecursiveCachedIndicator(Indicator indicator) {
         this(indicator.getBarSeries());
     }
+
+	public void setCacheMode(boolean cache_end_index) {
+		this.cache_end_index = cache_end_index;
+	}
 
 	/**
      * @param index the bar index
      * @return the value of the indicator
      */
-    protected abstract T calculate(int index);
+    protected abstract Num calculate(int index);
 
     @Override
-    public T getValue(int index) {
+    public Num getValue(int index) {
 		BarSeries series = getBarSeries();
 
 		assert (index >= series.getBeginIndex());
@@ -145,16 +94,12 @@ public abstract class RecursiveCachedIndicator<T extends Num> extends AbstractIn
 		} else {
 			int startIndex = Math.max(series.getBeginIndex(), cache.endIndex() + 1);
 			for (int i = startIndex; i < index; ++i) {
-				Num value = calculate(i);
-				assert (value != null);
-
-				cache.add(value);
+				cache.add(calculate(i));
 			}
 
 			result = calculate(index);
-			assert (result != null);
 
-			if (index != series.getEndIndex()) // andrewp: do not cache the last candle result
+			if (cache_end_index || index != series.getEndIndex())
 				cache.add(result);
 		}
 
@@ -162,6 +107,6 @@ public abstract class RecursiveCachedIndicator<T extends Num> extends AbstractIn
 			log.trace("{}({}): {}", this, index, result);
 		}
 
-		return (T) result;
+		return result;
     }
 }

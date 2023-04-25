@@ -34,7 +34,7 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:keltner_channels">
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:keltner_channels</a>
  */
-public class KeltnerChannelUpperIndicator extends CachedIndicator<Num> {
+public class KeltnerChannelUpperIndicator extends CachedIndicator {
 
     private final ATRIndicator averageTrueRangeIndicator;
 

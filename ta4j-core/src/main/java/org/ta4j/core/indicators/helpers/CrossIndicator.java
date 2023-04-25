@@ -32,20 +32,20 @@ import org.ta4j.core.num.Num;
  *
  * Boolean indicator which monitors two-indicators crossings.
  */
-public class CrossIndicator extends CachedIndicator<Boolean> {
+public class CrossIndicator extends CachedIndicator {
 
     /** Upper indicator */
-    private final Indicator<Num> up;
+    private final Indicator up;
     /** Lower indicator */
-    private final Indicator<Num> low;
+    private final Indicator low;
 
     /**
      * Constructor.
-     * 
+     *
      * @param up  the upper indicator
      * @param low the lower indicator
      */
-    public CrossIndicator(Indicator<Num> up, Indicator<Num> low) {
+    public CrossIndicator(Indicator up, Indicator low) {
         // TODO: check if up series is equal to low series
         super(up);
         this.up = up;
@@ -53,34 +53,34 @@ public class CrossIndicator extends CachedIndicator<Boolean> {
     }
 
     @Override
-    protected Boolean calculate(int index) {
+    protected Num calculate(int index) {
 
         int i = index;
         if (i == 0 || up.getValue(i).isGreaterThanOrEqual(low.getValue(i))) {
-            return false;
+            return Num.ZERO;
         }
 
         i--;
         if (up.getValue(i).isGreaterThan(low.getValue(i))) {
-            return true;
+            return Num.ZERO;
         }
         while (i > 0 && up.getValue(i).isEqual(low.getValue(i))) {
             i--;
         }
-        return (i != 0) && (up.getValue(i).isGreaterThan(low.getValue(i)));
+        return ((i != 0) && (up.getValue(i).isGreaterThan(low.getValue(i)))) ? Num.ONE : Num.ZERO;
     }
 
     /**
      * @return the initial lower indicator
      */
-    public Indicator<Num> getLow() {
+    public Indicator getLow() {
         return low;
     }
 
     /**
      * @return the initial upper indicator
      */
-    public Indicator<Num> getUp() {
+    public Indicator getUp() {
         return up;
     }
 

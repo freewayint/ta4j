@@ -31,7 +31,7 @@ import org.ta4j.core.num.Num;
  * Highest value indicator.
  */
 public class HighestValueIndicator extends ExtremaValueIndicator {
-    public HighestValueIndicator(Indicator<Num> indicator, int barCount) {
+    public HighestValueIndicator(Indicator indicator, int barCount) {
 		super(indicator, barCount, true);
 	}
 

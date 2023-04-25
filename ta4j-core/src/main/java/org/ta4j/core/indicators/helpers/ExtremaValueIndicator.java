@@ -4,8 +4,8 @@ import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.num.Num;
 
-public class ExtremaValueIndicator extends CachedIndicator<Num> { // andrewp
-	private final Indicator<Num> indicator;
+public class ExtremaValueIndicator extends CachedIndicator { // andrewp
+	private final Indicator indicator;
 
 	private final boolean high;
     protected final int barCount;
@@ -14,7 +14,7 @@ public class ExtremaValueIndicator extends CachedIndicator<Num> { // andrewp
 	private Num cached_extrema_value;
 	private int cached_extrema_index;
 
-    public ExtremaValueIndicator(Indicator<Num> indicator, int barCount, boolean high) {
+    public ExtremaValueIndicator(Indicator indicator, int barCount, boolean high) {
         super(indicator);
 		assert (barCount > 0);
         this.indicator = indicator;

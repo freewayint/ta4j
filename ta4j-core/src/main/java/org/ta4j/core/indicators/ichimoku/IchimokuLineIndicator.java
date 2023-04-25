@@ -39,13 +39,13 @@ import org.ta4j.core.num.Num;
  *      "http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:ichimoku_cloud">
  *      http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:ichimoku_cloud</a>
  */
-public class IchimokuLineIndicator extends CachedIndicator<Num> {
+public class IchimokuLineIndicator extends CachedIndicator {
 
     /** The period high */
-    private final Indicator<Num> periodHigh;
+    private final Indicator periodHigh;
 
     /** The period low */
-    private final Indicator<Num> periodLow;
+    private final Indicator periodLow;
 
     /**
      * Contructor.

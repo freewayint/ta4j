@@ -35,7 +35,7 @@ import org.ta4j.core.rules.IsRisingRule;
 /**
  * Indicator-convergence-divergence.
  */
-public class ConvergenceDivergenceIndicator extends CachedIndicator<Boolean> {
+public class ConvergenceDivergenceIndicator extends CachedIndicator {
 
     /**
      * Select the type of convergence or divergence.
@@ -115,10 +115,10 @@ public class ConvergenceDivergenceIndicator extends CachedIndicator<Boolean> {
     }
 
     /** The actual indicator. */
-    private final Indicator<Num> ref;
+    private final Indicator ref;
 
     /** The other indicator. */
-    private final Indicator<Num> other;
+    private final Indicator other;
 
     /** The barCount. */
     private final int barCount;
@@ -163,7 +163,7 @@ public class ConvergenceDivergenceIndicator extends CachedIndicator<Boolean> {
      *                    divergence
      * @param minSlope    the minimum required slope for convergence or divergence
      */
-    public ConvergenceDivergenceIndicator(Indicator<Num> ref, Indicator<Num> other, int barCount,
+    public ConvergenceDivergenceIndicator(Indicator ref, Indicator other, int barCount,
             ConvergenceDivergenceType type, double minStrength, double minSlope) {
         super(ref);
         this.ref = ref;
@@ -183,7 +183,7 @@ public class ConvergenceDivergenceIndicator extends CachedIndicator<Boolean> {
      * @param barCount the time frame
      * @param type     of convergence or divergence
      */
-    public ConvergenceDivergenceIndicator(Indicator<Num> ref, Indicator<Num> other, int barCount,
+    public ConvergenceDivergenceIndicator(Indicator ref, Indicator other, int barCount,
             ConvergenceDivergenceType type) {
         super(ref);
         this.ref = ref;
@@ -203,7 +203,7 @@ public class ConvergenceDivergenceIndicator extends CachedIndicator<Boolean> {
      * @param barCount   the time frame
      * @param strictType of strict convergence or divergence
      */
-    public ConvergenceDivergenceIndicator(Indicator<Num> ref, Indicator<Num> other, int barCount,
+    public ConvergenceDivergenceIndicator(Indicator ref, Indicator other, int barCount,
             ConvergenceDivergenceStrictType strictType) {
         super(ref);
         this.ref = ref;
@@ -216,43 +216,43 @@ public class ConvergenceDivergenceIndicator extends CachedIndicator<Boolean> {
     }
 
     @Override
-    protected Boolean calculate(int index) {
+    protected Num calculate(int index) {
 
         if (minStrength != null && minStrength.isZero()) {
-            return false;
+            return Num.ZERO;
         }
 
         if (type != null) {
             switch (type) {
             case positiveConvergent:
-                return calculatePositiveConvergence(index);
+                return calculatePositiveConvergence(index) ? Num.ONE : Num.ZERO;
             case negativeConvergent:
-                return calculateNegativeConvergence(index);
+                return calculateNegativeConvergence(index) ? Num.ONE : Num.ZERO;
             case positiveDivergent:
-                return calculatePositiveDivergence(index);
+                return calculatePositiveDivergence(index) ? Num.ONE : Num.ZERO;
             case negativeDivergent:
-                return calculateNegativeDivergence(index);
+                return calculateNegativeDivergence(index) ? Num.ONE : Num.ZERO;
             default:
-                return false;
+                return Num.ZERO;
             }
         }
 
         else if (strictType != null) {
             switch (strictType) {
             case positiveConvergentStrict:
-                return calculatePositiveConvergenceStrict(index);
+                return calculatePositiveConvergenceStrict(index) ? Num.ONE : Num.ZERO;
             case negativeConvergentStrict:
-                return calculateNegativeConvergenceStrict(index);
+                return calculateNegativeConvergenceStrict(index) ? Num.ONE : Num.ZERO;
             case positiveDivergentStrict:
-                return calculatePositiveDivergenceStrict(index);
+                return calculatePositiveDivergenceStrict(index) ? Num.ONE : Num.ZERO;
             case negativeDivergentStrict:
-                return calculateNegativeDivergenceStrict(index);
+                return calculateNegativeDivergenceStrict(index) ? Num.ONE : Num.ZERO;
             default:
-                return false;
+                return Num.ZERO;
             }
         }
 
-        return false;
+        return Num.ZERO;
     }
 
     /**

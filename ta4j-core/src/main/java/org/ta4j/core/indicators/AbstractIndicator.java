@@ -31,7 +31,7 @@ import org.ta4j.core.Indicator;
 /**
  * Abstract {@link Indicator indicator}.
  */
-public abstract class AbstractIndicator<T> implements Indicator<T> {
+public abstract class AbstractIndicator implements Indicator {
 
     /** The logger. */
     protected final transient Logger log = LoggerFactory.getLogger(getClass());

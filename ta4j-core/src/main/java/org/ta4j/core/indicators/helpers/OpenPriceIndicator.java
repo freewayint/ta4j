@@ -30,7 +30,7 @@ import org.ta4j.core.num.Num;
 /**
  * Open price indicator.
  */
-public class OpenPriceIndicator extends AbstractIndicator<Num> {
+public class OpenPriceIndicator extends AbstractIndicator {
 
     public OpenPriceIndicator(BarSeries series) {
         super(series);

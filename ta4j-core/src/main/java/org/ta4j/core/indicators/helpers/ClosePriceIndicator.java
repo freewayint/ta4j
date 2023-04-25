@@ -30,7 +30,7 @@ import org.ta4j.core.num.Num;
 /**
  * Close price indicator.
  */
-public class ClosePriceIndicator extends AbstractIndicator<Num> {
+public class ClosePriceIndicator extends AbstractIndicator {
 
     public ClosePriceIndicator(BarSeries series) {
         super(series);

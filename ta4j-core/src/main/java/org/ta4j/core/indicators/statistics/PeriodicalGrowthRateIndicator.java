@@ -23,8 +23,6 @@
  */
 package org.ta4j.core.indicators.statistics;
 
-import static org.ta4j.core.num.NaN.NaN;
-
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.num.Num;
@@ -56,20 +54,20 @@ import org.ta4j.core.num.Num;
  * http://www.fool.com/knowledge-center/2015/11/03/annualized-return-vs-cumulative-return.aspx
  *
  */
-public class PeriodicalGrowthRateIndicator extends CachedIndicator<Num> {
+public class PeriodicalGrowthRateIndicator extends CachedIndicator {
 
-    private final Indicator<Num> indicator;
+    private final Indicator indicator;
     private final int barCount;
     private final Num one;
 
     /**
      * Constructor. Example: use barCount = 251 and "end of day"-bars for annual
      * behaviour in the US (http://tradingsim.com/blog/trading-days-in-a-year/).
-     * 
+     *
      * @param indicator the indicator
      * @param barCount  the time frame
      */
-    public PeriodicalGrowthRateIndicator(Indicator<Num> indicator, int barCount) {
+    public PeriodicalGrowthRateIndicator(Indicator indicator, int barCount) {
         super(indicator);
         this.indicator = indicator;
         this.barCount = barCount;
@@ -81,7 +79,7 @@ public class PeriodicalGrowthRateIndicator extends CachedIndicator<Num> {
      * For a barCount = number of trading days within a year (e. g. 251 days in the
      * US) and "end of day"-bars you will get the 'Annualized Total Return'. Only
      * complete barCounts are taken into the calculation.
-     * 
+     *
      * @return the total return from the calculated results of the method
      *         'calculate'
      */
@@ -95,7 +93,7 @@ public class PeriodicalGrowthRateIndicator extends CachedIndicator<Num> {
             Num currentReturn = getValue(index);
 
             // Skip NaN at the end of a series
-            if (currentReturn != NaN) {
+            if (!currentReturn.isNaN()) {
                 currentReturn = currentReturn.plus(one);
                 totalProduct = totalProduct.multipliedBy(currentReturn);
             }
@@ -122,7 +120,7 @@ public class PeriodicalGrowthRateIndicator extends CachedIndicator<Num> {
         // a.) if index number is below timeframe
         // e.g. timeframe = 365, index = 5 => no calculation
         // b.) if at the end of a series incomplete timeframes would remain
-        Num timeframedReturn = NaN;
+        Num timeframedReturn = Num.NaN;
         if ((index >= barCount) /* (a) */ && (helpIndexTimeframes.isLessThan(helpFullTimeframes)) /* (b) */) {
             Num movingValue = indicator.getValue(index - barCount);
             Num movingSimpleReturn = (currentValue.minus(movingValue)).dividedBy(movingValue);

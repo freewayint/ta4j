@@ -30,7 +30,7 @@ import org.ta4j.core.num.Num;
 /**
  * DX indicator.
  */
-public class DXIndicator extends CachedIndicator<Num> {
+public class DXIndicator extends CachedIndicator {
 
     private final int barCount;
     private final PlusDIIndicator plusDIIndicator;
@@ -50,7 +50,7 @@ public class DXIndicator extends CachedIndicator<Num> {
         if (pdiValue.plus(mdiValue).equals(zero())) {
             return zero();
         }
-        return pdiValue.minus(mdiValue).abs().dividedBy(pdiValue.plus(mdiValue)).multipliedBy(hundred());
+        return pdiValue.minus(mdiValue).abs().dividedBy(pdiValue.plus(mdiValue)).multipliedBy(Num.valueOf(100));
     }
 
     @Override

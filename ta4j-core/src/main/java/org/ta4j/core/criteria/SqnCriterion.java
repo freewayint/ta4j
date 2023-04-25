@@ -33,7 +33,7 @@ import org.ta4j.core.num.Num;
 
 /**
  * The SQN ("System Quality Number") Criterion.
- * 
+ *
  * @see <a href=
  *      "https://indextrader.com.au/van-tharps-sqn/">https://indextrader.com.au/van-tharps-sqn/</a>
  */
@@ -53,7 +53,7 @@ public class SqnCriterion extends AbstractAnalysisCriterion {
 
     /**
      * Constructor.
-     * 
+     *
      * <p>
      * Uses ProfitLossCriterion for {@link #criterion}.
      */
@@ -63,7 +63,7 @@ public class SqnCriterion extends AbstractAnalysisCriterion {
 
     /**
      * Constructor.
-     * 
+     *
      * @param criterion the Criterion (e.g. ProfitLossCriterion or
      *                  ExpectancyCriterion)
      */
@@ -73,7 +73,7 @@ public class SqnCriterion extends AbstractAnalysisCriterion {
 
     /**
      * Constructor.
-     * 
+     *
      * @param criterion  the Criterion (e.g. ProfitLossCriterion or
      *                   ExpectancyCriterion)
      * @param nPositions the {@link #nPositions} (optional)
@@ -108,7 +108,7 @@ public class SqnCriterion extends AbstractAnalysisCriterion {
         if (stdDevPnl.isZero()) {
             return series.zero();
         }
-        if (nPositions != null && numberOfPositions.isGreaterThan(series.hundred())) {
+        if (nPositions != null && numberOfPositions.isGreaterThan(Num.valueOf(100))) {
             numberOfPositions = series.numOf(nPositions);
         }
         // SQN = (Average (PnL) / StdDev(PnL)) * SquareRoot(NumberOfTrades)

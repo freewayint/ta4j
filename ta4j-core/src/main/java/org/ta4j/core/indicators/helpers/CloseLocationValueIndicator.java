@@ -34,7 +34,7 @@ import org.ta4j.core.num.Num;
  * @see <a href="http://www.investopedia.com/terms/c/close_location_value.asp">
  *      http://www.investopedia.com/terms/c/close_location_value.asp</a>
  */
-public class CloseLocationValueIndicator extends CachedIndicator<Num> {
+public class CloseLocationValueIndicator extends CachedIndicator {
 
     private final Num zero = numOf(0);
 

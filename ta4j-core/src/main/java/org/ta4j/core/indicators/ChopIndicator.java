@@ -45,7 +45,7 @@ import org.ta4j.core.num.Num;
  *          calculations this indicator converts {@link Num Decimal /BigDecimal}
  *          to to {@link Double double}
  */
-public class ChopIndicator extends CachedIndicator<Num> {
+public class ChopIndicator extends CachedIndicator {
 
     private final ATRIndicator atrIndicator;
     private final int timeFrame;

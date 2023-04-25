@@ -23,6 +23,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
+import org.ta4j.core.Bar;
 import org.ta4j.core.BarSeries;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.num.Num;
@@ -30,7 +31,7 @@ import org.ta4j.core.num.Num;
 /**
  * True range indicator.
  */
-public class TRIndicator extends CachedIndicator<Num> {
+public class TRIndicator extends CachedIndicator {
 
     public TRIndicator(BarSeries series) {
         super(series);
@@ -38,11 +39,31 @@ public class TRIndicator extends CachedIndicator<Num> {
 
     @Override
     protected Num calculate(int index) {
+		Bar bar = getBarSeries().getBar(index);
+
+		// NOTE: https://www.tradingview.com/pine-script-reference/v5/#fun_ta%7Bdot%7Dtr
+		Num high = bar.getHighPrice();
+		Num low = bar.getLowPrice();
+
+		if (index == getBarSeries().getBeginIndex()) {
+			return high.minus(low); // NOTE: ta.tr(handle_na==true)
+
+		} else {
+			Num prevClose = getBarSeries().getBar(index - 1).getClosePrice();
+			return high.minus(low).max(
+				high.minus(prevClose).abs().max(
+					low.minus(prevClose).abs()
+				)
+			);
+		}
+
+		/*
         Num ts = getBarSeries().getBar(index).getHighPrice().minus(getBarSeries().getBar(index).getLowPrice());
         Num ys = index == getBarSeries().getBeginIndex() ? zero() // andrewp
                 : getBarSeries().getBar(index).getHighPrice().minus(getBarSeries().getBar(index - 1).getClosePrice());
         Num yst = index == getBarSeries().getBeginIndex() ? zero() // andrewp
                 : getBarSeries().getBar(index - 1).getClosePrice().minus(getBarSeries().getBar(index).getLowPrice());
         return ts.abs().max(ys.abs()).max(yst.abs());
+		*/
     }
 }

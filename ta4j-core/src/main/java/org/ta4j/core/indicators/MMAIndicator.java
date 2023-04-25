@@ -40,7 +40,7 @@ public class MMAIndicator extends AbstractEMAIndicator {
      * @param indicator an indicator
      * @param barCount  the MMA time frame
      */
-    public MMAIndicator(Indicator<Num> indicator, int barCount) {
+    public MMAIndicator(Indicator indicator, int barCount) {
         super(indicator, barCount, 1.0 / barCount);
     }
 }

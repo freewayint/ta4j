@@ -68,7 +68,7 @@ public class BollingerBandFacade {
      * @param barCount  the number of periods used for the indicators
      * @param k         the multiplier used to calculate the upper and lower bands
      */
-    public BollingerBandFacade(Indicator<Num> indicator, int barCount, Number k) {
+    public BollingerBandFacade(Indicator indicator, int barCount, Number k) {
         this.price = NumericIndicator.of(indicator);
         this.middle = NumericIndicator.of(price.sma(barCount));
         final NumericIndicator stdev = price.stddev(barCount);

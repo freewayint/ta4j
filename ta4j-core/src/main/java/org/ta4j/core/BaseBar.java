@@ -30,8 +30,6 @@ import org.ta4j.core.BarDateTime;
 import java.util.Objects;
 import java.util.function.Function;
 
-import org.ta4j.core.num.DecimalNum;
-import org.ta4j.core.num.DoubleNum;
 import org.ta4j.core.num.Num;
 
 /**
@@ -71,12 +69,12 @@ public class BaseBar implements Bar {
 	public BaseBar(long beginTime, long endTime, double openPrice, double highPrice, double lowPrice, double closePrice, double volume, double buyVolume) {
 		this.beginTime = new BarDateTime(beginTime);
 		this.endTime = new BarDateTime(endTime);
-		this.openPrice = DoubleNum.valueOf(openPrice);
-		this.highPrice = DoubleNum.valueOf(highPrice);
-		this.lowPrice = DoubleNum.valueOf(lowPrice);
-		this.closePrice = DoubleNum.valueOf(closePrice);
-		this.volume = DoubleNum.valueOf(volume);
-		this.buyVolume = DoubleNum.valueOf(buyVolume);
+		this.openPrice = Num.valueOf(openPrice);
+		this.highPrice = Num.valueOf(highPrice);
+		this.lowPrice = Num.valueOf(lowPrice);
+		this.closePrice = Num.valueOf(closePrice);
+		this.volume = Num.valueOf(volume);
+		this.buyVolume = Num.valueOf(buyVolume);
 	}
 
     /**

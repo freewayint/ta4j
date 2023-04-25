@@ -31,7 +31,7 @@ import org.ta4j.core.num.Num;
 /**
  * +DM indicator.
  */
-public class PlusDMIndicator extends CachedIndicator<Num> {
+public class PlusDMIndicator extends CachedIndicator {
 
     public PlusDMIndicator(BarSeries series) {
         super(series);
