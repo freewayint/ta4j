@@ -30,7 +30,8 @@ import java.util.List;
 import org.ta4j.core.BarSeries;
 import org.ta4j.core.Indicator;
 import org.ta4j.core.num.Num;
-import org.ta4j.core.utils.NumCache;
+import org.ta4j.core.utils.RollingWindowObjectCache;
+import org.ta4j.core.utils.RollingWindowNumStack;
 
 /**
  * Cached {@link Indicator indicator}.
@@ -53,7 +54,7 @@ public abstract class CachedIndicator extends AbstractIndicator {
 	private final int[] minicache_indices;
 	private int minicache_write_index;
 
-	private final NumCache full_cache;
+	private final RollingWindowObjectCache full_cache;
 
 	protected CachedIndicator(BarSeries series) {
 		this(series, false);
@@ -73,7 +74,7 @@ public abstract class CachedIndicator extends AbstractIndicator {
 			minicache_objects = null;
 			minicache_indices = null;
 
-			this.full_cache = new NumCache(series.getMaximumBarCount());
+			this.full_cache = new RollingWindowObjectCache(series.getMaximumBarCount());
 
 		} else {
 			minicache_objects = new Num[minicache_size];
@@ -127,9 +128,10 @@ public abstract class CachedIndicator extends AbstractIndicator {
 
 		} else {
 			if (full_cache != null) {
-				result = full_cache.get(index);
+				if (full_cache.hasIndex(index))
+					result = (Num) full_cache.get(index);
 
-			} if (minicache_size == 2) { // NOTE: unrolling the loop
+			} else if (minicache_size == 2) { // NOTE: unrolling the loop
 				if (index == minicache_indices[0])
 					result = minicache_objects[0];
 				else
@@ -161,8 +163,7 @@ public abstract class CachedIndicator extends AbstractIndicator {
 				result = calculate(index);
 
 				if (full_cache != null) {
-					full_cache.add(result);
-					assert (full_cache.endIndex() == seriesEndIndex);
+					full_cache.set(index, result);
 
 				} else {
 					int write_index = minicache_write_index++ & minicache_address_mask;

@@ -2,7 +2,7 @@ package org.ta4j.core.utils;
 
 import org.ta4j.core.num.Num;
 
-public class NumCache { // andrewp
+public class RollingWindowNumStack { // andrewp
 	private final Num[] data;
 	private final int size;
 	private final int address_mask;
@@ -12,7 +12,7 @@ public class NumCache { // andrewp
 	private int begin_index;
 	private int end_index;
 
-	public NumCache(int size) {
+	public RollingWindowNumStack(int size) {
 		this.size = size;
 
 		int capacity_bits = 32 - Integer.numberOfLeadingZeros(size - 1);

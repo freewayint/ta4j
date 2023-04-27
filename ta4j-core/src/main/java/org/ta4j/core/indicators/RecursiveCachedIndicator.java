@@ -29,7 +29,8 @@ import java.util.List;
 import org.ta4j.core.BarSeries;
 import org.ta4j.core.Indicator;
 import org.ta4j.core.num.Num;
-import org.ta4j.core.utils.NumCache;
+import org.ta4j.core.utils.RollingWindowNumStack;
+import org.ta4j.core.utils.RollingWindowObjectCache;
 
 /**
  * Recursive cached {@link Indicator indicator}.
@@ -45,7 +46,7 @@ public abstract class RecursiveCachedIndicator extends AbstractIndicator {
 	/**
      * List of cached cache.
      */
-    private final NumCache cache;
+    private final RollingWindowObjectCache cache;
 	private boolean cache_end_index = true;
 
     /**
@@ -57,7 +58,7 @@ public abstract class RecursiveCachedIndicator extends AbstractIndicator {
         super(series);
 		assert (series != null);
 
-		cache = new NumCache(series.getMaximumBarCount());
+		cache = new RollingWindowObjectCache(series.getMaximumBarCount());
     }
 
     /**
@@ -88,19 +89,20 @@ public abstract class RecursiveCachedIndicator extends AbstractIndicator {
 
 		Num result;
 
-		if (index >= cache.beginIndex() && index <= cache.endIndex()) {
-			result = cache.get(index);
+		if (cache.hasIndex(index)) {
+			result = (Num) cache.get(index);
 
 		} else {
 			int startIndex = Math.max(series.getBeginIndex(), cache.endIndex() + 1);
 			for (int i = startIndex; i < index; ++i) {
-				cache.add(calculate(i));
+				cache.set(i, calculate(i));
 			}
 
 			result = calculate(index);
 
-			if (cache_end_index || index != series.getEndIndex())
-				cache.add(result);
+			if (cache_end_index || index != series.getEndIndex()) {
+				cache.set(index, result);
+			}
 		}
 
 		if (log.isTraceEnabled()) {
