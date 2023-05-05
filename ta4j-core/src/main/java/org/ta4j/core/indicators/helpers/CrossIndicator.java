@@ -54,20 +54,21 @@ public class CrossIndicator extends CachedIndicator {
 
     @Override
     protected Num calculate(int index) {
+		int beginIndex = Math.max(up.getBarSeries().getBeginIndex(), low.getBarSeries().getBeginIndex()); // andrewp
 
         int i = index;
-        if (i == 0 || up.getValue(i).isGreaterThanOrEqual(low.getValue(i))) {
+        if (i <= beginIndex || up.getValue(i).isGreaterThanOrEqual(low.getValue(i))) {
             return Num.ZERO;
         }
 
         i--;
         if (up.getValue(i).isGreaterThan(low.getValue(i))) {
-            return Num.ZERO;
+            return Num.ONE;
         }
-        while (i > 0 && up.getValue(i).isEqual(low.getValue(i))) {
+        while (i > beginIndex && up.getValue(i).isEqual(low.getValue(i))) {
             i--;
         }
-        return ((i != 0) && (up.getValue(i).isGreaterThan(low.getValue(i)))) ? Num.ONE : Num.ZERO;
+        return ((i > beginIndex) && (up.getValue(i).isGreaterThan(low.getValue(i)))) ? Num.ONE : Num.ZERO;
     }
 
     /**

@@ -78,6 +78,11 @@ public class CrossedUpIndicatorRule extends AbstractRule {
         return satisfied;
     }
 
+	@Override
+    public boolean isSatisfiedNow() { // andrewp
+		return cross.getValue().doubleValue() != .0;
+	}
+
     /**
      * @return the initial lower indicator
      */

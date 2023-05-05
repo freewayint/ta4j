@@ -104,6 +104,10 @@ public final class Num implements Comparable<Num>, Serializable {
         return new Num(Math.floor(delegate));
     }
 
+	public Num round() {
+        return new Num(Math.round(delegate));
+    }
+
     public Num ceil() {
         return new Num(Math.ceil(delegate));
     }
